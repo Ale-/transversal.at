@@ -1,0 +1,82 @@
+@import compass/css3/font-face
+
+//
+// LAYOUT
+//
+
+// Grid system
+$size_base     : 16px
+$m             : 1.5 * $size_base
+$grid_columns  : 12
+$columns_guter : $m
+$grid_classes  : false
+$width_fixed   : $m*40
+
+// Main regions
+$toolbar_height: $m*2
+$header  : '.region-header'
+$header_height : $m*7.5
+$header_padding: 0
+$content : '.region-content .container-fixed main'
+$content_margin_top: $m*2
+$content_margin_bottom: $m*2
+$footer  : '.region-footer'
+$footer_height : $m*3
+$footer_padding: $m
+$apply_sticky_footer: true
+$navigation_width: $m*20
+
+// Minimum padding in responsive one-col-layouts
+$min_padding: $m/2
+
+
+//
+//  COLORS
+//
+
+// Interface colors (from Bootstrap)
+$color_calm    : #5bc0de
+$color_success : #9d0
+$color_warning : #f0ad4e
+$color_danger  : #d9534f
+
+// Site palette
+// pass
+
+// Element colors
+$color_background           : #DADBDD
+$color_text                 : #222
+$color_headers              : $color_text
+$color_header_background    : #4a4b4d
+$color_header_text          : white
+$color_footer_background    : #4a4b4d
+$color_footer_text          : white
+
+// Text selection
+$color_selection_background : $color_text
+$color_selection_text       : white
+
+// Palette
+$palette_blue   : #37B9DF
+$palette_orange : #EFB43E
+$palette_grey   : #4A4B4D
+
+// Responsive menu
+$menu_breakpoint: $width_fixed
+
+//
+//  FONTS
+//
+
+@import fonts/junicode/*
+
+$font_text           : 'junicode', serif
+$font_headers        : 'Roboto Condensed', $font_text
+$font_text_weight    : normal
+$font_headers_weight : 700
+
+// Font sizes:
+$size_headers  : (2rem, 1.75rem, 1.5rem, 1.25rem, 1rem, 0.85rem)
+$size_big      : 1.25em
+$size_small    : 0.8em
+$size_smaller  : 0.75em

@@ -1,0 +1,8 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{% block body_classes %}static-page{% endblock %}
+{% block page_html_title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    {{ objecty.title }}
+    {{ object.content | safe }}
+{% endblock %}

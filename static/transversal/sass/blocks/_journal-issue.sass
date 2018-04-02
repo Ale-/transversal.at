@@ -1,0 +1,41 @@
+.issue__author
+  background-color: $palette_blue
+  width: 100%
+  margin: 0 0 $m/2
+  padding: $m/6 $m/2
+  opacity: .8
+  text-overflow: ellipsis
+  white-space: nowrap
+  overflow: hidden
+.issue__title--full
+  margin-bottom: $m/2
+  height: $m*1.5
+  li
+    position: absolute
+.issue__date--full
+  +date
+.issue__texts-wrapper
+  +column-count(2)
+  .issue__texts-item
+    +column-break-inside(avoid)
+    break-inside: avoid
+    page-break-inside: avoid
+    margin-bottom: $m
+.issue__text-lang
+  text-transform: uppercase
+  width: $m/2
+  color: #444
+  font-size: .7em
+.issue__links
+  margin: $m 0
+.issue__link
+  font-weight: bold
+  font-family: $font_headers
+  display: inline
+  margin-right: $m
+.issue-details__title--full
+  margin-bottom: $m/2
+.issue-details__date--full
+  +date
+.issue-details__body
+  margin-top: $m*2

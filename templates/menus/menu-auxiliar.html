@@ -1,0 +1,10 @@
+<nav class="menu-auxiliar{% if modifier %}--{{ modifier }}{% endif %}">
+  <ul>
+    <li class="menu-auxiliar{% if modifier %}--{{ modifier }}{% endif %}__link">
+        <a href="/">transversal.at</a>
+    </li>
+    <li class="menu-auxiliar{% if modifier %}--{{ modifier }}{% endif %}__link">
+        <a href="{% url 'static_page' 'contact' %}">contact</a>
+    </li>
+  </ul>
+</nav>

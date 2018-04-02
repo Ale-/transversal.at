@@ -1,0 +1,113 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load utils i18n %}
+{% block body_classes %}author{% endblock %}
+{% block page_html_title %}{{ object.fullname }}{% endblock %}
+
+{% block main %}
+    <div class="biography-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_biography_change' object.id %}">
+                  {% trans 'Edit this biography' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <h1 class="biography__name">
+            {{ object.fullname }}
+        </h1>
+        <div class="biography__meta">
+            {% if object.texts_created.all|length > 0 %}
+            <div class="biography__meta-journals">
+                <h5>journal texts</h5>
+                <ul>
+                {% for text in object.texts_created.all|order_by:"title" %}
+                    <li>
+                        {% if text.slug and text.issue.slug %}
+                        <a href="{% url 'journal_text' text.issue.slug text.slug %}">
+                          {{ text.title }}
+                        </a>
+                        {% else %}
+                          {{ text.title }}
+                        {% endif %}
+                        <p>{{ text.author_text }}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.texts_translated.all|length > 0 %}
+            <div class="biography__meta-journals">
+                <h5>journal translations</h5>
+                <ul>
+                {% for text in object.texts_translated.all %}
+                    <li>
+                        {% if text.slug and text.issue.slug %}
+                        <a href="{% url 'journal_text' text.issue.slug text.slug %}">{{ text.title }}</a>
+                        {% else %}
+                           {{ text.title }}
+                        {% endif %}
+                        <p>{{ text.author_text}}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.books_written.all|length > 0 %}
+            <div class="biography__meta-books">
+                <h5>books</h5>
+                <ul>
+                {% for text in object.books_written.all|order_by:"title" %}
+                    <li>
+                        <a href="/books/{{ text.slug }}">{{ text.title }}</a>
+                        <p>{{ text.teaser | safe }}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.books_translated.all|length > 0 %}
+            <div class="biography__meta-translations">
+                <h5>books translated</h5>
+                <ul>
+                {% for text in object.books_translated.all %}
+                    <li>
+                        <a href="/books/{{ text.slug }}">{{ text.title }}</a>
+                        <p>{{ text.author_text}}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.blogposts_written.all|length > 0 %}
+            <div class="biography__meta-books">
+                <h5>blog posts</h5>
+                <ul>
+                {% for text in object.blogposts_written.all|order_by:"-date" %}
+                    <li>
+                        <a href="{% url 'blog_text' text.slug %}">{{ text.title }}</a>
+                        <p>{{ text.date | date:"m Y" }}</p>
+                    </li>
+                    {% for translation in text.translations.all %}
+                    <li>
+                        <a href="{% url 'blog_text' translation.slug %}">{{ translation.title }}</a>
+                        <p>{{ text.date | date:"m Y" }}</p>
+                    </li>
+                    {% endfor %}
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="biography__email">
+            <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+        </div>
+        <div class="biography__body">
+            {{ object.description | safe }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

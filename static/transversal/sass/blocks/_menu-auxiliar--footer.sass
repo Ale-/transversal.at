@@ -1,0 +1,11 @@
+// Auxiliar menu to be shown in footer mainly
+
+.menu-auxiliar--footer__link
+  display: inline
+  font-weight: bold
+  &::before
+    content: " | "
+    font-weight: normal
+    color: white
+  &:first-child::before
+    display: none

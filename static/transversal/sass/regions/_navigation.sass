@@ -1,0 +1,19 @@
+// Navigation section of the site
+// regions/navigation.html
+
+@import compass/css3/transition
+
+.region-navigation
+  position: fixed
+  top: $toolbar_height
+  bottom: $footer_height
+  padding: $m
+  right: -$navigation_width
+  max-width: 100%
+  width: $navigation_width
+  +transition(right .25s ease)
+  font-family: $font_text
+  border-left: 2px solid $color_text
+
+.navigation-open .region-navigation
+  right: 0

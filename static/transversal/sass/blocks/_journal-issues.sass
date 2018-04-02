@@ -1,0 +1,30 @@
+.issue-wrapper
+  padding: $m
+
+.issue-header
+  background: $palette_grey
+  color: $palette_blue
+  font-size: 2.5em
+  height: 0.9em
+  overflow: hidden
+  text-indent: $m/2
+
+.issue-header .fadein__item
+  position: absolute
+  z-index: 0
+  white-space: nowrap
+  overflow: hidden
+  max-width: 100%
+
+.issue-wrapper--list
+  background: $palette_blue
+  color: white
+  padding: $m/3 $m/2
+  +links(white, $color_text, .2s ease)
+  border-bottom: 2px solid white
+
+.issue__title
+  margin: 0
+
+.issue__date
+  +date

@@ -1,0 +1,30 @@
+.blogtext-wrapper
+  padding: $m
+
+.blogtext__translations
+  font-family: $font_headers
+  float: right
+  padding: $m/3
+  background-color: #9A9B9D
+  margin: 0 -#{$m} $m $m
+  width: $m*8
+  +links(white, $color_text, .25s ease)
+  a
+    font-weight: bold
+
+.blogtext__translations-label
+  font-weight: bold
+
+.blogtext__title
+  margin: 0 0 $m/3
+
+.blogtext__date
+  margin: $m 0 0 !important
+  +date
+
+.blogtext__author
+  font-family: $font_headers
+  font-size: 1.2em
+
+.blogtext__body
+  margin-top: $m*2

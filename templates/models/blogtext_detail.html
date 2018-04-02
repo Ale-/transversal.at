@@ -1,0 +1,78 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{% block body_classes %}blogtext{% endblock %}
+{% block page_html_title %}transversal.at{% endblock %}
+
+{% block main %}
+    <div class="blogtext-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_blogtext_change' object.id %}">
+                  {% trans 'Edit this post' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <p class="blogtext__date">
+            {% if object.date %}
+            {{ object.date | date:"m Y" }}
+            {% else %}
+            {{ object.source_text.date | date:"m Y" }}
+            {% endif %}
+        </p>
+        <h1 class="blogtext__title">
+            {{ object.title }}
+        </h1>
+        <div class="blogtext__meta">
+            {% if object.authors.all|length > 0 or object.source_text.authors.all|length > 0 %}
+            <div class="blogtext__meta-authors">
+                <h5>{% trans 'authors' %}</h5>
+                <ul>
+                    {% for author in authors %}
+                    <li>
+                        <a href="{% url 'bio' author.slug %}">{{ author.surname }}, {{ author.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.translations.all|length > 0 or object.source_text %}
+            <div class="blogtext__meta-translations">
+                <h5>{% trans 'languages' %}</h5>
+                <ul class="blogtext__translations-list">
+                    <li>{{ object.get_language_display }}</li>
+                    {% if object.translations.all|length > 0 %}
+                    {% for translation in object.translations.all %}
+                        <li>
+                            <a href="/blog/{{ translation.slug }}">
+                                {{ translation.get_language_display }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% endif %}
+                    {% if object.source_text %}
+                        <li>
+                            <a href="/blog/{{ object.source_text.slug }}">
+                                {{ object.source_text.get_language_display }}
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <p class="blogtext__author">
+            {{ object.author_text }}
+        </p>
+        <p class="blogtext__translator">
+            {{ object.translator_text }}
+        </p>
+        <div class="blogtext__body">
+            {{ object.body | safe }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

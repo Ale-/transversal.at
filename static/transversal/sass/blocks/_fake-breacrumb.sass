@@ -1,0 +1,20 @@
+.links
+  font-size: .9em
+  font-family: $font_headers
+.fake-breadcrumb
+  display: inline
+.fake-breadcrumb__button
+  border: 0
+  padding: 0
+  background: none
+  color: darken($palette_blue, 10%)
+  +transition(color .2s ease)
+  &:hover
+    color: $palette_blue
+  &::before
+    content: "↤"
+    margin-right: $m/3
+
+.links__staff
+  display: inline
+  float: right

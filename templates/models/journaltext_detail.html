@@ -1,0 +1,92 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{% block body_classes %}journal-text{% endblock %}
+{% block page_html_title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="text-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_journaltext_change' object.id %}">
+                  {% trans 'Edit this post' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <p class="text__date">
+          {{ object.date | date:"m Y"}}
+        </p>
+        <h1 class="text__title">
+            {{ object.title }}
+        </h1>
+        <p class="text__author-text">
+            {{ object.author_text }}
+        </p>
+        {% if object.translator_text %}
+        <p class="text__translator-text">
+            {{ object.translator_text }}
+        </p>
+        {% endif %}
+
+        {# meta #}
+        <div class="text__meta">
+            <div class="text__meta-issue">
+                <h5>{% trans 'journal' %}</h5>
+                <a href="{% url 'journal_issue' object.issue.slug %}">
+                    {{ object.issue.title }}
+                </a>
+            </div>
+            {% if object.authors.all|length > 0 %}
+            <div class="book__meta-biographies">
+                <h5>{% trans 'Authors' %}</h5>
+                <ul>
+                    {% for author in object.authors.all %}
+                        <li>
+                            <a href="/bio/{{ author.slug }}">
+                                {{ author.fullname }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.translators.all|length > 0 %}
+            <div class="book__meta-biographies">
+                <h5>{% trans 'Translators' %}</h5>
+                <ul>
+                    {% for author in object.translators.all %}
+                        <li>
+                            <a href="/bio/{{ author.slug }}">
+                                {{ author.fullname }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if False %}
+            <div class="book__meta-biographies">
+                <h5>{% trans 'languages' %}</h5>
+                <ul>
+                    {% for text in related_texts %}
+                        <li>
+                            <a href="{% url 'journal_text' text.slug %}">
+                                {{ text.get_language_display }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <p class="text__body">
+          {{ object.body | safe }}
+        </p>
+
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

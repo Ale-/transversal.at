@@ -1,0 +1,36 @@
+// View of books
+
+.books .layout-main
+  +links($palette_blue, $color_text, .2s ease)
+
+.book__title--list
+  margin: 0
+
+.book__subtitle--list
+  margin-top: 0
+
+.related-books-title
+  background: $palette_grey
+  color: $palette_orange
+  font-size: 2.5em
+  height: 0.9em
+  overflow: hidden
+  text-indent: $m/2
+  border-top: 3px solid $palette_orange
+
+.related-books-wrapper
+  +clearfix
+
+.related-book
+  display: inline-block
+  float: left
+  width: 50%
+  padding: $m
+
+.related-book.unpublished
+  background-color: #eee
+
+.book__title--image
+  float: right
+  width: 50%
+  padding: 0 $m

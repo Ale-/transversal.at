@@ -1,0 +1,74 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %}
+{% block body_classes %}front{% endblock %}
+{% block page_html_title %}transversal.at{% endblock %}
+
+{% block main %}
+    <div class="view-lastjournal">
+        <div class="view-lastjournal__header">
+            {% for text in last_issue.texts.all %}
+                <p class="view-lastjournal__issue-title {% if forloop.first %}active{% endif %}">
+                    {{ text.title }}
+                </p>
+            {% endfor %}
+        </div>
+        <div class="view-lastjournal__body">
+            <a href="{% url 'journal_issue' last_issue.slug %}">
+                <p class="view-lastjournal__date">
+                    {{ last_issue.date | date:"m Y" }}
+                </p>
+                <h4 class="view-lastjournal__title">
+                    {{ last_issue.title }}
+                </h4>
+            </a>
+        </div>
+    </div>
+    <div class="view-lastbooks">
+        {% for book in last_books %}
+        <div class="view-lastbook">
+            <p class="view-lastbook__header">
+                {{ book.title }}
+            </p>
+            <div class="view-lastbook__body">
+                <div class="view-lastbooks__title">
+                    <a href="books/{{book.slug}}">
+                        {{ book.title }}
+                    </a>
+                </div>
+                <p class="view-lastbooks__authors">
+                    {{ book.author_text }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="blog-view">
+    {% for post in blogposts %}
+        <div class="blog-view__item">
+            <div class="blog-view__titles">
+                {% for translation in post.translations.all %}
+                    <h5 class="blog-view__title">
+                        <a href="/blog/{{ translation.slug }}">
+                            <span class="language">{{ translation.language }}</span> {{ translation.title }}
+                        </a>
+                    </h5>
+                {% endfor %}
+                <h4 class="blog-view__title">
+                    <a href="/blog/{{ post.slug }}">
+                        {{ post.title }}
+                    </a>
+                </h4>
+            </div>
+            <p class="blog-view__teaser">
+                {{ post.teaser | safe }}
+            </p>
+            <p class="blog-view__meta">
+                <span class="blog-view__author">{{ post.author_text }}</span>
+                <span class="blog-view__date">{{ post.date | date:"d m y" }}</span>
+            </p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

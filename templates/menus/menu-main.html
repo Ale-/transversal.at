@@ -1,0 +1,15 @@
+{# Main menu #} {% load static %}
+
+<nav class="menu-main{% if modifier %}--{{ modifier }}{% endif %}">
+    <ul>
+        <li class="menu-main{% if modifier %}--{{ modifier }}{% endif %}__link--blog">
+            <a href="{% url 'blog' %}">blog</a>
+        </li>
+        <li class="menu-main{% if modifier %}--{{ modifier }}{% endif %}__link--journal">
+            <a href="{% url 'journal_issues' %}">journal</a>
+        </li>
+        <li class="menu-main{% if modifier %}--{{ modifier }}{% endif %}__link--books">
+            <a href="{% url 'book_texts' %}">books</a>
+        </li>
+    </ul>
+</nav>

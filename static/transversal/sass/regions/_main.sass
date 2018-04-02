@@ -1,0 +1,20 @@
+// Styles of the main container of the site
+
+.layout-main
+  background: white
+  +clearfix
+  +links(darken($palette_blue, 15%), $palette_blue, .2s ease)
+
+.blog-page,
+.journal-text,
+.static-page,
+.journal-issue,
+.journalissue-details
+  .layout-main
+    padding: $m
+
+.region-content
+  .layout-main
+    font-size: 1.1rem
+    p
+      margin-bottom: $m/2

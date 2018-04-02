@@ -1,0 +1,48 @@
+.book__meta,
+.text__meta,
+.issue__meta,
+.biography__meta,
+.blogtext__meta
+  float: right
+  font-family: $font_headers
+  padding: $m/2
+  min-width: 240px
+  max-width: 50%
+  margin: $m #{-$m} $m $m
+  color: rgba($color_text, .8)
+  +links(white, $color_text, .2s ease)
+  > div:not(:last-child)
+    border-bottom: 1px solid white
+  > div:not(:first-child)
+    margin-top: $m/2
+  > div li
+    margin-bottom: $m/6
+  > div h5
+    margin: $m/2 0 $m/4
+    text-transform: uppercase
+    font-size: .8em
+  > div:first-child h5
+    margin-top: 0
+  p
+    font-size: .8em
+  &:empty
+    display: none !important
+
+.book__meta
+  background-color: $palette_orange
+.blogtext__meta
+  background-color: #999
+
+.text__meta,
+.issue__meta,
+.biography__meta
+  background-color: $palette_blue
+
+.text__meta-issue a
+  font-weight: bold
+
+.issue__meta-links
+  p
+    font-size: 1.1em
+    font-weight: bold
+    margin-bottom: 0 !important

@@ -1,0 +1,30 @@
+.blog-view
+  padding: $m
+.blog-view__item
+  margin-bottom: $m
+  &::before
+    content: "—"
+    display: block
+.blog-view__title
+  margin: $m/4 0
+  .language
+    font-family: $font_text
+    text-transform: uppercase
+    font-size: .5em
+.blog-view__titles
+  +links($palette_blue, $color_text, .25s ease)
+.blog-view__meta
+  margin-top: $m/4
+  font-family: $font_headers
+  float: none !important
+  font-size: .9em
+.blog-view__author:not(:empty)
+  font-weight: bold
+  color: $palette_grey
+  margin-right: $m/3
+.blog-view__date
+  font-size: .85em
+.blog-view__teaser
+  margin-top: $m/3
+.blog-view__teaser
+  +links($palette_blue, black, .2s ease)

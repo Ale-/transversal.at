@@ -1,0 +1,39 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %}
+{% block body_classes %}books{% endblock %}
+{% block page_html_title %}Books{% endblock %}
+
+{% block main %}
+    <div class="related-books">
+    {% for wrapper in books_wrappers %}
+        <div class="related-books">
+            <div class="related-books-title">
+              {{ wrapper.0.title }}
+            </div>
+            <div class="related-books-wrapper">
+            {% for object in wrapper %}
+                <div class="related-book {% if not object.metadata.first.is_published %}unpublished{% endif %}">
+                    {% if object.image %}
+                    <div class="book__title--image">
+                        <img src="{{ object.image.first.image_file.url }}" />
+                    </div>
+                    {% endif %}
+                    <h4 class="book__title--list">
+                        <a href="{% url 'book_text' object.slug %}">
+                            {{ object.title }}
+                        </a>
+                    </h4>
+                    {% if object.subtitle %}
+                    <h5 class="book__subtitle--list">
+                        {{ object.subtitle }}
+                    </h5>
+                    {% endif %}
+                    <div class="book__meta--list">
+                        {{ object.teaser | safe }}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

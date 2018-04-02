@@ -1,0 +1,60 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{% block body_classes %}journalissue-details{% endblock %}
+{% block page_html_title %}{{ html_title }}{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+      {% if request.user.is_staff %}
+      <div class="links__staff">
+          <a href="{% url 'admin:models_journalissue_change' object.id %}">
+              {% trans 'Edit this post' %}
+          </a>
+      </div>
+      {% endif %}
+    </nav>
+    <h1 class="issue-details__title--full">
+        {{ title }}
+    </h1>
+    <p class="issue-details__date--full">
+        {{ object.date | date:"m Y"}}
+    </p>
+    {# meta #}
+    <div class="issue__meta">
+        <div class="issue__meta-issue">
+            <h5>{% trans 'journal' %}</h5>
+            <a href="{% url 'journal_issue' object.slug %}">
+                {{ object.title }}
+            </a>
+        </div>
+        <div class="issue__meta-links">
+            <ul>
+              <li>
+                {% if active == 'impressum' %}
+                    <a href="{% url 'journal_issue_editorial' object.slug %}">
+                        {% trans 'editorial' %}
+                    </a>
+                {% else %}
+                    <p>{% trans 'editorial' %}</p>
+                {% endif %}
+              </li>
+              <li>
+                {% if active == 'editorial' %}
+                    <a href="{% url 'journal_issue_impressum' object.slug %}">
+                        {% trans 'impressum' %}
+                    </a>
+                {% else %}
+                    <p>{% trans 'impressum' %}</p>
+                {% endif %}
+              </li>
+            </ul>
+        </div>
+    </div>
+    <div class="issue-details__body">
+      {% if body %}
+          {{ body | safe }}
+      {% else %}
+          {% lorem %}
+      {% endif %}
+    </div>
+{% endblock %}

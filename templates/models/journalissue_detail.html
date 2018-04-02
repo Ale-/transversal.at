@@ -1,0 +1,60 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{% block body_classes %}journal-issue{% endblock %}
+{% block page_html_title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="issue-wrapper--full">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_journalissue_change' object.id %}">
+                  {% trans 'Edit this post' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <h1 class="issue__title--full">
+            <ul class="fadein">
+                <li class="fadein__item active">{{ object.title }}</li>
+                {% for title in object.titles.all %}
+                    <li class="fadein__item">{{ title }}</li>
+                {% endfor %}
+            </ul>
+        </h1>
+        <p class="issue__date--full">
+          {{ object.date | date:"m Y"}}
+        </p>
+        <ul class="issue__links">
+            <li class="issue__link">
+                <a href="{% url 'journal_issue_editorial' object.slug %}">
+                    {% trans 'Editorial' %}
+                </a>
+            </li>
+            <li class="issue__link">
+                <a href="{% url 'journal_issue_impressum' object.slug %}">
+                    {% trans 'Impressum' %}
+                </a>
+            </li>
+        </ul>
+        <div class="issue__texts-wrapper">
+            {% for author, texts in texts_ordered.items %}
+            <div class="issue__texts-item">
+                <h5 class="issue__author">{{ author | safe }}</h5>
+                    <ul class="issue__texts">
+                    {% for text in texts %}
+                        {% if text.slug %}
+                        <li class="issue__text">
+                          <span class="issue__text-lang">{{ text.language }}</span>
+                          <a href="{% url 'journal_text' object.slug text.slug %}">
+                          {{ text.title | safe }}
+                          </a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+              </div>
+              {% endfor %}
+        </div>
+    </div>
+{% endblock %}

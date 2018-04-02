@@ -1,0 +1,108 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load i18n utils %}
+{% block body_classes %}book-page{% endblock %}
+{% block page_html_title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="book-header">
+        {{ object.title }}
+    </div>
+    <div class="book-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_book_change' object.id %}">
+                  {% trans 'Edit this book' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <h1 class="book__title">
+            {{ object.title }}
+        </h1>
+        <div class="book__meta">
+            {% if object.image %}
+            <div class="book__meta-image">
+                <img src="{{ object.image.first.image_file.url }}" />
+            </div>
+            {% endif %}
+            {% if object.epub_file %}
+            <div class="book__meta-epub">
+                <h5>epub</h5>
+                <a href="{{ object.epub_file.url }}">Download</a>
+            </div>
+            {% endif %}
+            {% if object.pdf_file %}
+            <div class="book__meta-pdf">
+                <h5>pdf</h5>
+                <a href="{{ object.pdf_file.url }}">Download</a>
+            </div>
+            {% endif %}
+            {% if object.links|length > 0 %}
+            <div class="book__meta-links">
+                <h5>links</h5>
+                <ul>
+                    {% for link in object.links %}
+                        <li>
+                            <a href="/bio/{{ author.slug }}">
+                                {{ author.fullname }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.authors.all|length > 0 %}
+            <div class="book__meta-biographies">
+                <h5>biographies</h5>
+                <ul>
+                    {% for author in object.authors.all %}
+                        <li>
+                            <a href="/bio/{{ author.slug }}">
+                                {{ author.fullname }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.translators.all|length > 0 %}
+            <div class="book__meta-biographies">
+                <h5>biographies (translation)</h5>
+                <ul>
+                    {% for author in object.translators.all %}
+                        <li>
+                            <a href="/bio/{{ author.slug }}">
+                                {{ author.fullname }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.related_books.all|length > 0 %}
+            <div class="book__meta-biographies">
+                <h5>{{ object.title }}</h5>
+                <ul>
+                    {% for book in object.related_books.all %}
+                        <li>
+                            <a href="{% url 'book_text' book.slug %}">
+                                {{ book.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="book__publisher">
+            {{ object.publisher_text | safe }}
+        </div>
+        <div class="book__body">
+            {{ object.body | safe }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

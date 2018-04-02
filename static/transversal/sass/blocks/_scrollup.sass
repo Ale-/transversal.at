@@ -1,0 +1,21 @@
+.scrollup
+  position: fixed
+  bottom: $m
+  right: $m
+  font-family: $font_headers
+  background-color: white
+  cursor: pointer
+  padding: $m/2
+  font-weight: bold
+  text-transform: uppercase
+  +transition(background-color, .2s ease)
+  +transition(opacity .2s ease)
+  pointer-events: none
+  opacity: 0
+
+  &:hover
+    background-color: #eee
+
+  &.visible
+    opacity: 1
+    pointer-events: all

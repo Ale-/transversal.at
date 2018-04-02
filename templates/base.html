@@ -1,0 +1,47 @@
+{# Base template for the site #} {% load static utils %}
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {# Title and description #}
+        <title>
+            {% block page_html_title %}{% endblock %} | {{ html_document_title }}
+        </title>
+        <meta name="description" content="{{ html_document_description }}">
+
+        {# Robots and humans #}
+        <meta name="robots" content="robots.txt">
+        <link href="humans.txt" rel="author">
+
+        {# Favicons #}
+        <link href="{% img 'favicon.ico' %}" rel="icon" type="image/png">
+
+        {# Styles #}
+        <link href="{% css 'style.css' %}" rel="stylesheet">
+
+        {# Block for the extension of base head, to include css/js libraries #}
+        {% block page_header %}{% endblock %}
+    </head>
+
+    <body class="{% if user.is_authenticated %}logged-in{% endif %} {% if user.is_staff %}staff-user{% endif %} {% block body_classes %}{% endblock %} {% block layout_classes %}{% endblock %}">
+
+        {# Content layouts #}
+        {% block layout %}{% endblock %}
+
+        {# Content layouts #}
+        {% include 'blocks/scrollup.html' with text="↥" %}
+
+        {# Page scripts #}
+        {% block page_scripts %}{% endblock %}
+
+        {# Common scripts #}
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+			          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			          crossorigin="anonymous">
+        </script>
+        <script type="text/javascript" src="{% js 'common.js' %}"></script>
+    </body>
+</html>
