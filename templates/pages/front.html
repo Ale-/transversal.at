@@ -24,21 +24,24 @@
     </div>
     <div class="view-lastbooks">
         {% for book in last_books %}
+        <a href="books/{{book.slug}}">
         <div class="view-lastbook">
             <p class="view-lastbook__header">
                 {{ book.title }}
             </p>
             <div class="view-lastbook__body">
+                <figure class="view-lastbooks__image">
+                    <img src="{{ book.image.first.image_file.url }}" />
+                </figure>
                 <div class="view-lastbooks__title">
-                    <a href="books/{{book.slug}}">
-                        {{ book.title }}
-                    </a>
+                    {{ book.title }}
                 </div>
                 <p class="view-lastbooks__authors">
                     {{ book.author_text }}
                 </p>
             </div>
         </div>
+        </a>
         {% endfor %}
     </div>
     <div class="blog-view">
@@ -48,7 +51,7 @@
                 {% for translation in post.translations.all %}
                     <h5 class="blog-view__title">
                         <a href="/blog/{{ translation.slug }}">
-                            <span class="language">{{ translation.language }}</span> {{ translation.title }}
+                            {{ translation.title }}
                         </a>
                     </h5>
                 {% endfor %}

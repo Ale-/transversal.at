@@ -1,6 +1,7 @@
 .view-lastbooks
   background-color: $palette_orange
   position: relative
+  +links(rgba($color_text, .85), rgba($color_text, .5), .25s ease)
   +clearfix
 
 .view-lastbook
@@ -23,5 +24,8 @@
 .view-lastbook__body
   font-family: $font_headers
   font-size: .9em
-  +links(white, $palette_orange, .25s ease)
   padding: $m/2
+
+.view-lastbooks__image
+  max-width: 50%
+  float: right

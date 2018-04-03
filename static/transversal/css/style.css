@@ -1857,6 +1857,25 @@ html .toolbar .region-content .container-fixed main {
   position: relative;
   *zoom: 1;
 }
+/* line 4, ../sass/base/reset/_2_links.sass */
+.view-lastbooks a {
+  -moz-transition: ease 0.25s;
+  -o-transition: ease 0.25s;
+  -webkit-transition: ease 0.25s;
+  transition: ease 0.25s;
+}
+/* line 6, ../sass/base/reset/_2_links.sass */
+.view-lastbooks a:link, .view-lastbooks a:visited {
+  color: rgba(34, 34, 34, 0.85);
+}
+/* line 8, ../sass/base/reset/_2_links.sass */
+.view-lastbooks a:hover {
+  color: rgba(34, 34, 34, 0.5);
+}
+/* line 10, ../sass/base/reset/_2_links.sass */
+.view-lastbooks a:active {
+  color: rgba(34, 34, 34, 0.85);
+}
 /* line 6, ../sass/base/abstractions/_clearfix.sass */
 .view-lastbooks:before, .view-lastbooks:after {
   content: " ";
@@ -1867,7 +1886,7 @@ html .toolbar .region-content .container-fixed main {
   clear: both;
 }
 
-/* line 6, ../sass/blocks/_view-lastbooks.sass */
+/* line 7, ../sass/blocks/_view-lastbooks.sass */
 .view-lastbook {
   display: inline-block;
   width: 33.3%;
@@ -1875,7 +1894,7 @@ html .toolbar .region-content .container-fixed main {
   text-overflow: ellipsis;
 }
 
-/* line 12, ../sass/blocks/_view-lastbooks.sass */
+/* line 13, ../sass/blocks/_view-lastbooks.sass */
 .view-lastbook__header {
   background-color: #4A4B4D;
   color: #EFB43E;
@@ -1885,35 +1904,22 @@ html .toolbar .region-content .container-fixed main {
   overflow: hidden;
 }
 
-/* line 20, ../sass/blocks/_view-lastbooks.sass */
+/* line 21, ../sass/blocks/_view-lastbooks.sass */
 .view-lastbooks__title {
   font-weight: bold;
 }
 
-/* line 23, ../sass/blocks/_view-lastbooks.sass */
+/* line 24, ../sass/blocks/_view-lastbooks.sass */
 .view-lastbook__body {
   font-family: "Roboto Condensed", "junicode", serif;
   font-size: 0.9em;
   padding: 12px;
 }
-/* line 4, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a:link, .view-lastbook__body a:visited {
-  color: white;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a:hover {
-  color: #EFB43E;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a:active {
-  color: white;
+
+/* line 29, ../sass/blocks/_view-lastbooks.sass */
+.view-lastbooks__image {
+  max-width: 50%;
+  float: right;
 }
 
 /* line 1, ../sass/blocks/_view-lastjournal.sass */
