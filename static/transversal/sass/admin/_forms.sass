@@ -1,0 +1,48 @@
+.admin form
+  +animation(fadeup 1s 1)
+
+.admin label.required
+  position: relative
+
+.admin form label
+  font-weight: 700
+  color: #222
+  text-transform: uppercase
+  font-family: $font_headers
+
+.admin label.required:before
+  content: "*"
+  color: red
+  position: absolute
+  left: -$m/3
+
+.admin form > div > p,
+.admin form > p
+  margin: 0 0 $m
+  font-size: 1.2em
+  color: rgba($color_text, .5)
+
+.admin .django-ckeditor-widget
+  width: 610px
+  max-width: 100%
+
+.admin-image-widget
+  img
+    width: $m*3
+    float: left
+    margin-right: $m
+
+.admin td.original > p
+  visibility: hidden
+
+.inline-group .tabular tr.has_original td
+  padding: $m/2 0 !important
+
+.timezonewarning
+  display: none
+
+#models-metadata-content_type-object_id-group
+  .add-row
+    display: none
+  span.delete
+    display: none

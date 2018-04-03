@@ -1,0 +1,41 @@
+.admin #result_list img
+  +border-radius(50%)
+
+.admin #result_list
+  +links(darken($palette_blue, 25%), $palette_blue, .2s ease)
+
+.admin .paginator
+  font-size: .9em
+  font-weight: bold
+  text-transform: uppercase
+  margin-top: $m*2
+  font-family: $font_headers
+
+.admin .sorted
+  background-color: transparent
+
+.admin
+  table thead th .text a:focus,
+  table thead th .text a:hover
+    background-color: transparent
+
+.admin #changelist-filter
+  margin-top: $m
+  background: white
+  border-left: 2px solid $palette_orange
+  +links(darken($palette_blue, 25%), $palette_blue, .2s ease)
+  h2
+    background: none
+    color: $color_text
+  .selected
+    border-left: 5px solid $palette_orange
+
+.admin #changelist-filter h3
+  cursor: pointer
+
+.admin #changelist-filter li
+  display: none
+.admin #changelist-filter li.selected
+  display: block
+.admin #changelist-filter ul:hover li
+  display: block

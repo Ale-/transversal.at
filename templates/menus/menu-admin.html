@@ -1,0 +1,16 @@
+{# Main menu #} {% load static utils %}
+
+<nav class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}">
+    <ul>
+        <li class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}__link--admin">
+            <a href="{% url 'admin:index' %}">
+                <img src="{% img 'user.svg' %}" />
+            </a>
+        </li>
+        <li class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}__link--logout">
+            <a href="{% url 'logout' %}">
+                <img src="{% img 'logout.svg' %}" />
+            </a>
+        </li>
+    </ul>
+</nav>

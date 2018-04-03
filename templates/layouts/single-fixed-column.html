@@ -3,6 +3,7 @@
 
 {% block layout %}
 
+    {% include 'regions/toolbar.html' with region_name='toolbar' html_container='header' layout='fluid' %}
     {% include 'regions/header.html' with region_name='header' html_container='header' layout='fixed' %}
 
     <div class="region-content">

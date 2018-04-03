@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
+from django.urls import reverse
 # contrib
 from ckeditor_uploader.fields import RichTextUploadingField
 # project
@@ -91,6 +92,7 @@ class Biography(models.Model):
     surname     = models.CharField(_('Surname'), max_length=200, blank=True, null=True)
     email       = models.EmailField(_('Email'), blank=True, null=True)
     description = RichTextUploadingField(_('Description'), blank=True, null=True)
+    metadata        = GenericRelation(Metadata)
 
     class Meta:
         verbose_name = _('Biography')
@@ -101,6 +103,9 @@ class Biography(models.Model):
         if self.surname:
             return "%s %s" % (self.name, self.surname)
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('bio', args=[self.slug])
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
@@ -124,10 +129,14 @@ class JournalIssue(models.Model):
     editorial_title = models.CharField(_('Editorial title'), max_length=200, blank=True, null=True)
     editorial       = RichTextUploadingField(_('Editorial'), blank=True, null=True)
     impressum       = RichTextUploadingField(_('Impressum'), blank=True, null=True)
+    metadata        = GenericRelation(Metadata)
 
     class Meta:
         verbose_name = _('Journal issue')
         verbose_name_plural = _('Journal issues')
+
+    def get_absolute_url(self):
+        return reverse('journal_issue', args=[self.slug])
 
     @property
     def date_id(self):
@@ -168,14 +177,15 @@ class JournalText(models.Model):
     slug            = models.SlugField(editable=False, blank=True)
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
+    issue           = models.ForeignKey(JournalIssue, verbose_name=_('Journal issue'), related_name='texts', blank=True, null=True, on_delete=models.SET_NULL)
     language        = models.CharField(_('Language'), max_length=2, default='en', choices=LANGUAGES)
     date            = models.DateTimeField(_('Date'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
-    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='texts_created', blank=True)
-    translator_text = models.CharField(_('Translation attribution text'), max_length=200, blank=True, null=True)
+    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='texts_translated', blank=True)
-    issue           = models.ForeignKey(JournalIssue, verbose_name=_('Journal issue'), related_name='texts', blank=True, null=True, on_delete=models.SET_NULL)
+    translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
+    metadata        = GenericRelation(Metadata)
 
     class Meta:
         verbose_name = _('Journal text')
@@ -187,6 +197,9 @@ class JournalText(models.Model):
             self.slug = slugify(self.title)
 
         super(JournalText, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('journal_text', args=[self.issue.slug, self.slug])
 
     def __str__(self):
         """String representation of this model objects."""
@@ -204,12 +217,13 @@ class BlogText(models.Model):
     date            = models.DateField(_('Date'), blank=True, null=True)
     teaser          = RichTextUploadingField(_('Teaser'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
-    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
-    translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=False, null=True)
-    translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='blogposts_translated', blank=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'),  related_name='blogposts_written', blank=True)
+    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
+    translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='blogposts_translated', blank=True)
+    translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=False, null=True)
     in_home         = models.BooleanField(_('Show in home'), default=False, null=False)
     in_archive      = models.BooleanField(_('Show in archive'), default=False, null=False)
+    metadata        = GenericRelation(Metadata)
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
@@ -217,6 +231,10 @@ class BlogText(models.Model):
             self.slug = slugify(self.title)
 
         super(BlogText, self).save(*args, **kwargs)
+
+    @property
+    def translated(self, *args, **kwargs):
+        return len(self.translations.all())>0
 
     class Meta:
         verbose_name = _('Blog text')
@@ -265,10 +283,10 @@ class Book(models.Model):
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
     teaser          = RichTextUploadingField(_('Teaser'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
-    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
-    publisher_text  = models.CharField(_('Publisher info'), max_length=200, blank=False, null=True)
-    translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='books_translated', blank=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='books_written', blank=True)
+    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
+    translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='books_translated', blank=True)
+    publisher_text  = models.CharField(_('Publisher info'), max_length=200, blank=False, null=True)
     related_books   = models.ManyToManyField('self', verbose_name=_('Related publications'), blank=True)
     in_home         = models.BooleanField(_('Show in home'), default=False, null=False)
     in_listings     = models.BooleanField(_('Show in listings'), default=True, null=False)

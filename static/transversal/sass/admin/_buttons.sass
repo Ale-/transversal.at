@@ -1,0 +1,51 @@
+=button_none
+  line-height: $m*2
+  height: $m*2
+  padding: 0 $m/2
+  text-transform: uppercase
+  letter-spacing: 1px
+  +border-radius(0)
+  background-image: none
+  background: none
+  border: 0
+  color: $color_text
+  font-family: $font_headers
+  +transition(background-color .2s ease)
+  &:hover
+    background-color: #eee
+
+.admin .submit-row input
+  +button_none
+  border-left: 2px solid $color_calm
+  font-size: .75rem
+
+.admin .submit-row input.default
+  +button_none
+  border-left: 2px solid $color_success
+  font-size: .75rem
+
+.admin .submit-row a.deletelink
+  +button_none
+  border-left: 2px solid $color_danger
+  font-size: .75rem
+
+.admin .submit-row
+  font-family: $font_headers
+  background: transparent
+  border: 0
+
+.admin .module .addlink,
+.admin .module .changelink
+  font-family: $font_headers
+  background-position: 0 center
+
+.admin .object-tools a.historylink,
+.admin .object-tools a.addlink,
+.admin .object-tools a.viewsitelink
+  +button_none
+
+.admin .fake-breadcrumb__button
+  +button_none
+  border-left: 2px solid #ddd
+  font-size: .8em
+  font-family: $font_headers

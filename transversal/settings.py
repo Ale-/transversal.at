@@ -2,7 +2,7 @@
 
 import os
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib import admin
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 #
@@ -23,7 +23,9 @@ LOGOUT_URL = '/logout'
 
 # Name of site in the document title
 DOCUMENT_TITLE = 'transversal texts'
-
+# Title in the header of admin section
+ADMIN_SITE_HEADER = DOCUMENT_TITLE
+admin.site.site_header = ADMIN_SITE_HEADER
 
 # Apps
 CONTRIB_APPS = (

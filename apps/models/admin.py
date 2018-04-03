@@ -3,12 +3,32 @@ from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabularInline
 from django.db.models import TextField
 from django.forms import Textarea
-# contrib
-# from tabbed_admin import TabbedModelAdmin
+from django.utils.html import format_html
+from django.urls import reverse
 # app
 from . import models
+from apps.utils import admin_filters as filters
 
 admin.site.register(models.Metadata)
+
+
+def publish(modeladmin, request, queryset):
+    for obj in queryset:
+        meta = obj.metadata.first()
+        if not meta.is_published:
+            meta.is_published = True
+            meta.save()
+
+publish.short_description = "Publish selected elements"
+
+def unpublish(modeladmin, request, queryset):
+    for obj in queryset:
+        meta = obj.metadata.first()
+        if meta.is_published:
+            meta.is_published = False
+            meta.save()
+
+unpublish.short_description = "Unpublish selected elements"
 
 class ImageInline(GenericTabularInline):
     model = models.Image
@@ -46,12 +66,25 @@ class MetadataInline(GenericStackedInline):
 class BiographyAdmin(admin.ModelAdmin):
     model    = models.Biography
     ordering = ('name',)
-    list_display  = ('surname', 'name', 'email')
+    list_display  = ('name', 'surname', 'email', 'published', 'view')
+    list_filter = (filters.SurnameFilter,)
+    actions = [ publish, unpublish ]
     fields = (
-        ( 'surname', 'name', 'email' ),
-        ( 'description')
+        ( 'name', 'surname' ),
+        ( 'email' ),
+        ( 'description' )
     )
     inlines      = [ LinkInline, MetadataInline ]
+
+    def view(self, obj):
+        if obj.slug:
+            return format_html("<a href='" + reverse('bio', args=[obj.slug]) + "'>➜</a>")
+        else:
+            return None
+    view.short_description = 'View on site'
+
+    def published(self, obj):
+        return "✓" if obj.metadata.first().is_published else "❌"
 
 admin.site.register(models.Biography, BiographyAdmin)
 
@@ -60,10 +93,20 @@ class JournalIssueTitleInline(admin.TabularInline):
     extra = 1
 
 class JournalTextAdmin(admin.ModelAdmin):
-    model        = models.JournalText
-    ordering     = ('title',)
-    list_filter  = ('translators',)
-    inlines      = [ MetadataInline ]
+    model             = models.JournalText
+    ordering          = ('issue', 'title')
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter)
+    list_display      = ('title', 'issue', 'date', 'author_text', 'view')
+    inlines           = [ MetadataInline ]
+    actions           = [ publish, unpublish ]
+    filter_horizontal = ('authors', 'translators')
+
+    def view(self, obj):
+        try:
+            return format_html("<a href='" + reverse('journal_text', args=[obj.issue.slug, obj.slug]) + "'>➜</a>")
+        except:
+            return None
+    view.short_description = 'See'
 
 admin.site.register(models.JournalText, JournalTextAdmin)
 
@@ -73,27 +116,43 @@ class JournalIssueTitleInline(admin.TabularInline):
 
 class JournalIssueAdmin(admin.ModelAdmin):
     model        = models.JournalIssue
-    ordering     = ('title',)
+    ordering     = ('-date', 'title',)
     list_display = ('title', 'date')
+    list_filter  = (filters.TitleFilter,)
     fields       = ('title', 'slug', 'date', 'editorial_title', 'editorial', 'impressum')
+    actions      = [ publish, unpublish ]
     inlines      = [ JournalIssueTitleInline, MetadataInline ]
 
 admin.site.register(models.JournalIssue, JournalIssueAdmin)
 
 class BlogTextTranslationInline(admin.StackedInline):
     model = models.BlogTextTranslation
-    extra = 1
+    extra = 0
 
 class BlogTextAdmin(admin.ModelAdmin):
-    model        = models.BlogText
-    ordering     = ('title',)
-    list_display = ('title', 'author_text', 'date')
-    inlines      = [ BlogTextTranslationInline, MetadataInline ]
+    model             = models.BlogText
+    ordering          = ('-date', 'title')
+    list_display      = ('title', 'date', 'author_text', 'published')
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter,)
+    inlines           = [ BlogTextTranslationInline, MetadataInline ]
+    actions           = [ publish, unpublish ]
+    filter_horizontal = ('authors', 'translators')
+
+    def published(self, obj):
+        return "✓" if obj.metadata.first().is_published else "❌"
+
+    def view(self, obj):
+        if obj.slug:
+            return format_html("<a href='" + reverse('blog_text', args=[obj.slug]) + "'>➜</a>")
+        else:
+            return None
+    view.short_description = 'See'
 
 class BlogTextTranslationAdmin(admin.ModelAdmin):
     model        = models.BlogTextTranslation
-    ordering     = ('title',)
-    list_display = ('title', 'author_text')
+    ordering     = ('-source_text', 'title',)
+    list_display = ('title', 'source_text')
+    actions      = [ publish, unpublish ]
     inlines      = [ MetadataInline ]
 
 admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
@@ -101,10 +160,20 @@ admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
 admin.site.register(models.BlogText, BlogTextAdmin)
 
 class BookAdmin(admin.ModelAdmin):
-    model        = models.Book
-    ordering     = ('title',)
-    list_display = ('title', 'author_text')
-    inlines      = [ ImageInline, MetadataInline ]
+    model             = models.Book
+    ordering          = ('-date', 'title',)
+    list_display      = ('title', 'author_text', 'date', 'published', 'view')
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.BookLanguageFilter,)
+    inlines           = [ ImageInline, MetadataInline ]
+    actions           = [ publish, unpublish ]
+    filter_horizontal = ('authors', 'translators', 'related_books')
+
+    def published(self, obj):
+        return "✓" if obj.metadata.first().is_published else "❌"
+
+    def view(self, obj):
+        return format_html("<a href='" + reverse('book_text', args=[obj.slug]) + "'>➜</a>")
+    view.short_description = 'See'
 
 admin.site.register(models.Book, BookAdmin)
 

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "junicode";
   src: url("junicode.eot");
@@ -764,1217 +763,599 @@ html .toolbar .region-content .container-fixed main {
   margin-right: auto;
 }
 
-/* line 4, ../sass/regions/_footer.sass */
-.region-footer {
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-/* line 30, ../sass/base/reset/_2_links.sass */
-.region-footer a:link, .region-footer a:visited {
+/* line 1, ../sass/admin/_breadcrumbs.sass */
+.admin .breadcrumbs {
+  background-color: rgba(17, 17, 17, 0.9);
+  font-weight: bold;
   color: white;
-}
-/* line 32, ../sass/base/reset/_2_links.sass */
-.region-footer a:hover {
-  color: #222;
-}
-/* line 34, ../sass/base/reset/_2_links.sass */
-.region-footer a:active {
-  color: white;
-}
-
-/* line 8, ../sass/regions/_footer.sass */
-.region-footer .container-fixed {
-  background-color: #4a4b4d;
-  padding: 24px;
-}
-
-/* line 4, ../sass/regions/_header.sass */
-.region-header .container-fixed {
-  background-color: #4A4B4D;
-  padding-top: 24px;
-  border-bottom: 3px solid white;
-  height: 180px;
-}
-
-/* line 12, ../sass/regions/_header.sass */
-.journal-issues .region-header .container-fixed,
-.journaltext-page .region-header .container-fixed {
-  border-color: #37B9DF;
-}
-
-/* line 15, ../sass/regions/_header.sass */
-.books .region-header .container-fixed {
-  border-color: #EFB43E;
-}
-
-/* line 18, ../sass/regions/_header.sass */
-.book-page .region-header .container-fixed {
-  border-bottom: 3px solid #EFB43E;
-}
-
-/* line 3, ../sass/regions/_main.sass */
-.layout-main {
-  background: white;
-  *zoom: 1;
-}
-/* line 6, ../sass/base/abstractions/_clearfix.sass */
-.layout-main:before, .layout-main:after {
-  content: " ";
-  display: table;
-}
-/* line 10, ../sass/base/abstractions/_clearfix.sass */
-.layout-main:after {
-  clear: both;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  letter-spacing: 2px;
+  padding-left: 48px;
 }
 /* line 4, ../sass/base/reset/_2_links.sass */
-.layout-main a {
+.admin .breadcrumbs a {
   -moz-transition: ease 0.2s;
   -o-transition: ease 0.2s;
   -webkit-transition: ease 0.2s;
   transition: ease 0.2s;
 }
 /* line 6, ../sass/base/reset/_2_links.sass */
-.layout-main a:link, .layout-main a:visited {
-  color: #1c8dae;
+.admin .breadcrumbs a:link, .admin .breadcrumbs a:visited {
+  color: white;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
-.layout-main a:hover {
-  color: #37B9DF;
+.admin .breadcrumbs a:hover {
+  color: #EFB43E;
 }
 /* line 10, ../sass/base/reset/_2_links.sass */
-.layout-main a:active {
-  color: #1c8dae;
+.admin .breadcrumbs a:active {
+  color: white;
+}
+/* line 10, ../sass/admin/_breadcrumbs.sass */
+.admin .breadcrumbs a {
+  font-weight: normal;
 }
 
-/* line 13, ../sass/regions/_main.sass */
-.blog-page .layout-main,
-.journal-text .layout-main,
-.static-page .layout-main,
-.journal-issue .layout-main,
-.journalissue-details .layout-main {
-  padding: 24px;
-}
-
-/* line 17, ../sass/regions/_main.sass */
-.region-content .layout-main {
-  font-size: 1.1rem;
-}
-/* line 19, ../sass/regions/_main.sass */
-.region-content .layout-main p {
-  margin-bottom: 12px;
-}
-
-/* line 4, ../sass/regions/_toolbar.sass */
-.region-toolbar {
+/* line 17, ../sass/admin/_buttons.sass */
+.admin .submit-row input {
+  line-height: 48px;
   height: 48px;
-  position: fixed;
-  text-align: right;
-  width: 100%;
-}
-
-/* line 1, ../sass/blocks/_biography.sass */
-.biography-wrapper {
-  padding: 24px;
-  *zoom: 1;
-}
-/* line 6, ../sass/base/abstractions/_clearfix.sass */
-.biography-wrapper:before, .biography-wrapper:after {
-  content: " ";
-  display: table;
-}
-/* line 10, ../sass/base/abstractions/_clearfix.sass */
-.biography-wrapper:after {
-  clear: both;
-}
-/* line 4, ../sass/base/reset/_2_links.sass */
-.biography-wrapper a {
-  -moz-transition: ease 0.2s;
-  -o-transition: ease 0.2s;
-  -webkit-transition: ease 0.2s;
-  transition: ease 0.2s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.biography-wrapper a:link, .biography-wrapper a:visited {
-  color: #37B9DF;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.biography-wrapper a:hover {
-  color: #222;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.biography-wrapper a:active {
-  color: #37B9DF;
-}
-
-/* line 5, ../sass/blocks/_biography.sass */
-.biography__name {
-  margin-bottom: 0;
-}
-
-/* line 7, ../sass/blocks/_biography.sass */
-.biography__email {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-/* line 10, ../sass/blocks/_biography.sass */
-.biography__body {
-  margin-top: 24px;
-  font-size: 1.2em;
-}
-
-/* line 1, ../sass/blocks/_blog-view.sass */
-.blog-view {
-  padding: 24px;
-}
-
-/* line 3, ../sass/blocks/_blog-view.sass */
-.blog-view__item {
-  margin-bottom: 24px;
-}
-/* line 5, ../sass/blocks/_blog-view.sass */
-.blog-view__item::before {
-  content: "—";
-  display: block;
-}
-
-/* line 8, ../sass/blocks/_blog-view.sass */
-.blog-view__title {
-  margin: 6px 0;
-}
-/* line 10, ../sass/blocks/_blog-view.sass */
-.blog-view__title .language {
-  font-family: "junicode", serif;
+  padding: 0 12px;
   text-transform: uppercase;
-  font-size: 0.5em;
-}
-
-/* line 4, ../sass/base/reset/_2_links.sass */
-.blog-view__titles a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.blog-view__titles a:link, .blog-view__titles a:visited {
-  color: #37B9DF;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.blog-view__titles a:hover {
+  letter-spacing: 1px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-image: none;
+  background: none;
+  border: 0;
   color: #222;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.blog-view__titles a:active {
-  color: #37B9DF;
-}
-
-/* line 16, ../sass/blocks/_blog-view.sass */
-.blog-view__meta {
-  margin-top: 6px;
   font-family: "Roboto Condensed", "junicode", serif;
-  float: none !important;
-  font-size: 0.9em;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  border-left: 2px solid #5bc0de;
+  font-size: 0.75rem;
 }
-
-/* line 21, ../sass/blocks/_blog-view.sass */
-.blog-view__author:not(:empty) {
-  font-weight: bold;
-  color: #4A4B4D;
-  margin-right: 8px;
-}
-
-/* line 25, ../sass/blocks/_blog-view.sass */
-.blog-view__date {
-  font-size: 0.85em;
-}
-
-/* line 27, ../sass/blocks/_blog-view.sass */
-.blog-view__teaser {
-  margin-top: 8px;
-}
-
-/* line 4, ../sass/base/reset/_2_links.sass */
-.blog-view__teaser a {
-  -moz-transition: ease 0.2s;
-  -o-transition: ease 0.2s;
-  -webkit-transition: ease 0.2s;
-  transition: ease 0.2s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.blog-view__teaser a:link, .blog-view__teaser a:visited {
-  color: #37B9DF;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.blog-view__teaser a:hover {
-  color: black;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.blog-view__teaser a:active {
-  color: #37B9DF;
-}
-
-/* line 1, ../sass/blocks/_blogtext.sass */
-.blogtext-wrapper {
-  padding: 24px;
-}
-
-/* line 4, ../sass/blocks/_blogtext.sass */
-.blogtext__translations {
-  font-family: "Roboto Condensed", "junicode", serif;
-  float: right;
-  padding: 8px;
-  background-color: #9A9B9D;
-  margin: 0 -24px 24px 24px;
-  width: 192px;
-}
-/* line 4, ../sass/base/reset/_2_links.sass */
-.blogtext__translations a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.blogtext__translations a:link, .blogtext__translations a:visited {
-  color: white;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.blogtext__translations a:hover {
-  color: #222;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.blogtext__translations a:active {
-  color: white;
-}
-/* line 12, ../sass/blocks/_blogtext.sass */
-.blogtext__translations a {
-  font-weight: bold;
-}
-
-/* line 15, ../sass/blocks/_blogtext.sass */
-.blogtext__translations-label {
-  font-weight: bold;
-}
-
-/* line 18, ../sass/blocks/_blogtext.sass */
-.blogtext__title {
-  margin: 0 0 8px;
-}
-
-/* line 21, ../sass/blocks/_blogtext.sass */
-.blogtext__date {
-  margin: 24px 0 0 !important;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 25, ../sass/blocks/_blogtext.sass */
-.blogtext__author {
-  font-family: "Roboto Condensed", "junicode", serif;
-  font-size: 1.2em;
-}
-
-/* line 29, ../sass/blocks/_blogtext.sass */
-.blogtext__body {
-  margin-top: 48px;
-}
-
-/* line 2, ../sass/blocks/_book.sass */
-.book-wrapper {
-  padding: 24px;
-}
-
-/* line 5, ../sass/blocks/_book.sass */
-.book__publisher {
-  font-size: 1.2em;
-  font-weight: bold;
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 10, ../sass/blocks/_book.sass */
-.book-header {
-  background: #4A4B4D;
-  color: #EFB43E;
-  font-size: 2.5em;
-  height: 0.9em;
-  overflow: hidden;
-  text-indent: 12px;
-}
-
-/* line 18, ../sass/blocks/_book.sass */
-.book__body {
-  margin: 24px 0;
-  font-size: 1.2em;
-}
-
-/* line 4, ../sass/base/reset/_2_links.sass */
-.books .layout-main a {
-  -moz-transition: ease 0.2s;
-  -o-transition: ease 0.2s;
-  -webkit-transition: ease 0.2s;
-  transition: ease 0.2s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.books .layout-main a:link, .books .layout-main a:visited {
-  color: #37B9DF;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.books .layout-main a:hover {
-  color: #222;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.books .layout-main a:active {
-  color: #37B9DF;
-}
-
-/* line 6, ../sass/blocks/_books.sass */
-.book__title--list {
-  margin: 0;
-}
-
-/* line 9, ../sass/blocks/_books.sass */
-.book__subtitle--list {
-  margin-top: 0;
-}
-
-/* line 12, ../sass/blocks/_books.sass */
-.related-books-title {
-  background: #4A4B4D;
-  color: #EFB43E;
-  font-size: 2.5em;
-  height: 0.9em;
-  overflow: hidden;
-  text-indent: 12px;
-  border-top: 3px solid #EFB43E;
-}
-
-/* line 21, ../sass/blocks/_books.sass */
-.related-books-wrapper {
-  *zoom: 1;
-}
-/* line 6, ../sass/base/abstractions/_clearfix.sass */
-.related-books-wrapper:before, .related-books-wrapper:after {
-  content: " ";
-  display: table;
-}
-/* line 10, ../sass/base/abstractions/_clearfix.sass */
-.related-books-wrapper:after {
-  clear: both;
-}
-
-/* line 24, ../sass/blocks/_books.sass */
-.related-book {
-  display: inline-block;
-  float: left;
-  width: 50%;
-  padding: 24px;
-}
-
-/* line 30, ../sass/blocks/_books.sass */
-.related-book.unpublished {
+/* line 14, ../sass/admin/_buttons.sass */
+.admin .submit-row input:hover {
   background-color: #eee;
 }
 
-/* line 33, ../sass/blocks/_books.sass */
-.book__title--image {
-  float: right;
-  width: 50%;
-  padding: 0 24px;
-}
-
-/* line 1, ../sass/blocks/_fadein.sass */
-.fadein__item {
-  -moz-transition: opacity, ease 2s;
-  -o-transition: opacity, ease 2s;
-  -webkit-transition: opacity, ease 2s;
-  transition: opacity, ease 2s;
-  opacity: 0;
-}
-
-/* line 5, ../sass/blocks/_fadein.sass */
-.fadein__item.active {
-  opacity: 1;
-}
-
-/* line 1, ../sass/blocks/_fake-breacrumb.sass */
-.links {
-  font-size: 0.9em;
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 4, ../sass/blocks/_fake-breacrumb.sass */
-.fake-breadcrumb {
-  display: inline;
-}
-
-/* line 6, ../sass/blocks/_fake-breacrumb.sass */
-.fake-breadcrumb__button {
-  border: 0;
-  padding: 0;
+/* line 22, ../sass/admin/_buttons.sass */
+.admin .submit-row input.default {
+  line-height: 48px;
+  height: 48px;
+  padding: 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-image: none;
   background: none;
-  color: #1f9fc4;
-  -moz-transition: color 0.2s ease;
-  -o-transition: color 0.2s ease;
-  -webkit-transition: color 0.2s ease;
-  transition: color 0.2s ease;
+  border: 0;
+  color: #222;
+  font-family: "Roboto Condensed", "junicode", serif;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  border-left: 2px solid #9d0;
+  font-size: 0.75rem;
 }
-/* line 12, ../sass/blocks/_fake-breacrumb.sass */
-.fake-breadcrumb__button:hover {
-  color: #37B9DF;
-}
-/* line 14, ../sass/blocks/_fake-breacrumb.sass */
-.fake-breadcrumb__button::before {
-  content: "↤";
-  margin-right: 8px;
-}
-
-/* line 18, ../sass/blocks/_fake-breacrumb.sass */
-.links__staff {
-  display: inline;
-  float: right;
+/* line 14, ../sass/admin/_buttons.sass */
+.admin .submit-row input.default:hover {
+  background-color: #eee;
 }
 
-/* line 1, ../sass/blocks/_journal-issue.sass */
-.issue__author {
-  background-color: #37B9DF;
+/* line 27, ../sass/admin/_buttons.sass */
+.admin .submit-row a.deletelink {
+  line-height: 48px;
+  height: 48px;
+  padding: 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-image: none;
+  background: none;
+  border: 0;
+  color: #222;
+  font-family: "Roboto Condensed", "junicode", serif;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  border-left: 2px solid #d9534f;
+  font-size: 0.75rem;
+}
+/* line 14, ../sass/admin/_buttons.sass */
+.admin .submit-row a.deletelink:hover {
+  background-color: #eee;
+}
+
+/* line 32, ../sass/admin/_buttons.sass */
+.admin .submit-row {
+  font-family: "Roboto Condensed", "junicode", serif;
+  background: transparent;
+  border: 0;
+}
+
+/* line 37, ../sass/admin/_buttons.sass */
+.admin .module .addlink,
+.admin .module .changelink {
+  font-family: "Roboto Condensed", "junicode", serif;
+  background-position: 0 center;
+}
+
+/* line 42, ../sass/admin/_buttons.sass */
+.admin .object-tools a.historylink,
+.admin .object-tools a.addlink,
+.admin .object-tools a.viewsitelink {
+  line-height: 48px;
+  height: 48px;
+  padding: 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-image: none;
+  background: none;
+  border: 0;
+  color: #222;
+  font-family: "Roboto Condensed", "junicode", serif;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+/* line 14, ../sass/admin/_buttons.sass */
+.admin .object-tools a.historylink:hover,
+.admin .object-tools a.addlink:hover,
+.admin .object-tools a.viewsitelink:hover {
+  background-color: #eee;
+}
+
+/* line 47, ../sass/admin/_buttons.sass */
+.admin .fake-breadcrumb__button {
+  line-height: 48px;
+  height: 48px;
+  padding: 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-image: none;
+  background: none;
+  border: 0;
+  color: #222;
+  font-family: "Roboto Condensed", "junicode", serif;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  border-left: 2px solid #ddd;
+  font-size: 0.8em;
+  font-family: "Roboto Condensed", "junicode", serif;
+}
+/* line 14, ../sass/admin/_buttons.sass */
+.admin .fake-breadcrumb__button:hover {
+  background-color: #eee;
+}
+
+/* line 1, ../sass/admin/_content.sass */
+.admin {
+  background-image: url("../img/s3.svg"), url("../img/cenote.svg");
+  background-repeat: no-repeat;
+  background-position: top left, 99% 99%;
+  background-color: #f5f5f5;
+  font-family: "junicode", serif;
+  background-attachment: fixed, scroll;
+  min-height: 100vh;
+}
+
+/* line 10, ../sass/admin/_content.sass */
+.admin #content {
   width: 100%;
-  margin: 0 0 12px;
-  padding: 4px 12px;
-  opacity: 0.8;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  margin: 0 auto;
 }
 
-/* line 10, ../sass/blocks/_journal-issue.sass */
-.issue__title--full {
-  margin-bottom: 12px;
-  height: 36px;
-}
-/* line 13, ../sass/blocks/_journal-issue.sass */
-.issue__title--full li {
-  position: absolute;
-}
-
-/* line 15, ../sass/blocks/_journal-issue.sass */
-.issue__date--full {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 17, ../sass/blocks/_journal-issue.sass */
-.issue__texts-wrapper {
-  -moz-column-count: 2;
-  -webkit-column-count: 2;
-  column-count: 2;
-}
-/* line 19, ../sass/blocks/_journal-issue.sass */
-.issue__texts-wrapper .issue__texts-item {
-  -moz-page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  break-inside: avoid;
-  break-inside: avoid;
-  page-break-inside: avoid;
-  margin-bottom: 24px;
-}
-
-/* line 24, ../sass/blocks/_journal-issue.sass */
-.issue__text-lang {
-  text-transform: uppercase;
-  width: 12px;
-  color: #444;
-  font-size: 0.7em;
-}
-
-/* line 29, ../sass/blocks/_journal-issue.sass */
-.issue__links {
-  margin: 24px 0;
-}
-
-/* line 31, ../sass/blocks/_journal-issue.sass */
-.issue__link {
-  font-weight: bold;
-  font-family: "Roboto Condensed", "junicode", serif;
-  display: inline;
-  margin-right: 24px;
-}
-
-/* line 36, ../sass/blocks/_journal-issue.sass */
-.issue-details__title--full {
-  margin-bottom: 12px;
-}
-
-/* line 38, ../sass/blocks/_journal-issue.sass */
-.issue-details__date--full {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 40, ../sass/blocks/_journal-issue.sass */
-.issue-details__body {
-  margin-top: 48px;
-}
-
-/* line 1, ../sass/blocks/_journal-issues.sass */
-.issue-wrapper {
-  padding: 24px;
-}
-
-/* line 4, ../sass/blocks/_journal-issues.sass */
-.issue-header {
-  background: #4A4B4D;
-  color: #37B9DF;
-  font-size: 2.5em;
-  height: 0.9em;
-  overflow: hidden;
-  text-indent: 12px;
-}
-
-/* line 12, ../sass/blocks/_journal-issues.sass */
-.issue-header .fadein__item {
-  position: absolute;
-  z-index: 0;
-  white-space: nowrap;
-  overflow: hidden;
+/* line 13, ../sass/admin/_content.sass */
+.admin.dashboard #content,
+.admin.change-form #content {
+  width: 1200px;
   max-width: 100%;
 }
 
-/* line 19, ../sass/blocks/_journal-issues.sass */
-.issue-wrapper--list {
-  background: #37B9DF;
-  color: white;
-  padding: 8px 12px;
-  border-bottom: 2px solid white;
+/* line 19, ../sass/admin/_content.sass */
+.admin .module {
+  border-left: 2px solid #37B9DF !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  margin-bottom: 12px;
 }
 /* line 4, ../sass/base/reset/_2_links.sass */
-.issue-wrapper--list a {
+.admin .module a {
   -moz-transition: ease 0.2s;
   -o-transition: ease 0.2s;
   -webkit-transition: ease 0.2s;
   transition: ease 0.2s;
 }
 /* line 6, ../sass/base/reset/_2_links.sass */
-.issue-wrapper--list a:link, .issue-wrapper--list a:visited {
-  color: white;
+.admin .module a:link, .admin .module a:visited {
+  color: #156982;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
-.issue-wrapper--list a:hover {
-  color: #222;
+.admin .module a:hover {
+  color: #37B9DF;
 }
 /* line 10, ../sass/base/reset/_2_links.sass */
-.issue-wrapper--list a:active {
-  color: white;
+.admin .module a:active {
+  color: #156982;
 }
 
-/* line 26, ../sass/blocks/_journal-issues.sass */
-.issue__title {
-  margin: 0;
+/* line 25, ../sass/admin/_content.sass */
+.admin .module .module {
+  border-left: 2px solid rgba(0, 0, 0, 0.1) !important;
 }
 
-/* line 29, ../sass/blocks/_journal-issues.sass */
-.issue__date {
-  font-size: 0.8em;
+/* line 28, ../sass/admin/_content.sass */
+.admin #content .actions {
+  margin-bottom: 24px;
+}
+
+/* line 1, ../sass/admin/_forms.sass */
+.admin form {
+  -moz-animation: fadeup 1s 1;
+  -webkit-animation: fadeup 1s 1;
+  animation: fadeup 1s 1;
+}
+
+/* line 4, ../sass/admin/_forms.sass */
+.admin label.required {
+  position: relative;
+}
+
+/* line 7, ../sass/admin/_forms.sass */
+.admin form label {
+  font-weight: 700;
+  color: #222;
   text-transform: uppercase;
   font-family: "Roboto Condensed", "junicode", serif;
 }
 
-/* line 1, ../sass/blocks/_journal-text.sass */
-.text__date {
-  margin-top: 24px;
-  margin-bottom: 0 !important;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 5, ../sass/blocks/_journal-text.sass */
-.text__title {
-  margin: 0 0 12px;
-}
-
-/* line 7, ../sass/blocks/_journal-text.sass */
-.text__author-text {
-  font-family: "Roboto Condensed", "junicode", serif;
-  font-size: 1.2em;
-}
-
-/* line 10, ../sass/blocks/_journal-text.sass */
-.text__translator-text {
-  font-family: "Roboto Condensed", "junicode", serif;
-}
-
-/* line 12, ../sass/blocks/_journal-text.sass */
-.text__body {
-  margin-top: 24px;
-}
-
-/* line 1, ../sass/blocks/_link-home.sass */
-.link-home {
-  color: white;
-  text-align: right;
-  font-family: "Roboto Condensed", "junicode", serif;
-  margin: 12px;
+/* line 13, ../sass/admin/_forms.sass */
+.admin label.required:before {
+  content: "*";
+  color: red;
   position: absolute;
-  right: 0;
-  bottom: 36px;
-}
-/* line 18, ../sass/base/reset/_2_links.sass */
-.link-home a:link, .link-home a:visited {
-  color: inherit;
-}
-/* line 20, ../sass/base/reset/_2_links.sass */
-.link-home a:hover {
-  color: inherit;
-}
-/* line 22, ../sass/base/reset/_2_links.sass */
-.link-home a:active {
-  color: inherit;
+  left: -8px;
 }
 
-/* line 1, ../sass/blocks/_menu-admin.sass */
-.menu-admin {
-  float: right;
-  margin: 24px;
-  background: rgba(17, 17, 17, 0.9);
-  width: 48px;
-  text-align: center;
-  padding: 12px 12px 0;
+/* line 19, ../sass/admin/_forms.sass */
+.admin form > div > p,
+.admin form > p {
+  margin: 0 0 24px;
+  font-size: 1.2em;
+  color: rgba(34, 34, 34, 0.5);
 }
 
-/* line 9, ../sass/blocks/_menu-admin.sass */
-.menu-admin img {
-  max-width: 24px;
+/* line 25, ../sass/admin/_forms.sass */
+.admin .django-ckeditor-widget {
+  width: 610px;
+  max-width: 100%;
 }
 
-/* line 12, ../sass/blocks/_menu-admin.sass */
-.menu-admin li {
-  margin-bottom: 12px;
+/* line 30, ../sass/admin/_forms.sass */
+.admin-image-widget img {
+  width: 72px;
+  float: left;
+  margin-right: 24px;
 }
 
-/* line 3, ../sass/blocks/_menu-auxiliar--footer.sass */
-.menu-auxiliar--footer__link {
-  display: inline;
-  font-weight: bold;
+/* line 35, ../sass/admin/_forms.sass */
+.admin td.original > p {
+  visibility: hidden;
 }
-/* line 6, ../sass/blocks/_menu-auxiliar--footer.sass */
-.menu-auxiliar--footer__link::before {
-  content: " | ";
-  font-weight: normal;
-  color: white;
+
+/* line 38, ../sass/admin/_forms.sass */
+.inline-group .tabular tr.has_original td {
+  padding: 12px 0 !important;
 }
-/* line 10, ../sass/blocks/_menu-auxiliar--footer.sass */
-.menu-auxiliar--footer__link:first-child::before {
+
+/* line 41, ../sass/admin/_forms.sass */
+.timezonewarning {
   display: none;
 }
 
-/* line 1, ../sass/blocks/_menu-main.sass */
-.menu-main {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  font-family: "Roboto Condensed", "junicode", serif;
-  font-size: 1.4em;
+/* line 45, ../sass/admin/_forms.sass */
+#models-metadata-content_type-object_id-group .add-row {
+  display: none;
+}
+/* line 47, ../sass/admin/_forms.sass */
+#models-metadata-content_type-object_id-group span.delete {
+  display: none;
 }
 
-/* line 8, ../sass/blocks/_menu-main.sass */
-[class^='menu-main__link--'] {
-  display: inline;
-  float: left;
+/* line 1, ../sass/admin/_header.sass */
+.admin #header {
+  height: 72px;
+  background-color: #4a4b4d;
+  padding: 0 48px;
+  border-top: 2px solid #EFB43E;
 }
-/* line 11, ../sass/blocks/_menu-main.sass */
-[class^='menu-main__link--'] a {
-  display: inline-block;
-  line-height: 1.6em;
+
+/* line 7, ../sass/admin/_header.sass */
+.admin #branding {
+  line-height: 72px;
+}
+
+/* line 10, ../sass/admin/_header.sass */
+.admin #site-name {
+  font-size: 1rem;
   font-weight: bold;
-  padding: 0 8px;
-}
-
-/* line 17, ../sass/blocks/_menu-main.sass */
-.menu-main__link--blog {
-  background-color: white;
 }
 /* line 4, ../sass/base/reset/_2_links.sass */
-.menu-main__link--blog a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.menu-main__link--blog a:link, .menu-main__link--blog a:visited {
-  color: #4a4b4d;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.menu-main__link--blog a:hover {
-  color: white;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.menu-main__link--blog a:active {
-  color: #4a4b4d;
-}
-/* line 20, ../sass/blocks/_menu-main.sass */
-.menu-main__link--blog:hover {
-  background-color: transparent;
-}
-
-/* line 23, ../sass/blocks/_menu-main.sass */
-.menu-main__link--journal {
-  background-color: #37B9DF;
-}
-/* line 4, ../sass/base/reset/_2_links.sass */
-.menu-main__link--journal a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.menu-main__link--journal a:link, .menu-main__link--journal a:visited {
-  color: #4a4b4d;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.menu-main__link--journal a:hover {
-  color: #37B9DF;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.menu-main__link--journal a:active {
-  color: #4a4b4d;
-}
-/* line 26, ../sass/blocks/_menu-main.sass */
-.menu-main__link--journal:hover {
-  background-color: transparent;
-}
-
-/* line 29, ../sass/blocks/_menu-main.sass */
-.menu-main__link--books {
-  background-color: #EFB43E;
-}
-/* line 4, ../sass/base/reset/_2_links.sass */
-.menu-main__link--books a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
-}
-/* line 6, ../sass/base/reset/_2_links.sass */
-.menu-main__link--books a:link, .menu-main__link--books a:visited {
-  color: #4a4b4d;
-}
-/* line 8, ../sass/base/reset/_2_links.sass */
-.menu-main__link--books a:hover {
-  color: #EFB43E;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.menu-main__link--books a:active {
-  color: #4a4b4d;
-}
-/* line 32, ../sass/blocks/_menu-main.sass */
-.menu-main__link--books:hover {
-  background-color: transparent;
-}
-
-/* line 1, ../sass/blocks/_meta.sass */
-.book__meta,
-.text__meta,
-.issue__meta,
-.biography__meta,
-.blogtext__meta {
-  float: right;
-  font-family: "Roboto Condensed", "junicode", serif;
-  padding: 12px;
-  min-width: 240px;
-  max-width: 50%;
-  margin: 24px -24px 24px 24px;
-  color: rgba(34, 34, 34, 0.8);
-}
-/* line 4, ../sass/base/reset/_2_links.sass */
-.book__meta a,
-.text__meta a,
-.issue__meta a,
-.biography__meta a,
-.blogtext__meta a {
+.admin #site-name a {
   -moz-transition: ease 0.2s;
   -o-transition: ease 0.2s;
   -webkit-transition: ease 0.2s;
   transition: ease 0.2s;
 }
 /* line 6, ../sass/base/reset/_2_links.sass */
-.book__meta a:link, .book__meta a:visited,
-.text__meta a:link,
-.text__meta a:visited,
-.issue__meta a:link,
-.issue__meta a:visited,
-.biography__meta a:link,
-.biography__meta a:visited,
-.blogtext__meta a:link,
-.blogtext__meta a:visited {
+.admin #site-name a:link, .admin #site-name a:visited {
   color: white;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
-.book__meta a:hover,
-.text__meta a:hover,
-.issue__meta a:hover,
-.biography__meta a:hover,
-.blogtext__meta a:hover {
-  color: #222;
+.admin #site-name a:hover {
+  color: yellow;
 }
 /* line 10, ../sass/base/reset/_2_links.sass */
-.book__meta a:active,
-.text__meta a:active,
-.issue__meta a:active,
-.biography__meta a:active,
-.blogtext__meta a:active {
+.admin #site-name a:active {
   color: white;
 }
-/* line 14, ../sass/blocks/_meta.sass */
-.book__meta > div:not(:last-child),
-.text__meta > div:not(:last-child),
-.issue__meta > div:not(:last-child),
-.biography__meta > div:not(:last-child),
-.blogtext__meta > div:not(:last-child) {
-  border-bottom: 1px solid white;
-}
-/* line 16, ../sass/blocks/_meta.sass */
-.book__meta > div:not(:first-child),
-.text__meta > div:not(:first-child),
-.issue__meta > div:not(:first-child),
-.biography__meta > div:not(:first-child),
-.blogtext__meta > div:not(:first-child) {
-  margin-top: 12px;
-}
-/* line 18, ../sass/blocks/_meta.sass */
-.book__meta > div li,
-.text__meta > div li,
-.issue__meta > div li,
-.biography__meta > div li,
-.blogtext__meta > div li {
-  margin-bottom: 4px;
-}
-/* line 20, ../sass/blocks/_meta.sass */
-.book__meta > div h5,
-.text__meta > div h5,
-.issue__meta > div h5,
-.biography__meta > div h5,
-.blogtext__meta > div h5 {
-  margin: 12px 0 6px;
-  text-transform: uppercase;
-  font-size: 0.8em;
-}
-/* line 24, ../sass/blocks/_meta.sass */
-.book__meta > div:first-child h5,
-.text__meta > div:first-child h5,
-.issue__meta > div:first-child h5,
-.biography__meta > div:first-child h5,
-.blogtext__meta > div:first-child h5 {
-  margin-top: 0;
-}
-/* line 26, ../sass/blocks/_meta.sass */
-.book__meta p,
-.text__meta p,
-.issue__meta p,
-.biography__meta p,
-.blogtext__meta p {
-  font-size: 0.8em;
-}
-/* line 28, ../sass/blocks/_meta.sass */
-.book__meta:empty,
-.text__meta:empty,
-.issue__meta:empty,
-.biography__meta:empty,
-.blogtext__meta:empty {
-  display: none !important;
+
+/* line 15, ../sass/admin/_header.sass */
+.admin #user-tools {
+  letter-spacing: 2px;
 }
 
-/* line 31, ../sass/blocks/_meta.sass */
-.book__meta {
-  background-color: #EFB43E;
+/* line 1, ../sass/admin/_inlines.sass */
+.admin fieldset h2 {
+  background-color: transparent;
+  color: #222;
 }
 
-/* line 33, ../sass/blocks/_meta.sass */
-.blogtext__meta {
-  background-color: #999;
+/* line 5, ../sass/admin/_inlines.sass */
+.admin .inline-group {
+  margin-bottom: 12px;
 }
 
-/* line 36, ../sass/blocks/_meta.sass */
-.text__meta,
-.issue__meta,
-.biography__meta {
-  background-color: #37B9DF;
+/* line 1, ../sass/admin/_lists.sass */
+.admin #result_list img {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 }
 
-/* line 41, ../sass/blocks/_meta.sass */
-.text__meta-issue a {
-  font-weight: bold;
-}
-
-/* line 45, ../sass/blocks/_meta.sass */
-.issue__meta-links p {
-  font-size: 1.1em;
-  font-weight: bold;
-  margin-bottom: 0 !important;
-}
-
-/* line 1, ../sass/blocks/_pager.sass */
-.pager {
-  margin: 36px 0;
-  font-family: "Roboto Condensed", "junicode", serif;
-  color: #555;
-}
 /* line 4, ../sass/base/reset/_2_links.sass */
-.pager a {
+.admin #result_list a {
   -moz-transition: ease 0.2s;
   -o-transition: ease 0.2s;
   -webkit-transition: ease 0.2s;
   transition: ease 0.2s;
 }
 /* line 6, ../sass/base/reset/_2_links.sass */
-.pager a:link, .pager a:visited {
-  color: #222;
+.admin #result_list a:link, .admin #result_list a:visited {
+  color: #156982;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
-.pager a:hover {
+.admin #result_list a:hover {
   color: #37B9DF;
 }
 /* line 10, ../sass/base/reset/_2_links.sass */
-.pager a:active {
-  color: #222;
+.admin #result_list a:active {
+  color: #156982;
 }
 
-/* line 7, ../sass/blocks/_pager.sass */
-.pager__count {
-  float: right;
-}
-
-/* line 10, ../sass/blocks/_pager.sass */
-.pager__count,
-.pager__pages {
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
-}
-
-/* line 14, ../sass/blocks/_pager.sass */
-.pager__count-n {
-  font-weight: bold;
+/* line 7, ../sass/admin/_lists.sass */
+.admin .paginator {
   font-size: 0.9em;
-}
-
-/* line 18, ../sass/blocks/_pager.sass */
-.page-current {
-  padding: 0 8px;
-}
-
-/* line 21, ../sass/blocks/_pager.sass */
-.page-next,
-.page-prev {
-  font-size: 1.25em;
-}
-
-/* line 1, ../sass/blocks/_scrollup.sass */
-.scrollup {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  font-family: "Roboto Condensed", "junicode", serif;
-  background-color: white;
-  cursor: pointer;
-  padding: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  -moz-transition: background-color, ease 0.2s;
-  -o-transition: background-color, ease 0.2s;
-  -webkit-transition: background-color, ease 0.2s;
-  transition: background-color, ease 0.2s;
-  -moz-transition: opacity 0.2s ease;
-  -o-transition: opacity 0.2s ease;
-  -webkit-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-  opacity: 0;
-}
-/* line 16, ../sass/blocks/_scrollup.sass */
-.scrollup:hover {
-  background-color: #eee;
-}
-/* line 19, ../sass/blocks/_scrollup.sass */
-.scrollup.visible {
-  opacity: 1;
-  pointer-events: all;
+  margin-top: 48px;
+  font-family: "Roboto Condensed", "junicode", serif;
 }
 
-/* line 1, ../sass/blocks/_slideshow-header.sass */
-.slideshow-header {
-  font-family: "junicode", serif;
-  color: #4A4B4D;
+/* line 14, ../sass/admin/_lists.sass */
+.admin .sorted {
+  background-color: transparent;
 }
 
-/* line 5, ../sass/blocks/_slideshow-header.sass */
-.book-page .slideshow-header__item p {
-  background-color: #EFB43E;
+/* line 18, ../sass/admin/_lists.sass */
+.admin table thead th .text a:focus,
+.admin table thead th .text a:hover {
+  background-color: transparent;
 }
 
-/* line 8, ../sass/blocks/_slideshow-header.sass */
-.slideshow-header__item {
-  position: absolute;
-  width: 100%;
-}
-/* line 11, ../sass/blocks/_slideshow-header.sass */
-.slideshow-header__item p {
-  display: inline;
+/* line 22, ../sass/admin/_lists.sass */
+.admin #changelist-filter {
+  margin-top: 24px;
   background: white;
-  line-height: 1.6;
-  font-size: 1.2rem;
-  padding: 0 12px;
-}
-/* line 17, ../sass/blocks/_slideshow-header.sass */
-.slideshow-header__item.active {
-  display: block;
-  -moz-animation: fadein 3s 1;
-  -webkit-animation: fadein 3s 1;
-  animation: fadein 3s 1;
-}
-
-/* line 22, ../sass/blocks/_slideshow-header.sass */
-.books .slideshow-header__item p {
-  background: #EFB43E;
-}
-
-/* line 29, ../sass/blocks/_slideshow-header.sass */
-.journal-issues .slideshow-header__item p,
-.journal-issue .slideshow-header__item p,
-.journal-text .slideshow-header__item p {
-  background: #37B9DF;
-}
-
-/* line 1, ../sass/blocks/_view-lastbooks.sass */
-.view-lastbooks {
-  background-color: #EFB43E;
-  position: relative;
-  *zoom: 1;
-}
-/* line 6, ../sass/base/abstractions/_clearfix.sass */
-.view-lastbooks:before, .view-lastbooks:after {
-  content: " ";
-  display: table;
-}
-/* line 10, ../sass/base/abstractions/_clearfix.sass */
-.view-lastbooks:after {
-  clear: both;
-}
-
-/* line 6, ../sass/blocks/_view-lastbooks.sass */
-.view-lastbook {
-  display: inline-block;
-  width: 33.3%;
-  float: left;
-  text-overflow: ellipsis;
-}
-
-/* line 12, ../sass/blocks/_view-lastbooks.sass */
-.view-lastbook__header {
-  background-color: #4A4B4D;
-  color: #EFB43E;
-  font-size: 2.5em;
-  height: 0.9em;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* line 20, ../sass/blocks/_view-lastbooks.sass */
-.view-lastbooks__title {
-  font-weight: bold;
-}
-
-/* line 23, ../sass/blocks/_view-lastbooks.sass */
-.view-lastbook__body {
-  font-family: "Roboto Condensed", "junicode", serif;
-  font-size: 0.9em;
-  padding: 12px;
+  border-left: 2px solid #EFB43E;
 }
 /* line 4, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
+.admin #changelist-filter a {
+  -moz-transition: ease 0.2s;
+  -o-transition: ease 0.2s;
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
 }
 /* line 6, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a:link, .view-lastbook__body a:visited {
-  color: white;
+.admin #changelist-filter a:link, .admin #changelist-filter a:visited {
+  color: #156982;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a:hover {
-  color: #EFB43E;
-}
-/* line 10, ../sass/base/reset/_2_links.sass */
-.view-lastbook__body a:active {
-  color: white;
-}
-
-/* line 1, ../sass/blocks/_view-lastjournal.sass */
-.view-lastjournal {
+.admin #changelist-filter a:hover {
   color: #37B9DF;
 }
-
-/* line 4, ../sass/blocks/_view-lastjournal.sass */
-.view-lastjournal__header {
-  background-color: #4A4B4D;
-  font-size: 2.5em;
-  height: 0.9em;
-  top: 3px;
-  padding: 0 24px;
+/* line 10, ../sass/base/reset/_2_links.sass */
+.admin #changelist-filter a:active {
+  color: #156982;
+}
+/* line 27, ../sass/admin/_lists.sass */
+.admin #changelist-filter h2 {
+  background: none;
+  color: #222;
+}
+/* line 30, ../sass/admin/_lists.sass */
+.admin #changelist-filter .selected {
+  border-left: 5px solid #EFB43E;
 }
 
-/* line 11, ../sass/blocks/_view-lastjournal.sass */
-.view-lastjournal__date {
-  margin-top: 12px;
-  margin-bottom: 0 !important;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  font-family: "Roboto Condensed", "junicode", serif;
+/* line 33, ../sass/admin/_lists.sass */
+.admin #changelist-filter h3 {
+  cursor: pointer;
 }
 
-/* line 16, ../sass/blocks/_view-lastjournal.sass */
-.view-lastjournal__title {
-  margin: 0 0 12px;
+/* line 36, ../sass/admin/_lists.sass */
+.admin #changelist-filter li {
+  display: none;
 }
 
-/* line 19, ../sass/blocks/_view-lastjournal.sass */
-.view-lastjournal__body {
-  *zoom: 1;
-  background-color: #37B9DF;
-  padding: 0 24px;
+/* line 38, ../sass/admin/_lists.sass */
+.admin #changelist-filter li.selected {
+  display: block;
 }
-/* line 6, ../sass/base/abstractions/_clearfix.sass */
-.view-lastjournal__body:before, .view-lastjournal__body:after {
-  content: " ";
-  display: table;
+
+/* line 40, ../sass/admin/_lists.sass */
+.admin #changelist-filter ul:hover li {
+  display: block;
 }
-/* line 10, ../sass/base/abstractions/_clearfix.sass */
-.view-lastjournal__body:after {
-  clear: both;
+
+/* line 1, ../sass/admin/_tables.sass */
+.admin .module {
+  padding: 24px;
+}
+
+/* line 4, ../sass/admin/_tables.sass */
+.admin table caption {
+  background-color: transparent;
+  padding-left: 0;
+  margin-bottom: 24px;
+  color: #222 !important;
 }
 /* line 4, ../sass/base/reset/_2_links.sass */
-.view-lastjournal__body a {
-  -moz-transition: ease 0.25s;
-  -o-transition: ease 0.25s;
-  -webkit-transition: ease 0.25s;
-  transition: ease 0.25s;
+.admin table caption a {
+  -moz-transition: ease 0.2s;
+  -o-transition: ease 0.2s;
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
 }
 /* line 6, ../sass/base/reset/_2_links.sass */
-.view-lastjournal__body a:link, .view-lastjournal__body a:visited {
-  color: white;
+.admin table caption a:link, .admin table caption a:visited {
+  color: #222;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
-.view-lastjournal__body a:hover {
-  color: #4A4B4D;
+.admin table caption a:hover {
+  color: #333;
 }
 /* line 10, ../sass/base/reset/_2_links.sass */
-.view-lastjournal__body a:active {
-  color: white;
+.admin table caption a:active {
+  color: #222;
+}
+
+/* line 11, ../sass/admin/_tables.sass */
+.admin table tr {
+  height: 48px;
+}
+
+/* line 14, ../sass/admin/_tables.sass */
+.admin table td,
+.admin table th {
+  vertical-align: middle;
+  padding: 12px;
+}
+
+/* line 19, ../sass/admin/_tables.sass */
+.admin table thead {
+  border-bottom: 2px solid #eee;
+}
+
+/* line 4, ../sass/base/reset/_2_links.sass */
+.admin .app-auth a,
+.admin .app-models a {
+  -moz-transition: ease 0.2s;
+  -o-transition: ease 0.2s;
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
+}
+/* line 6, ../sass/base/reset/_2_links.sass */
+.admin .app-auth a:link, .admin .app-auth a:visited,
+.admin .app-models a:link,
+.admin .app-models a:visited {
+  color: #222;
+}
+/* line 8, ../sass/base/reset/_2_links.sass */
+.admin .app-auth a:hover,
+.admin .app-models a:hover {
+  color: #333;
+}
+/* line 10, ../sass/base/reset/_2_links.sass */
+.admin .app-auth a:active,
+.admin .app-models a:active {
+  color: #222;
+}
+
+/* line 26, ../sass/admin/_tables.sass */
+.admin th,
+.admin .inline-group .tabular tr.add-row td {
+  background-color: transparent;
+  border: 0;
+}
+
+/* line 31, ../sass/admin/_tables.sass */
+#content-related {
+  background: transparent;
+}
+
+/* line 35, ../sass/admin/_tables.sass */
+.admin td.field-published,
+.admin td.field-view {
+  text-align: center;
+}
+
+/* line 4, ../sass/base/reset/_2_links.sass */
+.admin #result_list .sortable a {
+  -moz-transition: ease 0.2s;
+  -o-transition: ease 0.2s;
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
+}
+/* line 6, ../sass/base/reset/_2_links.sass */
+.admin #result_list .sortable a:link, .admin #result_list .sortable a:visited {
+  color: #222;
+}
+/* line 8, ../sass/base/reset/_2_links.sass */
+.admin #result_list .sortable a:hover {
+  color: #333;
+}
+/* line 10, ../sass/base/reset/_2_links.sass */
+.admin #result_list .sortable a:active {
+  color: #222;
+}
+
+/* line 1, ../sass/admin/_titles.sass */
+.admin h1 {
+  color: #222;
+  font-size: 1rem;
+  margin: 8px 0 48px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #222;
 }

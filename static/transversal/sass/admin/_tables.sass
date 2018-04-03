@@ -1,0 +1,40 @@
+.admin .module
+  padding: $m
+
+.admin table caption
+  background-color: transparent
+  padding-left: 0
+  margin-bottom: $m
+  color: $color_text !important
+  +links(#222, #333, .2s ease)
+
+.admin table tr
+  height: $m*2
+
+.admin table td,
+.admin table th
+  vertical-align: middle
+  padding: $m/2
+
+.admin table thead
+  border-bottom: 2px solid #eee
+
+.admin .app-auth,
+.admin .app-models,
+  +links(#222, #333, .2s ease)
+
+.admin th,
+.admin .inline-group .tabular tr.add-row td
+  background-color: transparent
+  border: 0
+
+#content-related
+  background: transparent
+
+.admin
+  td.field-published,
+  td.field-view,
+    text-align: center
+
+.admin #result_list .sortable
+  +links(#222, #333, .2s ease)
