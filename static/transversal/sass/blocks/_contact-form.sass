@@ -1,0 +1,47 @@
+.contact-form-wrapper
+  width: 480px
+  margin: $m*2 auto
+
+.contact-form__label
+  display: block
+  margin: $m 0 $m/2
+  font-weight: 700
+  +date
+
+.contact-form__field-error
+  color: rgba(red, .5)
+  text-transform: uppercase
+  font-size: .7em
+  font-family: $font_headers
+  margin-top: $m/2
+
+.contact-form__submit
+  line-height: $m*2
+  height: $m*2
+  padding: 0 $m/2
+  margin-top: $m*2
+  letter-spacing: 1px
+  +border-radius(0)
+  background-image: none
+  background: none
+  border: 0
+  border-left: 2px solid $color_success
+  color: $color_text
+  +date
+  +transition(background-color .2s ease)
+  &:hover
+    background-color: #eee
+
+.contact-form__form
+  +animation(fadeup 1s 1)
+    
+.contact-form__form input[type=text],
+.contact-form__form input[type=email],
+.contact-form__form textarea
+  padding: $m/4 $m/2
+  width: 100%
+  border: 0
+  background-color: #f0f0f0
+  +transition(background-color, .2s ease)
+  &:focus
+    background-color: #f5f5f5

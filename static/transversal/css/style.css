@@ -1220,6 +1220,86 @@ html .toolbar .region-content .container-fixed main {
   padding: 0 24px;
 }
 
+/* line 1, ../sass/blocks/_contact-form.sass */
+.contact-form-wrapper {
+  width: 480px;
+  margin: 48px auto;
+}
+
+/* line 5, ../sass/blocks/_contact-form.sass */
+.contact-form__label {
+  display: block;
+  margin: 24px 0 12px;
+  font-weight: 700;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-family: "Roboto Condensed", "junicode", serif;
+}
+
+/* line 11, ../sass/blocks/_contact-form.sass */
+.contact-form__field-error {
+  color: rgba(255, 0, 0, 0.5);
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-family: "Roboto Condensed", "junicode", serif;
+  margin-top: 12px;
+}
+
+/* line 18, ../sass/blocks/_contact-form.sass */
+.contact-form__submit {
+  line-height: 48px;
+  height: 48px;
+  padding: 0 12px;
+  margin-top: 48px;
+  letter-spacing: 1px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-image: none;
+  background: none;
+  border: 0;
+  border-left: 2px solid #9d0;
+  color: #222;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-family: "Roboto Condensed", "junicode", serif;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+/* line 32, ../sass/blocks/_contact-form.sass */
+.contact-form__submit:hover {
+  background-color: #eee;
+}
+
+/* line 35, ../sass/blocks/_contact-form.sass */
+.contact-form__form {
+  -moz-animation: fadeup 1s 1;
+  -webkit-animation: fadeup 1s 1;
+  animation: fadeup 1s 1;
+}
+
+/* line 38, ../sass/blocks/_contact-form.sass */
+.contact-form__form input[type=text],
+.contact-form__form input[type=email],
+.contact-form__form textarea {
+  padding: 6px 12px;
+  width: 100%;
+  border: 0;
+  background-color: #f0f0f0;
+  -moz-transition: background-color, ease 0.2s;
+  -o-transition: background-color, ease 0.2s;
+  -webkit-transition: background-color, ease 0.2s;
+  transition: background-color, ease 0.2s;
+}
+/* line 46, ../sass/blocks/_contact-form.sass */
+.contact-form__form input[type=text]:focus,
+.contact-form__form input[type=email]:focus,
+.contact-form__form textarea:focus {
+  background-color: #f5f5f5;
+}
+
 /* line 1, ../sass/blocks/_fadein.sass */
 .fadein__item {
   -moz-transition: opacity, ease 2s;

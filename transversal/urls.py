@@ -14,8 +14,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # logout
     url(r'^logout/$', logout, { 'next_page': '/' }, name="logout"),
-    #ckeditor
+    # ckeditor
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # contact
+    url(r'^contact/', include('contact_form.urls')),
 
     # pages
 

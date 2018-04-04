@@ -1,0 +1,43 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load i18n utils %}
+{% block body_classes %}contact{% endblock %}
+{% block page_html_title %}contact us{% endblock %}
+
+{% block main %}
+    <div class="contact-form-wrapper">
+      <nav class="links">
+        {% fake_breadcrumb %}
+      </nav>
+      <h2 class="contact-form__title">
+          {% trans 'Contact transversal.at' %}
+      </h2>
+      <p>
+          {% trans 'To send us a message fill out the below form.' %}
+      </p>
+      <form class="contact-form__form" method="post">
+          {% csrf_token %}
+          {% if form.errors %}
+              {% for error in form.non_field_errors %}
+                  <div class="alert alert-danger">
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endif %}
+          {% for field in form %}
+              <label class="contact-form__label">
+                  {{ field.label }}
+              </label>
+              {{ field }}
+              {% if form.errors %}
+              <ul class="contact-form__field-errors">
+                  {% for error in field.errors %}
+                      <div class="contact-form__field-error">
+                          <li>{{ error|escape }}</li>
+                      </div>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+          {% endfor %}
+          <input class="contact-form__submit" type="submit" value="{% trans 'Submit' %}">
+      </form>
+    </div>
+{% endblock %}

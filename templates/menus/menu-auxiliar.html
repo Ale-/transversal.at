@@ -7,10 +7,10 @@
               <a href="{% url 'static_page' 'impressum' %}">impressum</a>
         </li>
         <li class="menu-auxiliar{% if modifier %}--{{ modifier }}{% endif %}__link">
-              <a href="{% url 'static_page' 'contact' %}">contact</a>
+              <a href="{% url 'contact_form' %}">contact</a>
         </li>
         <li class="menu-auxiliar{% if modifier %}--{{ modifier }}{% endif %}__link">
-              <a href="{% url 'admin:login' %}">login</a>
+              <a href="{% url 'admin:login' %}">admin</a>
         </li>
     </ul>
 </nav>
