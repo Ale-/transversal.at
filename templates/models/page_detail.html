@@ -3,6 +3,22 @@
 {% block page_html_title %}{{ object.title }}{% endblock %}
 
 {% block main %}
-    {{ objecty.title }}
-    {{ object.content | safe }}
+    <div class="static-page-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_page_change' object.id %}">
+                  {% trans 'Edit this page' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <h1 class="static-page__title">
+            {{ object.title }}
+        </h1>
+        <div class="static-page__body">
+            {{ object.content | safe }}
+        </div>
+    </div>
 {% endblock %}

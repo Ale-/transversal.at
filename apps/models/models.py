@@ -418,6 +418,9 @@ class Page(models.Model):
     content  = RichTextUploadingField(_('Text'), blank=False, null=True)
     slug     = models.SlugField(_('Slug'), blank=False)
 
+    def get_absolute_url(self):
+        return reverse('static_page', args=[self.slug])
+
     def __str__(self):
         """String representation of this model objects."""
         return self.title

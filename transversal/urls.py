@@ -41,7 +41,7 @@ urlpatterns = [
 
     # static
 
-    # pages
+    # impressum
     path('info/<slug:slug>', views.Page.as_view(), name="static_page"),
 ]
 
