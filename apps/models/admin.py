@@ -9,8 +9,6 @@ from django.urls import reverse
 from . import models
 from apps.utils import admin_filters as filters
 
-admin.site.register(models.Metadata)
-
 
 def publish(modeladmin, request, queryset):
     for obj in queryset:
@@ -42,39 +40,32 @@ class LinkInline(GenericTabularInline):
     )
     extra = 1
 
-class MetadataInline(GenericStackedInline):
-    model = models.Metadata
-    formfield_overrides = {
-        TextField: {'widget': Textarea( attrs={'rows': 1, 'cols': 40} )},
-    }
-
-    fields = (
-        ( 'is_published', 'expiration_date', 'effective_date' ),
-        ('content_author', 'content_contributors' ),
-        ('copyright', 'comments')
-    )
-    extra = 1
-
-    def get_extra (self, request, obj=None, **kwargs):
-        """Dynamically sets the number of extra forms. 0 if the related object
-        already exists or the extra configuration otherwise."""
-        if obj:
-            # Don't add any extra forms if the related object already exists.
-            return 0
-        return self.extra
-
 class BiographyAdmin(admin.ModelAdmin):
     model    = models.Biography
     ordering = ('name',)
-    list_display  = ('name', 'surname', 'email', 'published', 'view')
-    list_filter = (filters.SurnameFilter,)
+    list_display  = ('fullname', 'email', 'is_published', 'view')
+    list_filter = (filters.SurnameFilter, 'is_published')
     actions = [ publish, unpublish ]
-    fields = (
-        ( 'name', 'surname' ),
-        ( 'email' ),
-        ( 'description' )
+
+    fieldsets = (
+        ('', {
+            'fields': (
+                ('name', 'surname'),
+                'email', 'description'
+            ),
+        }),
+        ('Metadata', {
+            'classes' : ('metadata',),
+            'fields'  : (
+                'is_published',
+                ('effective_date', 'expiration_date'),
+                ('content_author', 'content_contributors'),
+                'copyright','comments'
+            ),
+        })
     )
-    inlines      = [ LinkInline, MetadataInline ]
+
+    inlines      = [ LinkInline ]
 
     def view(self, obj):
         if obj.slug:
@@ -83,8 +74,6 @@ class BiographyAdmin(admin.ModelAdmin):
             return None
     view.short_description = 'View on site'
 
-    def published(self, obj):
-        return "✓" if obj.metadata.first().is_published else "❌"
 
 admin.site.register(models.Biography, BiographyAdmin)
 
@@ -94,11 +83,34 @@ class JournalIssueTitleInline(admin.TabularInline):
 
 class JournalTextAdmin(admin.ModelAdmin):
     model             = models.JournalText
+
+    # list
     ordering          = ('issue', 'title')
-    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter)
-    list_display      = ('title', 'issue', 'date', 'author_text', 'view')
-    inlines           = [ MetadataInline ]
-    actions           = [ publish, unpublish ]
+    actions           = [publish, unpublish]
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published')
+    list_display      = ('title', 'issue', 'date', 'author_text', 'view', 'is_published')
+
+    # form
+    fieldsets = (
+        ('', {
+            'fields': (
+                ('title','issue'),
+                ('fulltitle', 'subtitle'),
+                'language', 'date', 'body',
+                'authors', 'author_text',
+                'translators', 'translator_text'
+            )
+        }),
+        ('Metadata', {
+            'classes' : ('metadata',),
+            'fields': (
+                'is_published',
+                ('effective_date','expiration_date'),
+                ('content_author','content_contributors'),
+                'copyright','comments'
+            ),
+        })
+    )
     filter_horizontal = ('authors', 'translators')
 
     def view(self, obj):
@@ -116,12 +128,30 @@ class JournalIssueTitleInline(admin.TabularInline):
 
 class JournalIssueAdmin(admin.ModelAdmin):
     model        = models.JournalIssue
+
+    # list
     ordering     = ('-date', 'title',)
     list_display = ('title', 'date')
-    list_filter  = (filters.TitleFilter,)
-    fields       = ('title', 'slug', 'date', 'editorial_title', 'editorial', 'impressum')
+    list_filter  = (filters.TitleFilter, 'is_published')
     actions      = [ publish, unpublish ]
-    inlines      = [ JournalIssueTitleInline, MetadataInline ]
+
+    # form
+    fieldsets = (
+        ('', {
+          'fields': (('title', 'date'), 'editorial_title', 'editorial', 'impressum')
+        }),
+        ('Metadata', {
+            'classes' : ('metadata',),
+            'fields': (
+                'is_published',
+                ('effective_date','expiration_date'),
+                ('content_author','content_contributors'),
+                'copyright','comments'
+            ),
+        })
+    )
+    inlines      = [ JournalIssueTitleInline ]
+
 
 admin.site.register(models.JournalIssue, JournalIssueAdmin)
 
@@ -131,15 +161,37 @@ class BlogTextTranslationInline(admin.StackedInline):
 
 class BlogTextAdmin(admin.ModelAdmin):
     model             = models.BlogText
+
+    # list
     ordering          = ('-date', 'title')
-    list_display      = ('title', 'date', 'author_text', 'published')
-    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter,)
-    inlines           = [ BlogTextTranslationInline, MetadataInline ]
+    list_display      = ('title', 'date', 'author_text', 'is_published')
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, 'is_published')
     actions           = [ publish, unpublish ]
+
+    # form
+    fieldsets = (
+        ('', {
+            'fields': (
+                ('title','language'),
+                ('fulltitle','subtitle'),
+                'date','teaser','body',
+                'authors','author_text',
+                'translators','translator_text'
+            )
+        }),
+        ('METADATA', {
+            'classes' : ('metadata',),
+            'fields': (
+                ('is_published','in_home','in_archive'),
+                ('effective_date','expiration_date'),
+                ('content_author','content_contributors'),
+                'copyright','comments'
+            ),
+        })
+    )
+    inlines           = [ BlogTextTranslationInline ]
     filter_horizontal = ('authors', 'translators')
 
-    def published(self, obj):
-        return "✓" if obj.metadata.first().is_published else "❌"
 
     def view(self, obj):
         if obj.slug:
@@ -153,7 +205,6 @@ class BlogTextTranslationAdmin(admin.ModelAdmin):
     ordering     = ('-source_text', 'title',)
     list_display = ('title', 'source_text')
     actions      = [ publish, unpublish ]
-    inlines      = [ MetadataInline ]
 
 admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
 
@@ -161,18 +212,39 @@ admin.site.register(models.BlogText, BlogTextAdmin)
 
 class BookAdmin(admin.ModelAdmin):
     model             = models.Book
-    ordering          = ('-date', 'title',)
-    list_display      = ('title', 'author_text', 'date', 'published', 'view')
-    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.BookLanguageFilter,)
-    inlines           = [ ImageInline, MetadataInline ]
-    actions           = [ publish, unpublish ]
-    filter_horizontal = ('authors', 'translators', 'related_books')
 
-    def published(self, obj):
-        return "✓" if obj.metadata.first().is_published else "❌"
+    # list
+    ordering          = ('-date', 'title',)
+    list_display      = ('title', 'author_text', 'date', 'is_published', 'view')
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.BookLanguageFilter, 'is_published')
+    actions           = [ publish, unpublish ]
+
+    # form
+    fieldsets = (
+        ('', {
+            'fields': (
+                ('title','subtitle'),
+                'language', 'date', 'teaser', 'body',
+                'authors', 'author_text', 'translators', 'publisher_text',
+                'related_books', 'pdf_file', 'epub_file'
+            )
+        }),
+        ('Metadata', {
+            'classes' : ('metadata',),
+            'fields': (
+                ('is_published','in_home','in_listings'),
+                ('effective_date','expiration_date'),
+                ('content_author','content_contributors'),
+                'copyright','comments'
+            ),
+        })
+    )
+    inlines           = [ ImageInline ]
+    filter_horizontal = ('authors', 'translators', 'related_books')
 
     def view(self, obj):
         return format_html("<a href='" + reverse('book_text', args=[obj.slug]) + "'>➜</a>")
+
     view.short_description = 'See'
 
 admin.site.register(models.Book, BookAdmin)

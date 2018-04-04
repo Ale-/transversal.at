@@ -17,6 +17,19 @@
           </div>
           {% endif %}
         </nav>
+        {% if request.user.is_staff and object.comments %}
+        <div class="text__private">
+            <h5 class="text__private-label">
+                Comments · not public
+            </h5>
+            {{ object.comments }}
+        </div>
+        {% endif %}
+        {% if not object.is_published or not object.in_listings %}
+        <p class="book__unpublished">
+            <strong>Not public</strong>
+        </p>
+        {% endif %}
         <h1 class="book__title">
             {{ object.title }}
         </h1>

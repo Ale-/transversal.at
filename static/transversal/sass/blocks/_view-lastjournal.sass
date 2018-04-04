@@ -6,9 +6,8 @@
   font-size: 2.5em
   height: .9em
   top: $m/8
-  padding: 0 $m
 
-.view-lastjournal__date
+.view-lastjournal__publish-info
   margin-top: $m/2
   margin-bottom: 0 !important
   +date
@@ -21,3 +20,10 @@
   background-color: $palette_blue
   +links(white, $palette_grey, .25s ease)
   padding: 0 $m
+
+.view-lastjournal__issue-title
+  position: absolute
+  z-index: 0
+  max-width: 100%
+  overflow: hidden
+  white-space: nowrap

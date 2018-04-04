@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django import views
 from django.views.generic import ListView, DetailView
 from django.utils.dateparse import parse_datetime
+from django.http import Http404
 # project
 from apps.models import models
 
@@ -13,10 +14,18 @@ class Front(views.View):
 
     def get(self, request, *args, **kwargs):
         """ GET request """
-
-        last_issue = models.JournalIssue.objects.order_by('-date').first()
-        last_books = models.Book.objects.order_by('-date')[:3]
-        blogposts  = models.BlogText.objects.order_by('-date')[:50]
+        if request.user.is_staff:
+            last_issue = models.JournalIssue.objects.all().order_by('-date').first()
+            last_books = models.Book.objects.all().order_by('-date')[:3]
+            blogposts  = models.BlogText.objects.all().order_by('-date')[:50]
+        else:
+            last_issue = models.JournalIssue.objects.filter(is_published=True).order_by('-date').first()
+            last_books = models.Book.objects.filter(
+                is_published=True,
+                in_listings = True,
+                in_home=True,
+            ).order_by('-date')[:3]
+            blogposts  = models.BlogText.objects.filter(is_published=True).order_by('-date')[:50]
         return render(request, 'pages/front.html', locals())
 
 class BlogTextView(views.View):
@@ -24,12 +33,17 @@ class BlogTextView(views.View):
 
     def get(self, request, *args, **kwargs):
         slug    = self.kwargs['slug']
+
         try:
             object  = models.BlogText.objects.get(slug=slug)
             authors = object.authors.order_by('surname')
         except:
             object  = models.BlogTextTranslation.objects.get(slug=slug)
             authors = object.source_text.authors.order_by('surname')
+
+        if not object.is_published and not request.user.is_staff:
+            raise Http404("Post does not exist")
+
         return render(request, 'models/blogtext_detail.html', locals())
 
 class BlogTextTranslationLegacyView(views.View):
@@ -46,6 +60,13 @@ class BookView(DetailView):
 
     model = models.Book
 
+    def get_object(self, queryset=None):
+        obj = super(BookView, self).get_object(queryset=queryset)
+        if (not obj.is_published or not obj.in_listings) and not self.request.user.is_staff:
+            raise Http404("Book does not exist")
+        return obj
+
+
 class BlogView(ListView):
     """View of a single blog text."""
 
@@ -53,16 +74,26 @@ class BlogView(ListView):
     ordering = ['-date']
     paginate_by = 50
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            queryset = models.BlogText.objects.all().order_by('-date')
+        else:
+            queryset = models.BlogText.objects.filter(is_published=True).order_by('-date')
+        return queryset
+
 class BooksView(views.View):
     """View of a single blog text."""
 
     def get(self, request, *args, **kwargs):
-        books = models.Book.objects.all().order_by('-date')
+        if self.request.user.is_staff:
+            books = models.Book.objects.all().order_by('-date')
+        else:
+            books = models.Book.objects.filter(is_published=True, in_listings=True).order_by('-date')
         excluded_ids = []
         books_wrappers = []
         for book in books:
             if not book.id in excluded_ids:
-                if book.metadata.first().is_published or request.user.is_staff:
+                if book.is_published or request.user.is_staff:
                     wrapper = [ book ]
                     for related_book in book.related_books.all():
                             print(related_book.id)
@@ -84,23 +115,30 @@ class JournalIssues(ListView):
     ordering = ['-date']
 
 class JournalIssue(views.View):
-    """View of a single blog text."""
+    """View of a single journal issue."""
 
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
         object = models.JournalIssue.objects.get(slug=slug)
-        texts  = models.JournalText.objects.filter(issue=object).order_by('author_text')
+        not_staff = not self.request.user.is_staff
+        if not object.is_published and not_staff :
+            raise Http404("Issue does not exist")
+        if not_staff:
+            texts  = models.JournalText.objects.filter(issue=object, is_published=True).order_by('author_text')
+        else:
+            texts  = models.JournalText.objects.filter(issue=object).order_by('author_text')
         texts_ordered = {}
+
         for text in texts:
             if not text.author_text in texts_ordered:
-                texts_ordered[text.author_text] = [ text]
+                texts_ordered[text.author_text] = [text]
             else:
                 texts_ordered[text.author_text].append(text);
-        print(texts_ordered)
+
         return render(request, 'models/journalissue_detail.html', locals())
 
 class JournalIssueEditorial(views.View):
-    """View of a single blog text."""
+    """View of a journal text editorial."""
 
     def get(self, request, *args, **kwargs):
         slug   = self.kwargs['issue_slug']
@@ -112,7 +150,7 @@ class JournalIssueEditorial(views.View):
         return render(request, 'models/journalissue_details.html', locals())
 
 class JournalIssueImpressum(views.View):
-    """View of a single blog text."""
+    """View of a journal text impressum."""
 
     def get(self, request, *args, **kwargs):
         slug   = self.kwargs['issue_slug']
@@ -125,12 +163,13 @@ class JournalIssueImpressum(views.View):
 
 
 class JournalText(views.View):
-    """View of a single blog text."""
+    """View of a single journal text."""
 
     def get(self, request, *args, **kwargs):
         slug          = self.kwargs['text_slug']
         object        = models.JournalText.objects.filter(slug=slug).first()
-        # related_texts = models.JournalText.objects.filter(author=author)
+        if not object.is_published and not request.user.is_staff :
+            raise Http404("Issue does not exist")
         return render(request, 'models/journaltext_detail.html', locals())
 
 

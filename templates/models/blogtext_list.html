@@ -5,7 +5,7 @@
 {% block main %}
     {% include 'blocks/pager.html' with item_name='posts' %}
     {% for post in object_list %}
-        <div class="blog-view__item">
+        <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
             <div class="blog-view__titles">
                 {% for translation in post.translations.all %}
                     <h5 class="blog-view__title">
@@ -24,7 +24,7 @@
                 {{ post.teaser | safe }}
             </p>
             <p class="blog-view__meta">
-                <span class="blog-view__author">{{ post.author_text }}</span>
+                {% if post.author_text %}<span class="blog-view__author">{{ post.author_text }}</span>{% endif %}
                 <span class="blog-view__date">{{ post.date | date:"d m y" }}</span>
             </p>
         </div>

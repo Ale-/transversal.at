@@ -14,13 +14,28 @@
           </div>
           {% endif %}
         </nav>
-        <p class="blogtext__date">
-            {% if object.date %}
-            {{ object.date | date:"m Y" }}
-            {% else %}
-            {{ object.source_text.date | date:"m Y" }}
+        <p class="blogtext__publish-info">
+            {% if not object.is_published %}
+            <span class="blogtext__unpublished">
+                <strong>Not public</strong> ·
+            </span>
             {% endif %}
+            <span class="blogtext__date">
+                {% if object.date %}
+                {{ object.date | date:"m Y" }}
+                {% else %}
+                {{ object.source_text.date | date:"m Y" }}
+                {% endif %}
+            </span>
         </p>
+        {% if request.user.is_staff and object.comments %}
+        <div class="text__private">
+            <h5 class="text__private-label">
+                Comments · not public
+            </h5>
+            {{ object.comments }}
+        </div>
+        {% endif %}
         <h1 class="blogtext__title">
             {{ object.title }}
         </h1>
@@ -62,12 +77,16 @@
             </div>
             {% endif %}
         </div>
+        {% if object.author_text %}
         <p class="blogtext__author">
             {{ object.author_text }}
         </p>
+        {% endif %}
+        {% if object.translator_text %}
         <p class="blogtext__translator">
             {{ object.translator_text }}
         </p>
+        {% endif %}
         <div class="blogtext__body">
             {{ object.body | safe }}
         </div>

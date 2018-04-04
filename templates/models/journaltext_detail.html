@@ -14,6 +14,14 @@
           </div>
           {% endif %}
         </nav>
+        {% if request.user.is_staff and object.comments %}
+        <div class="text__private">
+            <h5 class="text__private-label">
+                Comments · not public
+            </h5>
+            {{ object.comments }}
+        </div>
+        {% endif %}
         <p class="text__date">
           {{ object.date | date:"m Y"}}
         </p>

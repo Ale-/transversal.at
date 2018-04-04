@@ -1082,6 +1082,15 @@ html .toolbar .region-content .container-fixed main {
   display: none;
 }
 
+/* line 51, ../sass/admin/_forms.sass */
+.admin .metadata.module .form-row {
+  display: none;
+}
+/* line 54, ../sass/admin/_forms.sass */
+.admin .metadata.module:hover .form-row {
+  display: block;
+}
+
 /* line 1, ../sass/admin/_header.sass */
 .admin #header {
   height: 72px;
@@ -1220,22 +1229,66 @@ html .toolbar .region-content .container-fixed main {
 
 /* line 33, ../sass/admin/_lists.sass */
 .admin #changelist-filter h3 {
-  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.9em;
 }
 
-/* line 36, ../sass/admin/_lists.sass */
+/* line 37, ../sass/admin/_lists.sass */
 .admin #changelist-filter li {
   display: none;
 }
 
-/* line 38, ../sass/admin/_lists.sass */
+/* line 39, ../sass/admin/_lists.sass */
 .admin #changelist-filter li.selected {
   display: block;
 }
 
-/* line 40, ../sass/admin/_lists.sass */
+/* line 41, ../sass/admin/_lists.sass */
 .admin #changelist-filter ul:hover li {
   display: block;
+}
+
+/* line 1, ../sass/admin/_login.sass */
+.login #container {
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* line 3, ../sass/admin/_login.sass */
+.login #container #content {
+  padding: 24px 48px;
+}
+
+/* line 6, ../sass/admin/_login.sass */
+.admin.login h1 {
+  border-bottom: 0;
+}
+
+/* line 9, ../sass/admin/_login.sass */
+.admin #login-form {
+  margin-top: 24px;
+}
+
+/* line 12, ../sass/admin/_login.sass */
+.admin #login-form .submit-row {
+  padding-top: 48px;
+}
+
+/* line 15, ../sass/admin/_login.sass */
+.admin #login-form input[type=text],
+.admin #login-form input[type=password] {
+  border-width: 0 0 1px 0;
+}
+
+/* line 19, ../sass/admin/_login.sass */
+.admin #login-form .form-row {
+  margin-top: 12px;
+}
+
+/* line 22, ../sass/admin/_login.sass */
+.admin.login .errornote {
+  margin-top: 24px;
 }
 
 /* line 1, ../sass/admin/_tables.sass */
@@ -1283,6 +1336,11 @@ html .toolbar .region-content .container-fixed main {
 }
 
 /* line 19, ../sass/admin/_tables.sass */
+.admin .calendarbox td, .admin .calendarbox th {
+  padding: inherit;
+}
+
+/* line 22, ../sass/admin/_tables.sass */
 .admin table thead {
   border-bottom: 2px solid #eee;
 }
@@ -1312,19 +1370,19 @@ html .toolbar .region-content .container-fixed main {
   color: #222;
 }
 
-/* line 26, ../sass/admin/_tables.sass */
+/* line 29, ../sass/admin/_tables.sass */
 .admin th,
 .admin .inline-group .tabular tr.add-row td {
   background-color: transparent;
   border: 0;
 }
 
-/* line 31, ../sass/admin/_tables.sass */
+/* line 34, ../sass/admin/_tables.sass */
 #content-related {
   background: transparent;
 }
 
-/* line 35, ../sass/admin/_tables.sass */
+/* line 38, ../sass/admin/_tables.sass */
 .admin td.field-published,
 .admin td.field-view {
   text-align: center;

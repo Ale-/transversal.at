@@ -4,17 +4,24 @@
 
 {% block main %}
     <div class="view-lastjournal">
-        <div class="view-lastjournal__header">
+        <ul class="view-lastjournal__header fadein">
             {% for text in last_issue.texts.all %}
-                <p class="view-lastjournal__issue-title {% if forloop.first %}active{% endif %}">
+                <li class="view-lastjournal__issue-title fadein__item">
                     {{ text.title }}
-                </p>
+                </li>
             {% endfor %}
-        </div>
+        </ul>
         <div class="view-lastjournal__body">
             <a href="{% url 'journal_issue' last_issue.slug %}">
-                <p class="view-lastjournal__date">
-                    {{ last_issue.date | date:"m Y" }}
+                <p class="view-lastjournal__publish-info">
+                    {% if not last_issue.is_published %}
+                    <span class="view-lastjournal__unpublished">
+                        <strong>Not public</strong> ·
+                    </span>
+                    {% endif %}
+                    <span class="view-lastjournal__date">
+                        {{ last_issue.date | date:"m Y" }}
+                    </span>
                 </p>
                 <h4 class="view-lastjournal__title">
                     {{ last_issue.title }}
@@ -33,6 +40,11 @@
                 <figure class="view-lastbooks__image">
                     <img src="{{ book.image.first.image_file.url }}" />
                 </figure>
+                {% if not book.is_published %}
+                <p class="view-lastbook__unpublished">
+                    <strong>Not public</strong> ·
+                </p>
+                {% endif %}
                 <div class="view-lastbooks__title">
                     {{ book.title }}
                 </div>
@@ -46,7 +58,7 @@
     </div>
     <div class="blog-view">
     {% for post in blogposts %}
-        <div class="blog-view__item">
+        <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
             <div class="blog-view__titles">
                 {% for translation in post.translations.all %}
                     <h5 class="blog-view__title">

@@ -5,20 +5,18 @@
 .blogtext__meta
   float: right
   font-family: $font_headers
-  padding: $m/2
   min-width: 240px
   max-width: 50%
   margin: $m #{-$m} $m $m
-  color: rgba($color_text, .8)
-  +links(white, $color_text, .2s ease)
+  color: rgba($color_text, .7)
+  > div
+    padding: $m/2
   > div:not(:last-child)
-    border-bottom: 1px solid white
-  > div:not(:first-child)
-    margin-top: $m/2
+    border-bottom: 1px dashed rgba(black, .15)
   > div li
     margin-bottom: $m/6
   > div h5
-    margin: $m/2 0 $m/4
+    margin: 0 0 $m/2
     text-transform: uppercase
     font-size: .8em
   > div:first-child h5
@@ -28,10 +26,20 @@
   &:empty
     display: none !important
 
-.book__meta
+.book__meta > div
   background-color: $palette_orange
-.blogtext__meta
-  background-color: #999
+.blogtext__meta > div
+  background-color: #f5f5f5
+  +links(#333, #222, .2s ease)
+.blogtext__meta-translations
+  a
+    font-weight: bold
+
+.book__meta,
+.text__meta,
+.issue__meta,
+.biography__meta
+  +links(white, #eee, .2s ease)
 
 .text__meta,
 .issue__meta,

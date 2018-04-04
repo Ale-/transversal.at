@@ -45,10 +45,15 @@
                     {% for text in texts %}
                         {% if text.slug %}
                         <li class="issue__text">
-                          <span class="issue__text-lang">{{ text.language }}</span>
+                          ·
                           <a href="{% url 'journal_text' object.slug text.slug %}">
                           {{ text.title | safe }}
                           </a>
+                          {% if not text.is_published %}
+                          <span class="issue_not-published">
+                              Not public
+                          </span>
+                          {% endif %}
                         </li>
                         {% endif %}
                     {% endfor %}

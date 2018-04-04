@@ -5,6 +5,19 @@
   &::before
     content: "—"
     display: block
+.blog-view__item.unpublished
+  background-color: #f5f5f5
+  padding: $m
+  position: relative
+  &:after
+    content: "not public"
+    font-size: .7em
+    font-family: $font_headers
+    font-weight: 700
+    text-transform: uppercase
+    position: absolute
+    top: $m
+    right: $m
 .blog-view__title
   margin: $m/4 0
   .language

@@ -938,10 +938,28 @@ html .toolbar .region-content .container-fixed main {
 }
 
 /* line 8, ../sass/blocks/_blog-view.sass */
+.blog-view__item.unpublished {
+  background-color: #f5f5f5;
+  padding: 24px;
+  position: relative;
+}
+/* line 12, ../sass/blocks/_blog-view.sass */
+.blog-view__item.unpublished:after {
+  content: "not public";
+  font-size: 0.7em;
+  font-family: "Roboto Condensed", "junicode", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+/* line 21, ../sass/blocks/_blog-view.sass */
 .blog-view__title {
   margin: 6px 0;
 }
-/* line 10, ../sass/blocks/_blog-view.sass */
+/* line 23, ../sass/blocks/_blog-view.sass */
 .blog-view__title .language {
   font-family: "junicode", serif;
   text-transform: uppercase;
@@ -968,7 +986,7 @@ html .toolbar .region-content .container-fixed main {
   color: #37B9DF;
 }
 
-/* line 16, ../sass/blocks/_blog-view.sass */
+/* line 29, ../sass/blocks/_blog-view.sass */
 .blog-view__meta {
   margin-top: 6px;
   font-family: "Roboto Condensed", "junicode", serif;
@@ -976,19 +994,19 @@ html .toolbar .region-content .container-fixed main {
   font-size: 0.9em;
 }
 
-/* line 21, ../sass/blocks/_blog-view.sass */
+/* line 34, ../sass/blocks/_blog-view.sass */
 .blog-view__author:not(:empty) {
   font-weight: bold;
   color: #4A4B4D;
   margin-right: 8px;
 }
 
-/* line 25, ../sass/blocks/_blog-view.sass */
+/* line 38, ../sass/blocks/_blog-view.sass */
 .blog-view__date {
   font-size: 0.85em;
 }
 
-/* line 27, ../sass/blocks/_blog-view.sass */
+/* line 40, ../sass/blocks/_blog-view.sass */
 .blog-view__teaser {
   margin-top: 8px;
 }
@@ -1057,27 +1075,27 @@ html .toolbar .region-content .container-fixed main {
 }
 
 /* line 18, ../sass/blocks/_blogtext.sass */
-.blogtext__title {
-  margin: 0 0 8px;
-}
-
-/* line 21, ../sass/blocks/_blogtext.sass */
-.blogtext__date {
+.blogtext__publish-info {
   margin: 24px 0 0 !important;
   font-size: 0.8em;
   text-transform: uppercase;
   font-family: "Roboto Condensed", "junicode", serif;
 }
 
-/* line 25, ../sass/blocks/_blogtext.sass */
+/* line 22, ../sass/blocks/_blogtext.sass */
 .blogtext__author {
   font-family: "Roboto Condensed", "junicode", serif;
   font-size: 1.2em;
 }
 
-/* line 29, ../sass/blocks/_blogtext.sass */
+/* line 26, ../sass/blocks/_blogtext.sass */
 .blogtext__body {
   margin-top: 48px;
+}
+
+/* line 29, ../sass/blocks/_blogtext.sass */
+.blogtext__title {
+  margin-top: 8px;
 }
 
 /* line 2, ../sass/blocks/_book.sass */
@@ -1106,6 +1124,13 @@ html .toolbar .region-content .container-fixed main {
 .book__body {
   margin: 24px 0;
   font-size: 1.2em;
+}
+
+/* line 22, ../sass/blocks/_book.sass */
+.book__unpublished {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-family: "Roboto Condensed", "junicode", serif;
 }
 
 /* line 4, ../sass/base/reset/_2_links.sass */
@@ -1173,10 +1198,22 @@ html .toolbar .region-content .container-fixed main {
 
 /* line 30, ../sass/blocks/_books.sass */
 .related-book.unpublished {
-  background-color: #eee;
+  background-color: #f5f5f5;
+  position: relative;
+}
+/* line 33, ../sass/blocks/_books.sass */
+.related-book.unpublished:after {
+  content: "not public";
+  font-size: 0.7em;
+  font-family: "Roboto Condensed", "junicode", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: absolute;
+  top: 8px;
+  right: 12px;
 }
 
-/* line 33, ../sass/blocks/_books.sass */
+/* line 43, ../sass/blocks/_books.sass */
 .book__title--image {
   float: right;
   width: 50%;
@@ -1318,6 +1355,14 @@ html .toolbar .region-content .container-fixed main {
   margin-top: 48px;
 }
 
+/* line 42, ../sass/blocks/_journal-issue.sass */
+.issue_not-published {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  font-family: "Roboto Condensed", "junicode", serif;
+  padding-left: 12px;
+}
+
 /* line 1, ../sass/blocks/_journal-issues.sass */
 .issue-wrapper {
   padding: 24px;
@@ -1411,6 +1456,20 @@ html .toolbar .region-content .container-fixed main {
   margin-top: 24px;
 }
 
+/* line 14, ../sass/blocks/_journal-text.sass */
+.text__private {
+  border: 1px dashed rgba(255, 0, 0, 0.25);
+  padding: 24px;
+  margin: 48px;
+}
+
+/* line 18, ../sass/blocks/_journal-text.sass */
+.text__private-label {
+  margin-top: 0;
+  text-transform: uppercase;
+  color: rgba(255, 0, 0, 0.5);
+}
+
 /* line 1, ../sass/blocks/_link-home.sass */
 .link-home {
   color: white;
@@ -1442,14 +1501,15 @@ html .toolbar .region-content .container-fixed main {
   width: 48px;
   text-align: center;
   padding: 12px 12px 0;
+  border-right: 2px solid #37B9DF;
 }
 
-/* line 9, ../sass/blocks/_menu-admin.sass */
+/* line 10, ../sass/blocks/_menu-admin.sass */
 .menu-admin img {
   max-width: 24px;
 }
 
-/* line 12, ../sass/blocks/_menu-admin.sass */
+/* line 13, ../sass/blocks/_menu-admin.sass */
 .menu-admin li {
   margin-bottom: 12px;
 }
@@ -1584,18 +1644,109 @@ html .toolbar .region-content .container-fixed main {
 .blogtext__meta {
   float: right;
   font-family: "Roboto Condensed", "junicode", serif;
-  padding: 12px;
   min-width: 240px;
   max-width: 50%;
   margin: 24px -24px 24px 24px;
-  color: rgba(34, 34, 34, 0.8);
+  color: rgba(34, 34, 34, 0.7);
 }
+/* line 12, ../sass/blocks/_meta.sass */
+.book__meta > div,
+.text__meta > div,
+.issue__meta > div,
+.biography__meta > div,
+.blogtext__meta > div {
+  padding: 12px;
+}
+/* line 14, ../sass/blocks/_meta.sass */
+.book__meta > div:not(:last-child),
+.text__meta > div:not(:last-child),
+.issue__meta > div:not(:last-child),
+.biography__meta > div:not(:last-child),
+.blogtext__meta > div:not(:last-child) {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+}
+/* line 16, ../sass/blocks/_meta.sass */
+.book__meta > div li,
+.text__meta > div li,
+.issue__meta > div li,
+.biography__meta > div li,
+.blogtext__meta > div li {
+  margin-bottom: 4px;
+}
+/* line 18, ../sass/blocks/_meta.sass */
+.book__meta > div h5,
+.text__meta > div h5,
+.issue__meta > div h5,
+.biography__meta > div h5,
+.blogtext__meta > div h5 {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+/* line 22, ../sass/blocks/_meta.sass */
+.book__meta > div:first-child h5,
+.text__meta > div:first-child h5,
+.issue__meta > div:first-child h5,
+.biography__meta > div:first-child h5,
+.blogtext__meta > div:first-child h5 {
+  margin-top: 0;
+}
+/* line 24, ../sass/blocks/_meta.sass */
+.book__meta p,
+.text__meta p,
+.issue__meta p,
+.biography__meta p,
+.blogtext__meta p {
+  font-size: 0.8em;
+}
+/* line 26, ../sass/blocks/_meta.sass */
+.book__meta:empty,
+.text__meta:empty,
+.issue__meta:empty,
+.biography__meta:empty,
+.blogtext__meta:empty {
+  display: none !important;
+}
+
+/* line 29, ../sass/blocks/_meta.sass */
+.book__meta > div {
+  background-color: #EFB43E;
+}
+
+/* line 31, ../sass/blocks/_meta.sass */
+.blogtext__meta > div {
+  background-color: #f5f5f5;
+}
+/* line 4, ../sass/base/reset/_2_links.sass */
+.blogtext__meta > div a {
+  -moz-transition: ease 0.2s;
+  -o-transition: ease 0.2s;
+  -webkit-transition: ease 0.2s;
+  transition: ease 0.2s;
+}
+/* line 6, ../sass/base/reset/_2_links.sass */
+.blogtext__meta > div a:link, .blogtext__meta > div a:visited {
+  color: #333;
+}
+/* line 8, ../sass/base/reset/_2_links.sass */
+.blogtext__meta > div a:hover {
+  color: #222;
+}
+/* line 10, ../sass/base/reset/_2_links.sass */
+.blogtext__meta > div a:active {
+  color: #333;
+}
+
+/* line 35, ../sass/blocks/_meta.sass */
+.blogtext__meta-translations a {
+  font-weight: bold;
+}
+
 /* line 4, ../sass/base/reset/_2_links.sass */
 .book__meta a,
 .text__meta a,
 .issue__meta a,
-.biography__meta a,
-.blogtext__meta a {
+.biography__meta a {
   -moz-transition: ease 0.2s;
   -o-transition: ease 0.2s;
   -webkit-transition: ease 0.2s;
@@ -1608,109 +1759,37 @@ html .toolbar .region-content .container-fixed main {
 .issue__meta a:link,
 .issue__meta a:visited,
 .biography__meta a:link,
-.biography__meta a:visited,
-.blogtext__meta a:link,
-.blogtext__meta a:visited {
+.biography__meta a:visited {
   color: white;
 }
 /* line 8, ../sass/base/reset/_2_links.sass */
 .book__meta a:hover,
 .text__meta a:hover,
 .issue__meta a:hover,
-.biography__meta a:hover,
-.blogtext__meta a:hover {
-  color: #222;
+.biography__meta a:hover {
+  color: #eee;
 }
 /* line 10, ../sass/base/reset/_2_links.sass */
 .book__meta a:active,
 .text__meta a:active,
 .issue__meta a:active,
-.biography__meta a:active,
-.blogtext__meta a:active {
+.biography__meta a:active {
   color: white;
 }
-/* line 14, ../sass/blocks/_meta.sass */
-.book__meta > div:not(:last-child),
-.text__meta > div:not(:last-child),
-.issue__meta > div:not(:last-child),
-.biography__meta > div:not(:last-child),
-.blogtext__meta > div:not(:last-child) {
-  border-bottom: 1px solid white;
-}
-/* line 16, ../sass/blocks/_meta.sass */
-.book__meta > div:not(:first-child),
-.text__meta > div:not(:first-child),
-.issue__meta > div:not(:first-child),
-.biography__meta > div:not(:first-child),
-.blogtext__meta > div:not(:first-child) {
-  margin-top: 12px;
-}
-/* line 18, ../sass/blocks/_meta.sass */
-.book__meta > div li,
-.text__meta > div li,
-.issue__meta > div li,
-.biography__meta > div li,
-.blogtext__meta > div li {
-  margin-bottom: 4px;
-}
-/* line 20, ../sass/blocks/_meta.sass */
-.book__meta > div h5,
-.text__meta > div h5,
-.issue__meta > div h5,
-.biography__meta > div h5,
-.blogtext__meta > div h5 {
-  margin: 12px 0 6px;
-  text-transform: uppercase;
-  font-size: 0.8em;
-}
-/* line 24, ../sass/blocks/_meta.sass */
-.book__meta > div:first-child h5,
-.text__meta > div:first-child h5,
-.issue__meta > div:first-child h5,
-.biography__meta > div:first-child h5,
-.blogtext__meta > div:first-child h5 {
-  margin-top: 0;
-}
-/* line 26, ../sass/blocks/_meta.sass */
-.book__meta p,
-.text__meta p,
-.issue__meta p,
-.biography__meta p,
-.blogtext__meta p {
-  font-size: 0.8em;
-}
-/* line 28, ../sass/blocks/_meta.sass */
-.book__meta:empty,
-.text__meta:empty,
-.issue__meta:empty,
-.biography__meta:empty,
-.blogtext__meta:empty {
-  display: none !important;
-}
 
-/* line 31, ../sass/blocks/_meta.sass */
-.book__meta {
-  background-color: #EFB43E;
-}
-
-/* line 33, ../sass/blocks/_meta.sass */
-.blogtext__meta {
-  background-color: #999;
-}
-
-/* line 36, ../sass/blocks/_meta.sass */
+/* line 44, ../sass/blocks/_meta.sass */
 .text__meta,
 .issue__meta,
 .biography__meta {
   background-color: #37B9DF;
 }
 
-/* line 41, ../sass/blocks/_meta.sass */
+/* line 49, ../sass/blocks/_meta.sass */
 .text__meta-issue a {
   font-weight: bold;
 }
 
-/* line 45, ../sass/blocks/_meta.sass */
+/* line 53, ../sass/blocks/_meta.sass */
 .issue__meta-links p {
   font-size: 1.1em;
   font-weight: bold;
@@ -1920,6 +1999,7 @@ html .toolbar .region-content .container-fixed main {
 .view-lastbooks__image {
   max-width: 50%;
   float: right;
+  padding: 8px;
 }
 
 /* line 1, ../sass/blocks/_view-lastjournal.sass */
@@ -1933,11 +2013,10 @@ html .toolbar .region-content .container-fixed main {
   font-size: 2.5em;
   height: 0.9em;
   top: 3px;
-  padding: 0 24px;
 }
 
-/* line 11, ../sass/blocks/_view-lastjournal.sass */
-.view-lastjournal__date {
+/* line 10, ../sass/blocks/_view-lastjournal.sass */
+.view-lastjournal__publish-info {
   margin-top: 12px;
   margin-bottom: 0 !important;
   font-size: 0.8em;
@@ -1945,12 +2024,12 @@ html .toolbar .region-content .container-fixed main {
   font-family: "Roboto Condensed", "junicode", serif;
 }
 
-/* line 16, ../sass/blocks/_view-lastjournal.sass */
+/* line 15, ../sass/blocks/_view-lastjournal.sass */
 .view-lastjournal__title {
   margin: 0 0 12px;
 }
 
-/* line 19, ../sass/blocks/_view-lastjournal.sass */
+/* line 18, ../sass/blocks/_view-lastjournal.sass */
 .view-lastjournal__body {
   *zoom: 1;
   background-color: #37B9DF;
@@ -1983,4 +2062,13 @@ html .toolbar .region-content .container-fixed main {
 /* line 10, ../sass/base/reset/_2_links.sass */
 .view-lastjournal__body a:active {
   color: white;
+}
+
+/* line 24, ../sass/blocks/_view-lastjournal.sass */
+.view-lastjournal__issue-title {
+  position: absolute;
+  z-index: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
 }
