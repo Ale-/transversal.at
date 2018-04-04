@@ -13,7 +13,8 @@ apps/models/migrations
 # Static
 static/admin/
 static/ckeditor/
-static/adminsortable/
+static/transversal/.sass-cache/
+static/transversal/css/
 
 # Media
 media/
