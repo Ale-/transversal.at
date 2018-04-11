@@ -216,7 +216,7 @@ class JournalText(models.Model):
     date            = models.DateTimeField(_('Date'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='texts_created', blank=True)
-    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
+    author_text     = models.CharField(_('Author attribution'), max_length=200, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='texts_translated', blank=True)
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     translations    = models.ManyToManyField('self', blank=True)
