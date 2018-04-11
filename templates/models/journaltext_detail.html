@@ -29,7 +29,7 @@
             {{ object.title }}
         </h1>
         <p class="text__author-text">
-            {{ object.author_text }}
+            {{ object.author_text | safe }}
         </p>
         {% if object.translator_text %}
         <p class="text__translator-text">
@@ -45,7 +45,7 @@
                 <ul>
                     {% for author in object.authors.all %}
                         <li>
-                            <a href="/bio/{{ author.slug }}">
+                            <a href="{% url 'bio' author.slug %}">
                                 {{ author.fullname }}
                             </a>
                         </li>
@@ -59,7 +59,7 @@
                 <ul>
                     {% for author in object.translators.all %}
                         <li>
-                            <a href="/bio/{{ author.slug }}">
+                            <a href="{% url 'bio' author.slug %}">
                                 {{ author.fullname }}
                             </a>
                         </li>
