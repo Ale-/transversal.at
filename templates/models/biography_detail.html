@@ -22,7 +22,7 @@
             <div class="biography__meta-journals">
                 <h5>journal texts</h5>
                 <ul>
-                {% for text in object.texts_created.all|order_by:"title" %}
+                {% for text in object.texts_created.all|order_by:"-date" %}
                     <li>
                         {% if text.slug and text.issue.slug %}
                         <a href="{% url 'journal_text' text.issue.slug text.slug %}">
@@ -32,23 +32,6 @@
                           {{ text.title }}
                         {% endif %}
                         <p>{{ text.author_text }}</p>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.texts_translated.all|length > 0 %}
-            <div class="biography__meta-journals">
-                <h5>journal translations</h5>
-                <ul>
-                {% for text in object.texts_translated.all %}
-                    <li>
-                        {% if text.slug and text.issue.slug %}
-                        <a href="{% url 'journal_text' text.issue.slug text.slug %}">{{ text.title }}</a>
-                        {% else %}
-                           {{ text.title }}
-                        {% endif %}
-                        <p>{{ text.author_text}}</p>
                     </li>
                 {% endfor %}
                 </ul>
@@ -82,19 +65,52 @@
             {% endif %}
             {% if object.blogposts_written.all|length > 0 %}
             <div class="biography__meta-books">
-                <h5>blog posts</h5>
+                <h5>documents</h5>
                 <ul>
-                {% for text in object.blogposts_written.all|order_by:"-date" %}
-                    <li>
-                        <a href="{% url 'blog_text' text.slug %}">{{ text.title }}</a>
-                        <p>{{ text.date | date:"m Y" }}</p>
-                    </li>
-                    {% for translation in text.translations.all %}
-                    <li>
-                        <a href="{% url 'blog_text' translation.slug %}">{{ translation.title }}</a>
-                        <p>{{ text.date | date:"m Y" }}</p>
+                    {% for text in object.blogposts_written.all|order_by:"-date" %}
+                    <li class="biography__meta-book-list">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog_text' text.slug %}">{{ text.title }}</a>
+                                <p>{{ text.date | date:"m Y" }}</p>
+                            </li>
+                            {% for translation in text.translations.all %}
+                            <li>
+                                <a href="{% url 'blog_text' translation.slug %}">{{ translation.title }}</a>
+                                <p>{{ text.date | date:"m Y" }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                     {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.texts_translated.all|length > 0 %}
+            <div class="biography__meta-journals">
+                <h5>translations</h5>
+                <ul>
+                {% for text in object.texts_translated.all %}
+                    <li>
+                        {% if text.slug and text.issue.slug %}
+                        <a href="{% url 'journal_text' text.issue.slug text.slug %}">{{ text.title }}</a>
+                        {% else %}
+                           {{ text.title }}
+                        {% endif %}
+                        <p>{{ text.author_text}}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.links.all|length > 0 %}
+            <div class="biography__meta-links">
+                <h5>links</h5>
+                <ul>
+                {% for link in object.links.all %}
+                    <li>
+                        <a href="{{ link.url }}" target="_blank">{{ link.title }}</a>
+                    </li>
                 {% endfor %}
                 </ul>
             </div>

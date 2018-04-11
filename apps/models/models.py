@@ -107,6 +107,7 @@ class Biography(models.Model):
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
     is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
+    links                = GenericRelation(Link)
 
     class Meta:
         verbose_name = _('Biography')
