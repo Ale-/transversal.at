@@ -46,7 +46,7 @@
                         {% if text.slug %}
                         <li class="issue__text">
                           ·
-                          <a href="{% url 'journal_text' object.slug text.slug %}">
+                          <a href="{% url 'journal_text' object.slug text.slug text.language %}">
                           {{ text.title | safe }}
                           </a>
                           {% if not text.is_published %}

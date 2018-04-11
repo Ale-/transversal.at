@@ -167,7 +167,8 @@ class JournalText(views.View):
 
     def get(self, request, *args, **kwargs):
         slug          = self.kwargs['text_slug']
-        object        = models.JournalText.objects.filter(slug=slug).first()
+        lang          = self.kwargs['text_lang']
+        object        = models.JournalText.objects.filter(slug=slug,language=lang).first()
         if not object.is_published and not request.user.is_staff :
             raise Http404("Issue does not exist")
         return render(request, 'models/journaltext_detail.html', locals())

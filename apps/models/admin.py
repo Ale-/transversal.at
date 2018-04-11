@@ -104,7 +104,7 @@ class JournalTextAdmin(admin.ModelAdmin):
         ('Metadata', {
             'classes' : ('metadata',),
             'fields': (
-                'is_published',
+                ('slug', 'is_published'), 
                 ('effective_date','expiration_date'),
                 ('content_author','content_contributors'),
                 'copyright','comments'

@@ -32,7 +32,7 @@ urlpatterns = [
     path('transversal/', views.JournalIssues.as_view(), name="journal_issues"),
     path('transversal/<slug:issue_slug>/editorial', views.JournalIssueEditorial.as_view(), name="journal_issue_editorial"),
     path('transversal/<slug:issue_slug>/impressum', views.JournalIssueImpressum.as_view(), name="journal_issue_impressum"),
-    path('transversal/<slug:issue_slug>/<slug:text_slug>', views.JournalText.as_view(), name="journal_text"),
+    path('transversal/<slug:issue_slug>/<slug:text_slug>/<str:text_lang>', views.JournalText.as_view(), name="journal_text"),
     path('transversal/<str:slug>', views.JournalIssue.as_view(), name="journal_issue"),
     # blog
     path('blog/<slug:slug>', views.BlogTextView.as_view(), name="blog_text"),

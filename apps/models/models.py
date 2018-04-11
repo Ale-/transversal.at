@@ -208,7 +208,7 @@ class JournalText(models.Model):
     """ Texts of the journals """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug            = models.SlugField(editable=False, blank=True)
+    slug            = models.SlugField(blank=True)
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     issue           = models.ForeignKey(JournalIssue, verbose_name=_('Journal issue'), related_name='texts', blank=True, null=True, on_delete=models.SET_NULL)
@@ -243,8 +243,18 @@ class JournalText(models.Model):
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
         if not self.slug:
-            self.slug = slugify(self.title)
-
+            slug = ""
+            if self.authors:
+                for i,author in enumerate(self.authors.all()):
+                    if i>0:
+                        slug += "-"
+                    if author.surname:
+                        slug += slugify(author.surname)
+                    else:
+                        slug += slugify(author.name)
+            else:
+                slug = slugify(self.title)
+            self.slug = slug
         super(JournalText, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
