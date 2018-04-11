@@ -6,9 +6,13 @@
     <div class="related-books">
     {% for wrapper in books_wrappers %}
         <div class="related-books">
-            <div class="related-books-title">
-              {{ wrapper.0.title }}
-            </div>
+            <ul class="related-books-titles fadein">
+                {% for object in wrapper %}
+                <li class="related-books-title fadein__item">
+                    {{ object.title }}
+                </li>
+                {% endfor %}
+            </ul>
             <div class="related-books-wrapper">
             {% for object in wrapper %}
                 <div class="related-book {% if not object.is_published or not object.in_listings %}unpublished{% endif %}">

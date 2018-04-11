@@ -9,7 +9,7 @@
 .book__subtitle--list
   margin-top: 0
 
-.related-books-title
+.related-books-titles
   background: $palette_grey
   color: $palette_orange
   font-size: 2.5em
@@ -17,8 +17,20 @@
   overflow: hidden
   text-indent: $m/2
   border-top: 3px solid $palette_orange
+  position: relative
+  z-index: 0
+
+.related-books-title
+  position: absolute
+  z-index: 0
+  white-space: nowrap
+  overflow: hidden
+  max-width: 100%
 
 .related-books-wrapper
+  background-color: white
+  position: relative
+  z-index: 1
   +clearfix
 
 .related-book
