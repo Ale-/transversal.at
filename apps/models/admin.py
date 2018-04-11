@@ -98,20 +98,21 @@ class JournalTextAdmin(admin.ModelAdmin):
                 ('fulltitle', 'subtitle'),
                 'language', 'date', 'body',
                 'authors', 'author_text',
+                'translations',
                 'translators', 'translator_text'
             )
         }),
         ('Metadata', {
             'classes' : ('metadata',),
             'fields': (
-                ('slug', 'is_published'), 
+                ('slug', 'is_published'),
                 ('effective_date','expiration_date'),
                 ('content_author','content_contributors'),
                 'copyright','comments'
             ),
         })
     )
-    filter_horizontal = ('authors', 'translators')
+    filter_horizontal = ('authors', 'translators', 'translations')
 
     def view(self, obj):
         try:

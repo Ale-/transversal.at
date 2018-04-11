@@ -39,14 +39,8 @@
 
         {# meta #}
         <div class="text__meta">
-            <div class="text__meta-issue">
-                <h5>{% trans 'journal' %}</h5>
-                <a href="{% url 'journal_issue' object.issue.slug %}">
-                    {{ object.issue.title }}
-                </a>
-            </div>
             {% if object.authors.all|length > 0 %}
-            <div class="book__meta-biographies">
+            <div class="text__meta-authors">
                 <h5>{% trans 'Authors' %}</h5>
                 <ul>
                     {% for author in object.authors.all %}
@@ -60,7 +54,7 @@
             </div>
             {% endif %}
             {% if object.translators.all|length > 0 %}
-            <div class="book__meta-biographies">
+            <div class="text__meta-translators">
                 <h5>{% trans 'Translators' %}</h5>
                 <ul>
                     {% for author in object.translators.all %}
@@ -73,13 +67,14 @@
                 </ul>
             </div>
             {% endif %}
-            {% if False %}
-            <div class="book__meta-biographies">
+            {% if object.translations.all|length > 0 %}
+            <div class="text__meta-languages">
                 <h5>{% trans 'languages' %}</h5>
                 <ul>
-                    {% for text in related_texts %}
+                    <li>{{ object.get_language_display }}</li>
+                    {% for text in object.translations.all %}
                         <li>
-                            <a href="{% url 'journal_text' text.slug %}">
+                            <a href="{% url 'journal_text' text.issue.slug text.slug text.language %}">
                                 {{ text.get_language_display }}
                             </a>
                         </li>
@@ -87,6 +82,12 @@
                 </ul>
             </div>
             {% endif %}
+            <div class="text__meta-issue">
+                <h5>{% trans 'journal' %}</h5>
+                <a href="{% url 'journal_issue' object.issue.slug %}">
+                    {{ object.issue.title }}
+                </a>
+            </div>
         </div>
 
         <p class="text__body">

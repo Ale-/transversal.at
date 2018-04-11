@@ -219,7 +219,7 @@ class JournalText(models.Model):
     author_text     = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='texts_translated', blank=True)
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
-    metadata        = GenericRelation(Metadata)
+    translations    = models.ManyToManyField('self', blank=True)
 
     # metadata
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
@@ -239,6 +239,7 @@ class JournalText(models.Model):
     class Meta:
         verbose_name = _('Journal text')
         verbose_name_plural = _('Journal texts')
+        ordering = ('title',)
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
