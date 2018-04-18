@@ -55,7 +55,7 @@ class BiographyAdmin(admin.ModelAdmin):
             ),
         }),
         ('Metadata', {
-            'classes' : ('metadata',),
+            'classes' : ('collapse',),
             'fields'  : (
                 'is_published',
                 ('effective_date', 'expiration_date'),
@@ -103,7 +103,7 @@ class JournalTextAdmin(admin.ModelAdmin):
             )
         }),
         ('Metadata', {
-            'classes' : ('metadata',),
+            'classes' : ('collapse',),
             'fields': (
                 ('slug', 'is_published'),
                 ('effective_date','expiration_date'),
@@ -142,7 +142,7 @@ class JournalIssueAdmin(admin.ModelAdmin):
           'fields': (('title', 'date'), 'editorial_title', 'editorial', 'impressum')
         }),
         ('Metadata', {
-            'classes' : ('metadata',),
+            'classes' : ('collapse',),
             'fields': (
                 'is_published',
                 ('effective_date','expiration_date'),
@@ -180,8 +180,8 @@ class BlogTextAdmin(admin.ModelAdmin):
                 'translators','translator_text'
             )
         }),
-        ('METADATA', {
-            'classes' : ('metadata',),
+        ('Metadata', {
+            'classes' : ('collapse',),
             'fields': (
                 ('is_published','in_home','in_archive'),
                 ('effective_date','expiration_date'),
@@ -231,7 +231,7 @@ class BookAdmin(admin.ModelAdmin):
             )
         }),
         ('Metadata', {
-            'classes' : ('metadata',),
+            'classes' : ('collapse',),
             'fields': (
                 ('is_published','in_home','in_listings'),
                 ('effective_date','expiration_date'),
