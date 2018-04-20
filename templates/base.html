@@ -43,5 +43,9 @@
 			          crossorigin="anonymous">
         </script>
         <script type="text/javascript" src="{% js 'common.js' %}"></script>
+        {# analytics #}
+        {% if debug %}
+            {% include 'blocks/analytics_development.html' %}
+        {% endif %}
     </body>
 </html>
