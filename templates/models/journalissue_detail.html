@@ -38,28 +38,32 @@
             </li>
         </ul>
         <div class="issue__texts-wrapper">
-            {% for author, texts in texts_ordered.items %}
-            <div class="issue__texts-item">
-                <h5 class="issue__author">{{ author | safe }}</h5>
+            {% for column in texts_ordered %}
+            <div class="texts-column">
+                {% for author in column %}
+                <div class="issue__texts-item">
+                    <h5 class="issue__author">{{ author.author | safe }}</h5>
                     <ul class="issue__texts">
-                    {% for text in texts %}
-                        {% if text.slug %}
-                        <li class="issue__text">
-                          ·
-                          <a href="{% url 'journal_text' object.slug text.slug text.language %}">
-                          {{ text.title | safe }}
-                          </a>
-                          {% if not text.is_published %}
-                          <span class="issue_not-published">
-                              Not public
-                          </span>
-                          {% endif %}
-                        </li>
-                        {% endif %}
-                    {% endfor %}
+                        {% for text in author.titles %}
+                            {% if text.slug %}
+                            <li class="issue__text">
+                                ·
+                                <a href="{% url 'journal_text' object.slug text.slug text.language %}">
+                                {{ text.title | safe }}
+                                </a>
+                                {% if not text.is_published %}
+                                <span class="issue_not-published">
+                                    Not public
+                                </span>
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
-              </div>
-              {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 # contrib
 from ckeditor_uploader.fields import RichTextUploadingField
+from adminsortable.models import SortableMixin
 # project
 from .categories import LANGUAGES
 
@@ -204,7 +205,7 @@ class JournalIssueTitle(models.Model):
         return self.title
 
 
-class JournalText(models.Model):
+class JournalText(SortableMixin):
     """ Texts of the journals """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
@@ -220,6 +221,8 @@ class JournalText(models.Model):
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='texts_translated', blank=True)
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     translations    = models.ManyToManyField('self', blank=True)
+    order           = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+    column_end      = models.BooleanField(_('End of column'), default=False)
 
     # metadata
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
@@ -239,7 +242,7 @@ class JournalText(models.Model):
     class Meta:
         verbose_name = _('Journal text')
         verbose_name_plural = _('Journal texts')
-        ordering = ('title',)
+        ordering = ('order',)
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""

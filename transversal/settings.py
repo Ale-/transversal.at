@@ -35,6 +35,7 @@ CONTRIB_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'adminsortable',
     'ckeditor',
     'ckeditor_uploader',
 

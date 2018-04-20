@@ -5,6 +5,8 @@ from django.db.models import TextField
 from django.forms import Textarea
 from django.utils.html import format_html
 from django.urls import reverse
+# contrib
+from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
 # app
 from . import models
 from apps.utils import admin_filters as filters
@@ -127,7 +129,13 @@ class JournalIssueTitleInline(admin.TabularInline):
     model = models.JournalIssueTitle
     extra = 1
 
-class JournalIssueAdmin(admin.ModelAdmin):
+class JournalTextInline(SortableTabularInline):
+    model           = models.JournalText
+    fields          = ('title', 'author_text', 'column_end')
+    readonly_fields = ('title', 'author_text')
+    extra = 1
+
+class JournalIssueAdmin(NonSortableParentAdmin):
     model        = models.JournalIssue
 
     # list
@@ -151,7 +159,7 @@ class JournalIssueAdmin(admin.ModelAdmin):
             ),
         })
     )
-    inlines      = [ JournalIssueTitleInline ]
+    inlines      = [ JournalIssueTitleInline, JournalTextInline ]
 
 
 admin.site.register(models.JournalIssue, JournalIssueAdmin)

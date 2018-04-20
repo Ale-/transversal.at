@@ -14,13 +14,13 @@
     position: absolute
 .issue__date--full
   +date
-.issue__texts-wrapper
-  +column-count(2)
-  .issue__texts-item
-    +column-break-inside(avoid)
-    break-inside: avoid
-    page-break-inside: avoid
-    margin-bottom: $m
+// .issue__texts-wrapper
+//   +column-count(2)
+//   .issue__texts-item
+//     +column-break-inside(avoid)
+//     break-inside: avoid
+//     page-break-inside: avoid
+//     margin-bottom: $m
 .issue__text-lang
   text-transform: uppercase
   width: $m/2
@@ -44,3 +44,9 @@
   font-size: .75em
   font-family: $font_headers
   padding-left: $m/2
+
+.issue__texts-wrapper
+  display: flex
+.texts-column
+  padding: 0 $m/2
+  flex-grow: 1

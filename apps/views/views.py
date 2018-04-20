@@ -124,16 +124,23 @@ class JournalIssue(views.View):
         if not object.is_published and not_staff :
             raise Http404("Issue does not exist")
         if not_staff:
-            texts  = models.JournalText.objects.filter(issue=object, is_published=True).order_by('author_text')
+            texts  = models.JournalText.objects.filter(issue=object, is_published=True).order_by('order')
         else:
-            texts  = models.JournalText.objects.filter(issue=object).order_by('author_text')
-        texts_ordered = {}
-
+            texts  = models.JournalText.objects.filter(issue=object).order_by('order')
+        texts_ordered = [ [] ]
+        previous_author_text = ''
         for text in texts:
-            if not text.author_text in texts_ordered:
-                texts_ordered[text.author_text] = [text]
-            else:
-                texts_ordered[text.author_text].append(text);
+            if text.author_text != previous_author_text:
+                texts_ordered[-1].append( {
+                    'author' : text.author_text,
+                    'titles' : [ text ],
+                } )
+                previous_author_text = text.author_text
+            elif len(texts_ordered[-1])>0:
+                texts_ordered[-1][-1]['titles'].append(text)
+            if text.column_end:
+                texts_ordered.append( [] )
+            print(texts_ordered)
 
         return render(request, 'models/journalissue_detail.html', locals())
 
