@@ -140,7 +140,7 @@ class JournalIssueAdmin(NonSortableParentAdmin):
 
     # list
     ordering     = ('-date', 'title',)
-    list_display = ('title', 'date')
+    list_display = ('title', 'date', 'view')
     list_filter  = (filters.TitleFilter, 'is_published')
     actions      = [ publish, unpublish ]
 
@@ -160,6 +160,13 @@ class JournalIssueAdmin(NonSortableParentAdmin):
         })
     )
     inlines      = [ JournalIssueTitleInline, JournalTextInline ]
+
+    def view(self, obj):
+        try:
+            return format_html("<a href='" + reverse('journal_issue', args=[obj.slug]) + "'>➜</a>")
+        except:
+            return None
+    view.short_description = 'See'
 
 
 admin.site.register(models.JournalIssue, JournalIssueAdmin)
