@@ -33,3 +33,7 @@ def last_date(queryset):
 def order_by(queryset, args):
     args = [x.strip() for x in args.split(',')]
     return queryset.order_by(*args)
+
+@register.filter
+def verbose_name(obj):
+    return obj._meta.verbose_name
