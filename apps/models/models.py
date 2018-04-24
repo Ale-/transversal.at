@@ -262,7 +262,13 @@ class JournalText(SortableMixin):
         super(JournalText, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('journal_text', args=[self.issue.slug, self.slug])
+        # To prevent errors when rendering lists with badly imported text
+        # TODO: change this in production
+        if self.issue and self.slug and self.language:
+            return reverse('journal_text', args=[self.issue.slug, self.slug, self.language])
+        else:
+            print("El texto " + str(self.pk) + " tiene problemas")
+            return None
 
     def __str__(self):
         """String representation of this model objects."""
