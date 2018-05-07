@@ -214,7 +214,7 @@ class JournalText(SortableMixin):
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     issue           = models.ForeignKey(JournalIssue, verbose_name=_('Journal issue'), related_name='texts', blank=True, null=True, on_delete=models.SET_NULL)
     language        = models.CharField(_('Language'), max_length=2, default='en', choices=LANGUAGES)
-    date            = models.DateTimeField(_('Date'), blank=True, null=True)
+    date            = models.DateField(_('Date'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='texts_created', blank=True)
     author_text     = models.CharField(_('Author attribution'), max_length=200, null=True)
