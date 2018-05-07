@@ -265,5 +265,15 @@ class BookAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Book, BookAdmin)
 
+class BookExcerptAdmin(admin.ModelAdmin):
+    model = models.BookExcerpt
+
+admin.site.register(models.BookExcerpt, BookExcerptAdmin)
+
+class EventAdmin(admin.ModelAdmin):
+    model = models.Event
+
+admin.site.register(models.Event, EventAdmin)
+
 admin.site.register(models.HeaderText)
 admin.site.register(models.Page)

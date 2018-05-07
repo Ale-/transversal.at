@@ -424,6 +424,26 @@ class Book(models.Model):
         """String representation of this model objects."""
         return self.title
 
+class BookExcerpt(models.Model):
+    """ Book excerpts """
+
+    title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
+    slug            = models.SlugField(editable=False, blank=True)
+    subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
+    language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
+    teaser          = RichTextUploadingField(_('Teaser'), blank=True, null=True)
+    body            = RichTextUploadingField(_('Body'), blank=True, null=True)
+    source_text     = models.ForeignKey(Book, related_name='excerpts', verbose_name=_('Source text'), on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        verbose_name = _('Book excerpt')
+        verbose_name_plural = _('Book excerpts')
+
+    def __str__(self):
+        """String representation of this model objects."""
+        return source_text.title + ": " + self.title
+
+
 class HeaderText(models.Model):
 
     text     = RichTextUploadingField(_('Text'), blank=False, null=True)
@@ -441,6 +461,19 @@ class Page(models.Model):
 
     def get_absolute_url(self):
         return reverse('static_page', args=[self.slug])
+
+    def __str__(self):
+        """String representation of this model objects."""
+        return self.title
+
+class Event(models.Model):
+    """ Events """
+
+    title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
+    slug            = models.SlugField(editable=False, blank=True)
+    datetime        = models.DateTimeField(_('Date and time'), blank=False, null=True)
+    address         = models.CharField(_('Address'), max_length=256, blank=True)
+    body            = RichTextUploadingField(_('Body'), blank=True, null=True)
 
     def __str__(self):
         """String representation of this model objects."""
