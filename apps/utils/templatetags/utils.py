@@ -2,6 +2,7 @@
 from django import template
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.utils.text import slugify
 # project
 from django.conf import settings
 
@@ -37,3 +38,7 @@ def order_by(queryset, args):
 @register.filter
 def verbose_name(obj):
     return obj._meta.verbose_name
+
+@register.filter
+def verbose_name_slug(obj):
+    return slugify(obj._meta.verbose_name)

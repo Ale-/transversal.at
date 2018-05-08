@@ -316,7 +316,12 @@ class BlogText(models.Model):
         super(BlogText, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('blog_text', args=[self.slug])
+        try:
+            url = reverse('blog_text', args=[self.slug])
+            return url
+        except:
+            print("Texto con problemas en el slug: " + str(self.pk))
+            return None
 
     @property
     def translated(self, *args, **kwargs):

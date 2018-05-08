@@ -1,13 +1,15 @@
 # python
 from datetime import datetime
+from itertools import chain
 # django
 from django.shortcuts import render
 from django import views
 from django.views.generic import ListView, DetailView
 from django.utils.dateparse import parse_datetime
 from django.http import Http404
+from django.db.models import Q
 # project
-from apps.models import models
+from apps.models import models, categories
 
 
 class Front(views.View):
@@ -194,3 +196,64 @@ class Page(DetailView):
     """View of a single static page."""
 
     model = models.Page
+
+
+class Search(views.View):
+    """ A 'searchable' view of all content """
+
+    def get(self, request, *args, **kwargs):
+
+        # Arguments of the query
+        text  = request.GET.get('q')
+        model = request.GET.get('type')
+        model_label = 'books' if model=='b' else 'journal texts' if model=='j' else 'content'
+        sort  = request.GET.get('sort')
+        lang  = request.GET.get('lang')
+
+        # Set a list of current languages in searchable contents
+        # TODO: reduce queries to database here, maybe cache used languages in database?
+        all_languages          = dict( categories.LANGUAGES )
+        journal_text_languages = [ (i['language']) for i in models.JournalText.objects.values('language').distinct() ]
+        books_languages        = [ (i['language']) for i in models.Book.objects.values('language').distinct() ]
+        blog_languages         = [ (i['language']) for i in models.BlogText.objects.values('language').distinct() ]
+        lang_codes             = list(set( journal_text_languages + books_languages + blog_languages))
+        lang_codes.sort()
+        lang_codes.remove('')
+        lang_codes.remove('sh')
+        languages              = [ (all_languages[l], l) for l in lang_codes ]
+        languages.sort()
+
+        # Create the queryset
+        query = Q()
+        if text:
+            query = query|Q(title__icontains=text)|Q(body__icontains=text)|Q(author_text__icontains=text)
+        if lang != 'all':
+            query = query&Q(language=lang)
+        if request.user.is_anonymous:
+            query = query&Q(is_published=True)
+
+        # only books
+        if model == 'books':
+            object_list = models.Book.objects.filter(query).order_by(sort)
+        # only journal texts
+        elif model == 'texts':
+            object_list = models.JournalText.objects.filter(query).order_by(sort)
+        # only journal texts
+        elif model == 'blog':
+            object_list = models.BlogText.objects.filter(query).order_by(sort)
+
+        # everything under the sun
+        else:
+            books         = models.Book.objects.filter(query)
+            journal_texts = models.JournalText.objects.filter(query)
+            blog_texts    = models.BlogText.objects.filter(query)
+            content       = chain(books, journal_texts, blog_texts)
+
+            # chain querysets and order alphabetically
+            # TODO: solve bug when sorting chained content
+            if sort != '-date':
+                object_list   = sorted(content, key = lambda i: getattr(i, sort))
+            else:
+                object_list   = sorted(content, key = lambda i: getattr(i, 'date'), reverse=True)
+
+        return render(request, 'models/search_list.html', locals())

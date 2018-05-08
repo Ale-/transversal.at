@@ -1,0 +1,55 @@
+/*
+  Search form
+  /templates/models/search_list.html
+
+.search-item:not(:first-child)
+  margin-top: $m
+  &:before
+    content: "—"
+
+.search-item__title
+  margin: $m/3 0 0
+
+.search-item__title--journal-text,
+.search-item__title--blog
+  +links(darken($palette_blue, 10%), $color_text, .25s ease)
+.search-item__title--book
+  +links($palette_orange, $color_text, .25s ease)
+
+.search-item__subtitle
+  font-weight: bold
+  font-family: $font_headers
+
+.search-item__meta
+  font-size: .75em
+  font-family: $font_headers
+
+.complex-search
+  background-color: #f5f5f5
+  padding: $m
+  font-family: $font_headers
+  font-size: .75em
+  text-transform: uppercase
+  span
+    margin: 0 $m/2
+  span:first-child
+    margin-left: 0
+
+.complex-search input[type=submit]
+  margin-left: $m
+  text-transform: uppercase
+
+.complex-search-results
+  margin: $m/2 0 0 !important
+  text-transform: lowercase
+
+.search-items
+  padding: $m
+
+.search-items__empty
+  text-align: center
+  margin-top: $m*2
+  color: #555
+
+.search-items__empty-icon
+  font-size: 4em

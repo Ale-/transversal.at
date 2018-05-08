@@ -1,0 +1,79 @@
+{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load i18n utils %}
+{% block body_classes %}search-page{% endblock %}
+{% block page_html_title %}search{% endblock %}
+
+{% block main %}
+    <form class="complex-search" action="{% url 'search' %}">
+        <span>Search for</span>
+        <input type="text" name="q" value="{{ text }}" />
+        <span> in </span>
+        <select name="type" />
+            <option {% if model == 'all' %}selected{% endif %} value="all" >
+                all content
+            </option>
+            <option {% if model == 'books' %}selected{% endif %} value="books">
+                books
+            </option>
+            <option {% if model == 'texts' %}selected{% endif %} value="texts">
+                journal texts
+            </option>
+            <option {% if model == 'blog' %}selected{% endif %} value="blog">
+                blog
+            </option>
+        </select>
+        <span> in </span>
+        <select name="lang" />
+            <option {% if lang == 'all' %}selected{% endif %} value="all">
+                all languages
+            </option>
+            {% for label,code in languages %}
+                <option value="{{ code }}" {% if lang == code %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+        <span> sorted by </span>
+        <select name="sort" />
+            <option {% if sort == 'title' %}selected{% endif %} value="title">
+                title A-Z
+            </option>
+            <option {% if sort == '-date' %}selected{% endif %} value="-date">
+                newer first
+            </option>
+            <option {% if sort == 'date' %}selected{% endif %} value="date">
+                older first
+            </option>
+        </select>
+        <input type="submit" value="Search" />
+        <p class="complex-search-results">
+            {{ object_list|length }} references found
+        </p>
+    </form>
+
+    <div class="search-items">
+    {% for object in object_list %}
+        <div class="search-item">
+            <h4 class="search-item__title search-item__title--{{ object|verbose_name_slug }}">
+                <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+            </h4>
+            {% if object.subtitle %}
+            <p class="search-item__subtitle">
+                {{ object.subtitle }}
+            </p>
+            {% endif %}
+            <p class="search-item__meta">
+                {{ object.author_text }} | {{ object.date }} | {{ object|verbose_name }}
+            </p>
+        </div>
+        {% empty %}
+          <div class="search-items__empty">
+            <p class="search-items__empty-icon">
+                ∅
+            </p>
+            <p class="search-items__empty-text">
+                There're no results for the desired criteria
+            </p>
+          </div>
+    {% endfor %}
+    </div>
+{% endblock %}
