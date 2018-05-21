@@ -1,0 +1,54 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}user-curated-content{% endblock %}
+{% block page_html_title %}{{ object.username}} profile{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+      {% if request.user.is_staff %}
+      <div class="links__staff">
+          <a href="{% url 'admin:auth_user_change' request.user.id %}">
+              {% trans 'Edit your user' %}
+          </a>
+      </div>
+      {% endif %}
+    </nav>
+    <h1 class="page__title">
+        Curated content of {{ object.username }}
+    </h1>
+    <div class="curated-content-wrapper">
+        <div class="curated-content">
+            <ul class="curated-content__items">
+            {% for item in object.curated_content.all %}
+            <li class="curated-content__item">
+                <h4 class="curated-content__item-title">
+                    <a href="{{ item.get_absolute_url }}">
+                        {{ item.title }}
+                    </a>
+                </h4>
+                {% if item.subtitle %}
+                <p class="search-item__subtitle">
+                    {{ item.subtitle }}
+                </p>
+                {% endif %}
+                <p class="search-item__meta">
+                    {{ item.author_text }} | {{ item.date }} | {{ item|verbose_name }}
+                </p>
+                {% include 'blocks/widget-curate.html' with obj=item modifier='view' %}
+            </li>
+            {% empty %}
+            <div class="search-items__empty">
+                <p class="search-items__empty-icon">
+                    ∅
+                </p>
+                <p class="search-items__empty-text">
+                    {% trans "You haven't curated any content yet!" %}
+                </p>
+            </div>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

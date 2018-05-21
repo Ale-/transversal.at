@@ -38,7 +38,7 @@ CONTRIB_APPS = (
     'adminsortable',
     'ckeditor',
     'ckeditor_uploader',
-
+    'gm2m'
 )
 
 PROJECT_APPS = (

@@ -1,4 +1,6 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{# Blog text detail #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load static utils i18n %}
 {% block body_classes %}blogtext{% endblock %}
 {% block page_html_title %}transversal.at{% endblock %}
 
@@ -91,7 +93,6 @@
             {{ object.body | safe }}
         </div>
     </div>
-{% endblock %}
 
-{% block page_scripts %}
+    {% include 'blocks/widget-curate.html' with obj=object modifier='page' %}
 {% endblock %}

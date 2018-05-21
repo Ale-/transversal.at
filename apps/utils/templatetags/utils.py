@@ -3,8 +3,10 @@ from django import template
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from django.contrib.contenttypes.models import ContentType
 # project
 from django.conf import settings
+from apps.models import models
 
 register = template.Library()
 
@@ -40,5 +42,16 @@ def verbose_name(obj):
     return obj._meta.verbose_name
 
 @register.filter
+def contenttype(obj):
+    return obj.__class__.__name__.lower()
+
+@register.filter
 def verbose_name_slug(obj):
     return slugify(obj._meta.verbose_name)
+
+@register.filter
+def is_curated(obj, user):
+    profile = models.UserProfile.objects.get(user=user)
+    if profile:
+        return obj in profile.curated_content.all()
+    return False

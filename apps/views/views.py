@@ -1,13 +1,18 @@
 # python
 from datetime import datetime
 from itertools import chain
+import urllib
 # django
 from django.shortcuts import render
 from django import views
 from django.views.generic import ListView, DetailView
 from django.utils.dateparse import parse_datetime
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.contenttypes.models import ContentType
+from django.utils.text import slugify
 # project
 from apps.models import models, categories
 
@@ -257,3 +262,26 @@ class Search(views.View):
                 object_list   = sorted(content, key = lambda i: getattr(i, 'date'), reverse=True)
 
         return render(request, 'models/search_list.html', locals())
+
+
+class CuratedContent(DetailView):
+    """View of a single static page."""
+
+    model = models.UserProfile
+
+
+class APICurate(views.View):
+    """ An API method to allow users to select their curated content """
+
+    @method_decorator(login_required)
+    def get(self, request):
+        pk              = request.GET.get('pk')
+        contenttype     = ContentType.objects.get(model=request.GET.get('contenttype'))
+        content         = contenttype.get_object_for_this_type(pk=pk)
+        profile,created = models.UserProfile.objects.get_or_create(user=request.user)
+        action          = request.GET.get('action')
+        if action == 'add':
+            profile.curated_content.add(content)
+            return HttpResponse("Item added successfully to user's list of curated content")
+        profile.curated_content.remove(content)
+        return HttpResponse("Item removed successfully from user's list of curated content", content_type="text/plain")

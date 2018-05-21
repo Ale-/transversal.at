@@ -19,7 +19,7 @@ urlpatterns = [
     # contact
     url(r'^contact/', include('contact_form.urls')),
 
-    # pages
+    # PAGES
 
     # front
     url(r'^$', views.Front.as_view(), name="front"),
@@ -42,10 +42,13 @@ urlpatterns = [
     path('texts/', views.JournalTexts.as_view(), name="texts"),
     # search
     path('search/', views.Search.as_view(), name="search"),
-
-
     # impressum
     path('info/<slug:slug>', views.Page.as_view(), name="static_page"),
+    # me
+    path('curated-content/<int:pk>', views.CuratedContent.as_view(), name="profile"),
+
+    # API
+    url(r'curate', views.APICurate.as_view(), name="api_curate")
 ]
 
 # Static and media in development

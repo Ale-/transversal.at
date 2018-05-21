@@ -3,6 +3,7 @@
 
 {% block layout %}
 
+    {% include 'regions/messages.html' with region_name="messages" html_container="div" layout="fixed" %}
     {% include 'regions/header.html' with region_name='header' html_container='header' layout='fluid' %}
 
     <div class="region-content">

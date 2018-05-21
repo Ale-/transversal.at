@@ -1,0 +1,27 @@
+// Messages section of the site
+// regions/header.html
+
+.region-messages
+  position: fixed
+  top: $m
+  width: 360px
+  right: $m*3
+  z-index: 1000
+  pointer-events: none
+  text-align: center
+  text-transform: uppercase
+  font-size: .8em
+  font-family: $font_headers
+  +text_shadow(0 0 5px rgba(black, .25))
+
+[class*='messages-list__msg']
+  color: white
+  +animation(fadeout 5s 1)
+  animation-fill-mode: forwards
+  padding: $m
+
+.messages-list__msg--success
+  background: rgba($color_success, .9)
+
+.messages-list__msg--fail
+  background: rgba($color_warning, .9)

@@ -1,0 +1,30 @@
+// Form styles
+
+@import compass/css3/transition
+@import compass/css3/filter
+
+=button_base
+  line-height: 40px
+  padding: 0 $m/2
+
+=button_success
+  +button_base
+  background-color: $color_success
+  color: white
+
+=button_box
+  +button_base
+  line-height: 36px
+  border: 0
+  background-color: white
+  outline: 2px solid $color_text
+  &:hover
+    outline-width: 3px
+
+=button_box_light
+  +button_box
+  outline: 1px solid $color_text
+
+=button_none
+  border: 0
+  background: none

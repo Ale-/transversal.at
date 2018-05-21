@@ -1,0 +1,43 @@
+/*
+  Button to add content to user's profile
+  /templates/blocks/widget-curate.html
+
+[class*='curate-widget--']
+  font-family: $font_headers
+  font-size: .8em
+
+.curate-widget--page
+  display: block
+  position: fixed
+  bottom: 0
+  left: 25%
+  width: 50%
+  z-index: 10
+  padding: $m
+  border-top: 1px solid $color_text
+  text-align: center
+  background-color: rgba(white, .8)
+
+.curate-button__tooltip
+  display: none
+
+#curate-button
+  +button_none
+  +transition(opacity .25s ease)
+#curate-button:hover
+  opacity: .75
+
+.curate-widget__button-remove--view
+  background-color: #f5f5f5 !important
+
+[class*='curate-widget__button-remove']:before
+  content: "🞤"
+  color: rgba(red, .75)
+  display: inline-block
+  margin-right: $m/2
+  +transform( rotate(45deg) )
+
+[class*='curate-widget__button-add']:before
+  content: "🞤"
+  color: rgba(green, .75)
+  margin-right: $m/2

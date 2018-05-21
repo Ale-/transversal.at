@@ -3,7 +3,7 @@
 <nav class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}">
     <ul>
         <li class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}__link--admin">
-            <a href="{% url 'admin:index' %}">
+            <a href="{% url 'profile' request.user.pk %}">
                 <img src="{% img 'user.svg' %}" />
             </a>
         </li>

@@ -111,11 +111,11 @@
         <div class="book__publisher">
             {{ object.publisher_text | safe }}
         </div>
+
         <div class="book__body">
             {{ object.body | safe }}
         </div>
-    </div>
-{% endblock %}
 
-{% block page_scripts %}
+        {% include 'blocks/widget-curate.html' with obj=book modifier='page' %}
+    </div>
 {% endblock %}

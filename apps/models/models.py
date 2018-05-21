@@ -5,9 +5,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
 from django.urls import reverse
+from django.contrib.auth.models import User
 # contrib
 from ckeditor_uploader.fields import RichTextUploadingField
 from adminsortable.models import SortableMixin
+from gm2m import GM2MField
 # project
 from .categories import LANGUAGES
 
@@ -483,3 +485,24 @@ class Event(models.Model):
     def __str__(self):
         """String representation of this model objects."""
         return self.title
+
+
+class UserProfile(models.Model):
+    """ User profiles """
+
+    user            = models.OneToOneField(User, on_delete=models.CASCADE)
+    curated_content = GM2MField()
+
+    @property
+    def username(self):
+        """Returns full name of user or username"""
+
+        user = self.user
+        if user.first_name:
+            return user.first_name + " " + user.last_name
+        return user.username
+
+    def __str__(self):
+        """String representation of this model objects."""
+
+        return self.user.username

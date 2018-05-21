@@ -1,0 +1,14 @@
+// User profiles
+
+.curated-content__item-title
+  margin-bottom: $m/4
+
+.curated-content__item
+  margin-bottom: $m
+  &::before
+    content: "—"
+    display: block
+
+.curated-content__item.removed > h4,
+.curated-content__item.removed > p,
+  opacity: .25
