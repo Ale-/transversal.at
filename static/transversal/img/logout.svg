@@ -12,7 +12,7 @@
    width="45.569935mm"
    version="1.1"
    viewBox="0 0 161.46827 157.83215"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (unknown)"
    sodipodi:docname="logout.svg">
   <metadata
      id="metadata22">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -38,7 +38,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1056"
+     inkscape:window-height="1053"
      id="namedview18"
      showgrid="false"
      fit-margin-top="0"
@@ -46,7 +46,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="1.3199327"
-     inkscape:cx="409.37515"
+     inkscape:cx="281.33832"
      inkscape:cy="-55.221955"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -54,20 +54,19 @@
      inkscape:current-layer="svg2"
      showguides="false" />
   <text
-     sodipodi:linespacing="100%"
      line-height="100%"
      x="-1308.4279"
      y="169.64793"
      font-size="40px"
      xml:space="preserve"
-     style="font-size:40px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
+     style="font-size:40px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
      id="text14127"><tspan
        y="169.64793"
        x="-1308.4279"
        id="tspan14129"></tspan></text>
   <flowRoot
      line-height="100%"
-     style="font-size:40px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
+     style="font-size:40px;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
      xml:space="preserve"
      font-size="40px"
      id="flowRoot14131"
@@ -78,25 +77,27 @@
          width="522.85999"
          y="-101.92"
          id="rect14135" /></flowRegion><flowPara
-       id="flowPara14137"></flowPara></flowRoot>  <g
+       id="flowPara14137"
+       style="font-size:40px;line-height:1"></flowPara></flowRoot>  <g
      id="g14158"
-     transform="translate(-311.3326,-1.2602698)">
+     transform="translate(-311.3326,-1.2602698)"
+     style="stroke:#2e2e2e;stroke-opacity:1;stroke-width:9.00003831;stroke-miterlimit:4;stroke-dasharray:none">
     <path
        transform="matrix(1.0000042,0,0,1.0000042,-3.4332421e-4,0)"
        id="path14140"
        d="m 362.89639,150.25534 -40.91029,0 0,-140.158661 0,0 140.15867,0 0,140.158661 -40.91029,0"
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:0.94117647;fill-rule:nonzero;stroke:#ffffff;stroke-width:9;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:0.94117647;fill-rule:nonzero;stroke:#2e2e2e;stroke-width:9.00000051;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
        id="path14142"
        d="m 392.06674,77.145875 0,72.731285"
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:9.00003815;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#2e2e2e;stroke-width:9.00003831;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        sodipodi:nodetypes="ccc"
        inkscape:connector-curvature="0"
        id="rect14144"
        d="M 433.27139,106.81799 392.06673,148.02265 350.86208,106.818"
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:0.94117647;fill-rule:nonzero;stroke:#ffffff;stroke-width:9.00003815;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:0.94117647;fill-rule:nonzero;stroke:#2e2e2e;stroke-width:9.00003831;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
   </g>
 </svg>

@@ -12,7 +12,7 @@
    width="45.569935mm"
    version="1.1"
    viewBox="0 0 161.46827 157.83215"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (unknown)"
    sodipodi:docname="user.svg">
   <metadata
      id="metadata22">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -38,7 +38,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1056"
+     inkscape:window-height="1053"
      id="namedview18"
      showgrid="false"
      fit-margin-top="0"
@@ -46,27 +46,26 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="1.3199327"
-     inkscape:cx="-87.619886"
+     inkscape:cx="-215.65672"
      inkscape:cy="61.45066"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2" />
   <text
-     sodipodi:linespacing="100%"
      line-height="100%"
      x="-1308.4279"
      y="169.64793"
      font-size="40px"
      xml:space="preserve"
-     style="font-size:40px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
+     style="font-size:40px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
      id="text14127"><tspan
        y="169.64793"
        x="-1308.4279"
        id="tspan14129"></tspan></text>
   <flowRoot
      line-height="100%"
-     style="font-size:40px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
+     style="font-size:40px;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"
      xml:space="preserve"
      font-size="40px"
      id="flowRoot14131"
@@ -77,15 +76,16 @@
          width="522.85999"
          y="-101.92"
          id="rect14135" /></flowRegion><flowPara
-       id="flowPara14137"></flowPara></flowRoot>  <circle
+       id="flowPara14137"
+       style="font-size:40px;line-height:1"></flowPara></flowRoot>  <circle
      id="circle14160"
-     style="color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:none;stroke:#ffffff;stroke-width:9.00003719;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto"
+     style="color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:none;stroke:#2e2e2e;stroke-width:9.00003719;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;stroke-opacity:1"
      cx="80.730148"
      cy="45.966019"
      r="41.466" />
   <path
      id="path14162"
-     style="color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:none;stroke:#ffffff;stroke-width:9.00003719;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto"
+     style="color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:none;stroke:#2e2e2e;stroke-width:9.00003719;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;stroke-opacity:1"
      d="m 4.5001482,153.26802 c 0,-30.767 34.1309998,-55.709001 76.2339998,-55.709001 42.103002,-1.8e-5 76.234002,24.942001 76.234002,55.709001"
      inkscape:connector-curvature="0" />
 </svg>

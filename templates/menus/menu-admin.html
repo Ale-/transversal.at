@@ -1,14 +1,22 @@
-{# Main menu #} {% load static utils %}
+{# Main menu #} {% load static utils i18n %}
 
 <nav class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}">
     <ul>
-        <li class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}__link--admin">
-            <a href="{% url 'profile' request.user.pk %}">
+        <li class="menu-admin__link-admin--{% if modifier %}--{{ modifier }}{% endif %}">
+            <a href="{% url 'admin:index' %}"
+               title="{% trans 'Go to administration section' %}">
+                <img src="{% img 'cog.svg' %}" />
+            </a>
+        </li>
+        <li class="menu-admin__link-user--{% if modifier %}--{{ modifier }}{% endif %}">
+            <a href="{% url 'profile' request.user.pk %}"
+               title="{% trans 'Go to your user profile' %}">
                 <img src="{% img 'user.svg' %}" />
             </a>
         </li>
-        <li class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}__link--logout">
-            <a href="{% url 'logout' %}">
+        <li class="menu-admin__link-logout--{% if modifier %}--{{ modifier }}{% endif %}">
+            <a href="{% url 'logout' %}"
+               title="{% trans 'Log out' %}">
                 <img src="{% img 'logout.svg' %}" />
             </a>
         </li>

@@ -1,14 +1,18 @@
+// Menu for registered users
+// /templates/menus/menu-admin.html
+
 .menu-admin
-  float: right
-  margin: $m
-  background: rgba(#111, .9)
+  background: white
   width: $m*2
   text-align: center
   padding: $m/2 $m/2 0
-  border-right: 2px solid $palette_blue
+  float: right
 
 .menu-admin img
   max-width: $m
 
-.menu-admin li
+[class*='menu-admin__link']
   margin-bottom: $m/2
+  +transition(opacity .2s ease)
+  &:hover
+    opacity: .5
