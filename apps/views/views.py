@@ -48,8 +48,12 @@ class BlogTextView(views.View):
             object  = models.BlogTextTranslation.objects.get(slug=slug)
             authors = object.source_text.authors.order_by('surname')
 
-        if not object.is_published and not request.user.is_staff:
-            raise Http404("Post does not exist")
+        try:
+            if not object.is_published and not request.user.is_staff:
+                raise Http404("Post does not exist")
+        except:
+            if not object.source_text.is_published and not request.user.is_staff:
+                raise Http404("Post does not exist")
 
         return render(request, 'models/blogtext_detail.html', locals())
 
@@ -211,7 +215,6 @@ class Search(views.View):
         # Arguments of the query
         text  = request.GET.get('q')
         model = request.GET.get('type')
-        model_label = 'books' if model=='b' else 'journal texts' if model=='j' else 'content'
         sort  = request.GET.get('sort')
         lang  = request.GET.get('lang')
 
@@ -221,7 +224,8 @@ class Search(views.View):
         journal_text_languages = [ (i['language']) for i in models.JournalText.objects.values('language').distinct() ]
         books_languages        = [ (i['language']) for i in models.Book.objects.values('language').distinct() ]
         blog_languages         = [ (i['language']) for i in models.BlogText.objects.values('language').distinct() ]
-        lang_codes             = list(set( journal_text_languages + books_languages + blog_languages))
+        blog_trans_languages   = [ (i['language']) for i in models.BlogTextTranslation.objects.values('language').distinct() ]
+        lang_codes             = list(set( journal_text_languages + books_languages + blog_languages + blog_trans_languages))
         lang_codes.sort()
         lang_codes.remove('')
         lang_codes.remove('sh')
@@ -245,14 +249,24 @@ class Search(views.View):
             object_list = models.JournalText.objects.filter(query).order_by(sort)
         # only journal texts
         elif model == 'blog':
-            object_list = models.BlogText.objects.filter(query).order_by(sort)
+            blog_posts        = models.BlogText.objects.filter(query).order_by(sort)
+            blog_translations = models.BlogTextTranslation.objects.filter(query).order_by(sort)
+            content           = chain(blog_posts, blog_translations)
+
+            # chain querysets and order alphabetically
+            # TODO: solve bug when sorting chained content
+            if sort != '-date':
+                object_list   = sorted(content, key = lambda i: getattr(i, sort))
+            else:
+                object_list   = sorted(content, key = lambda i: getattr(i, 'date'), reverse=True)
 
         # everything under the sun
         else:
-            books         = models.Book.objects.filter(query)
-            journal_texts = models.JournalText.objects.filter(query)
-            blog_texts    = models.BlogText.objects.filter(query)
-            content       = chain(books, journal_texts, blog_texts)
+            books             = models.Book.objects.filter(query)
+            journal_texts     = models.JournalText.objects.filter(query)
+            blog_texts        = models.BlogText.objects.filter(query)
+            blog_translations = models.BlogTextTranslation.objects.filter(query).order_by(sort)
+            content           = chain(books, journal_texts, blog_texts, blog_translations)
 
             # chain querysets and order alphabetically
             # TODO: solve bug when sorting chained content
