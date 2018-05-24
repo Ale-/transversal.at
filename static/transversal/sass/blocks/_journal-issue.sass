@@ -3,7 +3,7 @@
   width: 100%
   margin: 0 0 $m/2
   padding: $m/6 $m/2
-  opacity: .8
+  color: rgba(#222, .7)
   text-overflow: ellipsis
   white-space: nowrap
   overflow: hidden
@@ -14,13 +14,6 @@
     position: absolute
 .issue__date--full
   +date
-// .issue__texts-wrapper
-//   +column-count(2)
-//   .issue__texts-item
-//     +column-break-inside(avoid)
-//     break-inside: avoid
-//     page-break-inside: avoid
-//     margin-bottom: $m
 .issue__text-lang
   text-transform: uppercase
   width: $m/2
@@ -29,7 +22,6 @@
 .issue__links
   margin: $m 0
 .issue__link
-  font-weight: bold
   font-family: $font_headers
   display: inline
   margin-right: $m
@@ -44,9 +36,26 @@
   font-size: .75em
   font-family: $font_headers
   padding-left: $m/2
-
+.issue__texts
+  font-family: $font_auxiliar
 .issue__texts-wrapper
-  display: flex
+  +clearfix
 .texts-column
-  padding: 0 $m/2
-  flex-grow: 1
+  display: inline-block
+  vertical-align: top
+  margin-right: $m
+  &:last-child
+    margin-right: 0
+
+$w: (100%, 50%, 33.33%, 25%, 20%)
+@for $i from 1 through 5
+  $f: ($i - 1)/$i
+  .cols-#{$i} .texts-column
+    float: left
+    width: calc(#{nth($w, $i)} - #{$m*$f})
+
+.issue__texts-item
+  margin-bottom: $m
+.issue__text
+  margin-top: $m/2
+  line-height: 1.1

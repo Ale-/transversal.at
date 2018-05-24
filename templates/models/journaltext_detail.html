@@ -28,6 +28,11 @@
         <h1 class="text__title">
             {{ object.title }}
         </h1>
+        {% if object.subtitle %}
+        <h2 class="text__subtitle">
+            {{ object.subtitle }}
+        </h2>
+        {% endif %}
         <p class="text__author-text">
             {{ object.author_text | safe }}
         </p>

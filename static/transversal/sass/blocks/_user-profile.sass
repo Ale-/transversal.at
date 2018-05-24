@@ -1,13 +1,24 @@
 // User profiles
 
 .curated-content__item-title
-  margin-bottom: $m/4
+  margin: 0
+.curated-content__item-subtitle
+  margin: 0
+.curated-content__item-meta
+  font-family: $font_auxiliar
+  margin-top: $m/2
+  font-size: .9em
 
 .curated-content__item
   margin-bottom: $m
+  position: relative
   &::before
     content: "—"
     display: block
+  &:first-child
+    margin-top: $m*2
+    &::before
+      display: none
 
 .curated-content__item.removed > h4,
 .curated-content__item.removed > p,

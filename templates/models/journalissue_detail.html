@@ -28,16 +28,16 @@
         <ul class="issue__links">
             <li class="issue__link">
                 <a href="{% url 'journal_issue_editorial' object.slug %}">
-                    {% trans 'Editorial' %}
+                    {% trans 'editorial' %}
                 </a>
             </li>
             <li class="issue__link">
                 <a href="{% url 'journal_issue_impressum' object.slug %}">
-                    {% trans 'Impressum' %}
+                    {% trans 'impressum' %}
                 </a>
             </li>
         </ul>
-        <div class="issue__texts-wrapper">
+        <div class="issue__texts-wrapper cols-{{ texts_ordered|length }}">
             {% for column in texts_ordered %}
             <div class="texts-column">
                 {% for author in column %}
@@ -47,7 +47,6 @@
                         {% for text in author.titles %}
                             {% if text.slug %}
                             <li class="issue__text">
-                                ·
                                 <a href="{% url 'journal_text' object.slug text.slug text.language %}">
                                 {{ text.title | safe }}
                                 </a>

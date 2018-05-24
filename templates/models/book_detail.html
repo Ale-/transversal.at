@@ -30,9 +30,19 @@
             <strong>Not public</strong>
         </p>
         {% endif %}
+
         <h1 class="book__title">
             {{ object.title }}
         </h1>
+        <h4 class="book__subtitle">
+            {{ object.subtitle }}
+        </h4>
+        <div class="book__author">
+            {{ object.author_text }}
+        </div>
+        <div class="book__publisher">
+            {{ object.publisher_text | safe }}
+        </div>
         <div class="book__meta">
             {% if object.image %}
             <div class="book__meta-image">
@@ -41,14 +51,28 @@
             {% endif %}
             {% if object.epub_file %}
             <div class="book__meta-epub">
-                <h5>epub</h5>
-                <a href="{{ object.epub_file.url }}">Download</a>
+                <h5>
+                    epub
+                </h5>
+                <a href="{{ object.epub_file.url }}">
+                    Download
+                </a>
+                <span class="filesize">
+                    [{{ object.epub_file.url|filesize|filesizeformat }}]
+                </span>
             </div>
             {% endif %}
             {% if object.pdf_file %}
             <div class="book__meta-pdf">
-                <h5>pdf</h5>
-                <a href="{{ object.pdf_file.url }}">Download</a>
+                <h5>
+                    pdf
+                </h5>
+                <a href="{{ object.pdf_file.url }}">
+                    Download
+                </a>
+                <span class="filesize">
+                    [{{ object.pdf_file.url|filesize|filesizeformat }}]
+                </span>
             </div>
             {% endif %}
             {% if object.links|length > 0 %}
@@ -108,13 +132,10 @@
             </div>
             {% endif %}
         </div>
-        <div class="book__publisher">
-            {{ object.publisher_text | safe }}
-        </div>
-
         <div class="book__body">
             {{ object.body | safe }}
         </div>
+
 
         {% include 'blocks/widget-curate.html' with obj=book modifier='page' %}
     </div>

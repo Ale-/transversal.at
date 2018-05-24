@@ -32,23 +32,23 @@
     <div class="view-lastbooks">
         {% for book in last_books %}
         <a href="books/{{book.slug}}">
-        <div class="view-lastbook">
-            <p class="view-lastbook__header">
+        <div class="view-lastbooks__item">
+            <p class="view-lastbooks__item-header">
                 {{ book.title }}
             </p>
-            <div class="view-lastbook__body">
-                <figure class="view-lastbooks__image">
+            <div class="view-lastbooks__item-body">
+                <figure class="view-lastbooks__item-image">
                     <img src="{{ book.image.first.image_file.url }}" />
                 </figure>
                 {% if not book.is_published %}
-                <p class="view-lastbook__unpublished">
+                <p class="view-lastbooks__item-unpublished">
                     <strong>Not public</strong> ·
                 </p>
                 {% endif %}
-                <div class="view-lastbooks__title">
+                <div class="view-lastbooks__item-title">
                     {{ book.title }}
                 </div>
-                <p class="view-lastbooks__authors">
+                <p class="view-lastbooks__item-authors">
                     {{ book.author_text }}
                 </p>
             </div>
@@ -61,23 +61,30 @@
         <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
             <div class="blog-view__titles">
                 {% for translation in post.translations.all %}
-                    <h5 class="blog-view__title">
+                    <h4 class="blog-view__title">
                         <a href="/blog/{{ translation.slug }}">
                             {{ translation.title }}
                         </a>
-                    </h5>
+                    </h4>
                 {% endfor %}
                 <h4 class="blog-view__title">
                     <a href="/blog/{{ post.slug }}">
                         {{ post.title }}
                     </a>
                 </h4>
+                {% if post.subtitle %}
+                <h5 class="blog-view__subtitle">
+                    {{ post.subtitle }}
+                </h5>
+                {% endif %}
             </div>
             <p class="blog-view__teaser">
                 {{ post.teaser | safe }}
             </p>
             <p class="blog-view__meta">
+                {% if post.author_text %}
                 <span class="blog-view__author">{{ post.author_text }}</span>
+                {% endif %}
                 <span class="blog-view__date">{{ post.date | date:"d m y" }}</span>
             </p>
         </div>

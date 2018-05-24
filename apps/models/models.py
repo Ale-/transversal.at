@@ -418,6 +418,14 @@ class Book(models.Model):
                                             help_text=_('Private'))
     is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
 
+    @property
+    def epub_size(self):
+        return self.epub_file.size
+
+    @property
+    def pdf_size(self):
+        return self.pdf_file.size
+
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
         if not self.slug:

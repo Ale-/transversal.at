@@ -119,4 +119,10 @@ $(document).ready( function()
         curateContent( $(this) );
     });
 
+    // Lightbox
+    $('.book__meta-image').click( function(){
+        $(this).toggleClass('lightbox');
+    });
+
+
 });

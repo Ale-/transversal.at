@@ -3,7 +3,8 @@
   right: 0
   bottom: 0
   font-family: $font_headers
-  font-size: 1.4em
+  font-size: 1.2em
+  line-height: 1.6em
 
 [class^='menu-main__link--']
   display: inline
@@ -11,23 +12,28 @@
   a
     display: inline-block
     line-height: 1.6em
-    font-weight: bold
     padding: 0 $m/3
 
 .menu-main__link--blog
-  +links(#4a4b4d, white, .25s ease)
+  a
+    width: 4em
+  +links(#4a4b4d, white, .1s ease)
   background-color: white
   &:hover
     background-color: transparent
 
 .menu-main__link--journal
-  +links(#4a4b4d, $palette_blue, .25s ease)
+  a
+    width: 8em
+  +links(#4a4b4d, $palette_blue, .1s ease)
   background-color: $palette_blue
   &:hover
     background-color: transparent
 
 .menu-main__link--books
-  +links(#4a4b4d, $palette_orange, .25s ease)
+  a
+    width: 8em
+  +links(#4a4b4d, $palette_orange, .1s ease)
   background-color: $palette_orange
   &:hover
     background-color: transparent

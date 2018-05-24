@@ -1,3 +1,5 @@
+# python
+import os
 # django
 from django import template
 from django.utils.translation import ugettext_lazy as _
@@ -55,3 +57,8 @@ def is_curated(obj, user):
     if profile:
         return obj in profile.curated_content.all()
     return False
+
+@register.filter
+def filesize(url):
+    print( print(settings.BASE_DIR + url) )
+    return os.path.getsize(settings.BASE_DIR + url)

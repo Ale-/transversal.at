@@ -29,11 +29,11 @@
                     </a>
                 </h4>
                 {% if item.subtitle %}
-                <p class="search-item__subtitle">
+                <h5 class="curated-content__item-subtitle">
                     {{ item.subtitle }}
-                </p>
+                </h5>
                 {% endif %}
-                <p class="search-item__meta">
+                <p class="curated-content__item-meta">
                     {{ item.author_text }} | {{ item.date }} | {{ item|verbose_name }}
                 </p>
                 {% include 'blocks/widget-curate.html' with obj=item modifier='view' %}

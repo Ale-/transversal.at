@@ -4,21 +4,27 @@
 
 {% block main %}
     {% include 'blocks/pager.html' with item_name='posts' %}
+    <div class="blog-view">
     {% for post in object_list %}
         <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
             <div class="blog-view__titles">
                 {% for translation in post.translations.all %}
-                    <h5 class="blog-view__title">
+                    <h4 class="blog-view__title">
                         <a href="/blog/{{ translation.slug }}">
                             <span class="language">{{ translation.language }}</span> {{ translation.title }}
                         </a>
-                    </h5>
+                    </h4>
                 {% endfor %}
                 <h4 class="blog-view__title">
                     <a href="/blog/{{ post.slug }}">
                         {{ post.title }}
                     </a>
                 </h4>
+                {% if post.subtitle %}
+                <h5 class="blog-view__subtitle">
+                    {{ post.subtitle }}
+                </h5>
+                {% endif %}
             </div>
             <p class="blog-view__teaser">
                 {{ post.teaser | safe }}
@@ -29,6 +35,7 @@
             </p>
         </div>
     {% endfor %}
+    </div>
     {% include 'blocks/pager.html' with item_name='posts' %}
 {% endblock %}
 

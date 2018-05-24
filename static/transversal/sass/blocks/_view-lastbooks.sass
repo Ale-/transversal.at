@@ -4,29 +4,34 @@
   +links(rgba($color_text, .85), rgba($color_text, .5), .25s ease)
   +clearfix
 
-.view-lastbook
+.view-lastbooks__item
   display: inline-block
   width: 33.3%
   float: left
   text-overflow: ellipsis
 
-.view-lastbook__header
+.view-lastbooks__item-header
   background-color: $palette_grey
   color: $palette_orange
-  font-size: 2.5em
+  font-size: 2.25em
   height: 0.9em
   white-space: nowrap
   overflow: hidden
 
-.view-lastbooks__title
-  font-weight: bold
+.view-lastbooks__item-title
+  line-height: 1.2
 
-.view-lastbook__body
+.view-lastbooks__item-body
   font-family: $font_headers
-  font-size: .9em
-  padding: $m/2
+  padding: 0 $m/2
 
-.view-lastbooks__image
+.view-lastbooks__item-authors
+  font-family: $font_auxiliar
+  font-size: .75em
+  line-height: 1.1
+  padding: $m/2 0
+
+.view-lastbooks__item-image
   max-width: 50%
   float: right
   padding: $m/3

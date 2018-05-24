@@ -41,6 +41,9 @@
         <h1 class="blogtext__title">
             {{ object.title }}
         </h1>
+        <h5 class="blogtext__subtitle">
+            {{ object.subtitle }}
+        </h5>
         <div class="blogtext__meta">
             {% if object.authors.all|length > 0 or object.source_text.authors.all|length > 0 %}
             <div class="blogtext__meta-authors">
@@ -82,6 +85,10 @@
         {% if object.author_text %}
         <p class="blogtext__author">
             {{ object.author_text }}
+        </p>
+        {% elif object.source_text.author_text %}
+        <p class="blogtext__author">
+            {{ object.source_text.author_text }}
         </p>
         {% endif %}
         {% if object.translator_text %}

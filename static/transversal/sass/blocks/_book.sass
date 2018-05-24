@@ -1,11 +1,15 @@
-
+.book__title
+  font-size: 1.5em
+  margin: $m 0 0
+.book__subtitle
+  margin: 0 0 $m/2
 .book-wrapper
   padding: $m
 
-.book__publisher
-  font-size: 1.2em
-  font-weight: bold
-  font-family: $font_headers
+.book__publisher,
+.book__author
+  font-family: $font_auxiliar
+  margin: $m/4 0
 
 .book-header
   background: $palette_grey
@@ -16,8 +20,28 @@
   text-indent: $m/2
 
 .book__body
-  margin: $m 0
+  margin: $m*2 0
   font-size: 1.2em
 
 .book__unpublished
   +date
+
+.book__meta-image.lightbox
+  position: fixed
+  left: 0
+  top: 0
+  width: 100vw
+  height: 100vh
+  z-index: 1000
+  background: rgba(white, .65)
+  text-align: center
+  overflow: hidden
+  img
+    float: none !important
+    position: relative
+    top: $m*2
+    +box-shadow(0 0 10px rgba(black, .75))
+    max-height: calc(100vh - #{$m*4})
+    width: auto
+    &:hover
+      cursor: se-resize !important

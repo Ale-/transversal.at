@@ -15,7 +15,7 @@ $width_fixed   : $m*40
 // Main regions
 $toolbar_height: $m*2
 $header  : '.region-header'
-$header_height : $m*7.5
+$header_height : $m*8
 $header_padding: 0
 $content : '.region-content .container-fixed main'
 $content_margin_top: $m*2
@@ -69,11 +69,14 @@ $menu_breakpoint: $width_fixed
 //
 
 @import fonts/junicode/*
+@import fonts/dejavusans/*
+@import fonts/dejavusans-bold/*
 
 $font_text           : 'junicode', serif
-$font_headers        : 'Roboto Condensed', $font_text
+$font_headers        : 'dejavusans-bold', sans-serif
+$font_auxiliar       : 'dejavusans', sans-serif
 $font_text_weight    : normal
-$font_headers_weight : 700
+$font_headers_weight : normal
 
 // Font sizes:
 $size_headers  : (2rem, 1.75rem, 1.5rem, 1.25rem, 1rem, 0.85rem)
