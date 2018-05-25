@@ -241,8 +241,9 @@ class BookAdmin(admin.ModelAdmin):
             'fields': (
                 ('title','subtitle'),
                 'language', 'date', 'teaser', 'body',
-                'authors', 'author_text', 'translators', 'publisher_text',
-                'related_books', 'pdf_file', 'epub_file'
+                'authors', 'author_text', 'featured_text', 'translators', 'publisher_text',
+                'related_books', 'pdf_file', 'epub_file', 'downloads_foot', 'image_foot',
+                ('external_url', 'external_url_title'), 'use_external_url'
             )
         }),
         ('Metadata', {
@@ -251,11 +252,11 @@ class BookAdmin(admin.ModelAdmin):
                 ('is_published','in_home','in_listings'),
                 ('effective_date','expiration_date'),
                 ('content_author','content_contributors'),
-                'copyright','comments'
+                'copyright','comments',
             ),
         })
     )
-    inlines           = [ ImageInline ]
+    inlines           = [ ImageInline, LinkInline ]
     filter_horizontal = ('authors', 'translators', 'related_books')
 
     def view(self, obj):
