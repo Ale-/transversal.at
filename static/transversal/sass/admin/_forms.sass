@@ -5,10 +5,12 @@
   position: relative
 
 .admin form label
-  font-weight: 700
   color: #222
   text-transform: uppercase
   font-family: $font_headers
+
+.admin form label.required
+  font-weight: normal
 
 .admin label.required:before
   content: "*"
@@ -35,21 +37,12 @@
 .admin td.original > p
   visibility: hidden
 
+.admin .help
+  font-size: 1.2em
+  color: #555
+
 .inline-group .tabular tr.has_original td
   padding: $m/2 0 !important
 
 .timezonewarning
   display: none
-
-// #models-metadata-content_type-object_id-group
-//   .add-row
-//     display: none
-//   span.delete
-//     display: none
-//
-// .admin .metadata.module
-//   .form-row
-//     display: none
-//   &:hover
-//     .form-row
-//       display: block
