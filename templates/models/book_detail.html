@@ -49,6 +49,26 @@
                 <img src="{{ object.image.first.image_file.url }}" />
             </div>
             {% endif %}
+            {% if object.image_foot %}
+            <div class="book__meta-image-foot">
+                {{ object.image_foot | safe }}
+            </div>
+            {% endif %}
+            {% if object.links.all|length > 0 %}
+            <ul class="book__meta-links">
+                {% for link in object.links.all %}
+                <li class="book__meta-link">
+                    <h5>
+                        links
+                    </h5>
+                    <a href="{{ link.url }}" target="_blank">
+                        {{ link.title }}
+                    </a>
+                    <span class="arrow">→</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             {% if object.epub_file %}
             <div class="book__meta-epub">
                 <h5>
@@ -74,6 +94,11 @@
                     [{{ object.pdf_file.url|filesize|filesizeformat }}]
                 </span>
             </div>
+            {% if object.downloads_foot %}
+            <div class="book__meta-downloads-foot">
+                {{ object.downloads_foot | safe }}
+            </div>
+            {% endif %}
             {% endif %}
             {% if object.links|length > 0 %}
             <div class="book__meta-links">

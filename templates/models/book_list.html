@@ -22,7 +22,11 @@
                     </div>
                     {% endif %}
                     <h4 class="book__title--list">
+                        {% if object.external_url and object.use_external_url %}
+                        <a href="{{ object.external_url }}" target="_blank">
+                        {% else %}
                         <a href="{% url 'book_text' object.slug %}">
+                        {% endif %}
                             {{ object.title }}
                         </a>
                     </h4>

@@ -425,6 +425,7 @@ class Book(models.Model):
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
     is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
+    links                = GenericRelation(Link)
 
     @property
     def epub_size(self):

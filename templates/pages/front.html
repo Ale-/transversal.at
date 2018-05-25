@@ -31,7 +31,11 @@
     </div>
     <div class="view-lastbooks">
         {% for book in last_books %}
-        <a href="books/{{book.slug}}">
+        {% if book.external_url and book.use_external_url %}
+        <a href="{{ book.external_url }}" target="_blank">
+        {% else %}
+        <a href="{% url 'book_text' book.slug %}">
+        {% endif %}
         <div class="view-lastbooks__item">
             <p class="view-lastbooks__item-header">
                 {{ book.title }}
@@ -48,8 +52,12 @@
                 <div class="view-lastbooks__item-title">
                     {{ book.title }}
                 </div>
-                <p class="view-lastbooks__item-authors">
+                <p class="view-lastbooks__item-summary">
+                    {% if book.featured_text %}
+                    {{ book.featured_text }}
+                    {% else %}
                     {{ book.author_text }}
+                    {% endif %}
                 </p>
             </div>
         </div>
