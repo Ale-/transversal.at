@@ -6,11 +6,7 @@
     {% if obj|is_curated:request.user %}
     <button id="curate-button" class="curate-widget__button-remove--{{ modifier }}"
             data-contenttype="{{ obj|contenttype }}" data-pk="{{ obj.pk }}" data-action="remove">
-        {% if modifier == 'page' %}
-            {% trans 'Remove this item from your list of curated content' %}
-        {% else %}
-            {% trans 'Remove' %}
-        {% endif %}
+        {% trans 'Remove this item from your list of curated content' %}
     </button>
     {% else %}
     <button id="curate-button" class="curate-widget__button-add--{{ modifier }}"

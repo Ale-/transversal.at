@@ -100,13 +100,13 @@ $(document).ready( function()
         {
             if(action=='add'){
                 trigger.attr('data-action', 'remove');
-                trigger.attr('class', 'curate-widget__button-remove--page');
+                trigger.attr('class', 'curate-widget__button-remove');
                 trigger.text('Remove this item from your list of curated content');
                 addMessage('Content succesfully added to your list of curated contents', 'success');
                 trigger.parent().parent().toggleClass('removed');
             } else {
                 trigger.attr('data-action', 'add');
-                trigger.attr('class', 'curate-widget__button-add--page');
+                trigger.attr('class', 'curate-widget__button-add');
                 trigger.text('Add this item to your list of curated content');
                 addMessage('Content succesfully removed from your list of curated contents', 'success');
                 trigger.parent().parent().toggleClass('removed');
@@ -115,7 +115,7 @@ $(document).ready( function()
     }
 
     // Bind curateContent to its triggers
-    $('#curate-button').click( function(){
+    $('#curate-button').click( function(e){
         curateContent( $(this) );
     });
 
