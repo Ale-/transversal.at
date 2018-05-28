@@ -1,41 +1,51 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %}
+{# Event list #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
 {% block body_classes %}event-page{% endblock %}
 {% block page_html_title %}Events{% endblock %}
 
-
-
 {% block main %}
-    <h1 class="event-page__title">
-        Next events
-    </h1>
-    <div class="events-view">
-    {% for event in object_list %}
-        <div class="events-view__item {% if not event.is_published %}unpublished{% endif %} {% if event.past %}past{% endif %}">
-            <h4 class="events-view__title">
-                {{ event.title }}
-            </h4>
-            <p class="events-view__text">
-                {{ event.body | safe}}
-            </p>
-            <p class="events-view__address">
-                <em>where:</em> {{ event.address }} ({{ event.city }})
-            </p>
-            <p class="events-view__datetime">
-                <em>when:</em> {{ event.datetime }}
-            </p>
-            {% if event.links.all|length > 0 %}
-            <ul class="events-view__links">
-                {% for link in event.links.all %}
-                    <li class="events-view__link">
-                        <p>{{ link.title }}:</p>
-                        <a href="{{ link.url }}" target="_blank">
-                            {{ link.url }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-    {% endfor %}
+<nav class="links">
+    {% fake_breadcrumb %}
+    {% if request.user.is_staff %}
+    <div class="links__staff">
+        <a href="{% url 'admin:models_event_changelist' %}">
+            {% trans 'See all events in admin' %}
+        </a>
     </div>
+    {% endif %}
+</nav>
+<h1 class="event-page__title">
+    {% trans 'Next events' %}
+</h1>
+<div class="events-view">
+{% for event in object_list %}
+    <div class="events-view__item {% if not event.is_published %}unpublished{% endif %} {% if event.past %}past{% endif %}">
+        <h4 class="events-view__title">
+            {{ event.title }}
+        </h4>
+        <p class="events-view__text">
+            {{ event.body | safe}}
+        </p>
+        <p class="events-view__address">
+            <em>where:</em> {{ event.address }} ({{ event.city }})
+        </p>
+        <p class="events-view__datetime">
+            <em>when:</em> {{ event.datetime }}
+        </p>
+        {% if event.links.all|length > 0 %}
+        <ul class="events-view__links">
+            {% for link in event.links.all %}
+                <li class="events-view__link">
+                    <p>{{ link.title }}:</p>
+                    <a href="{{ link.url }}" target="_blank">
+                        {{ link.url }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+{% endfor %}
+</div>
 {% endblock %}
