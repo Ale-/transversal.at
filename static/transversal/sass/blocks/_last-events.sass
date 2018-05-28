@@ -1,0 +1,35 @@
+// View of last events in home
+
+.view-lastevents
+  background-color: $palette_grey
+  color: white
+  height: $m*2
+  padding: 0 $m
+  line-height: $m*2
+  +links($palette_orange, whitem, .2s ease)
+
+.view-lastevents__title
+  display: inline
+
+.view-lastevents__items
+  display: inline-block
+  width: calc(100% - #{$m*9})
+  margin-left: $m
+  position: relative
+  top: -30px
+
+.view-lastevents__item
+  position: absolute
+  top: 0
+  width: 100%
+
+.view-lastevents__item-datetime,
+.view-lastevents__item-address
+  font-size: .75em
+  margin-left: $m/2
+  font-family: $font_auxiliar
+  text-transform: uppercase
+  float: right
+  &::before
+    content: " | "
+    margin-right: $m/3

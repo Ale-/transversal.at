@@ -273,6 +273,29 @@ admin.site.register(models.BookExcerpt, BookExcerptAdmin)
 
 class EventAdmin(admin.ModelAdmin):
     model = models.Event
+    # list
+    ordering          = ('-datetime', 'title',)
+    list_display      = ('title', 'datetime', 'city', 'is_published')
+    list_filter       = ('is_published', 'city')
+    actions           = [ publish, unpublish ]
+
+    # form
+    fieldsets = (
+        ('', {
+            'fields': (
+                ('title', 'datetime'),
+                ('city', 'address'),
+                'body',
+            )
+        }),
+        ('Metadata', {
+            'fields': (
+                ('is_published', 'in_home',),
+            ),
+        })
+    )
+    inlines           = [ LinkInline ]
+
 
 admin.site.register(models.Event, EventAdmin)
 

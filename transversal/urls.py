@@ -40,6 +40,8 @@ urlpatterns = [
     path('blog/', views.BlogView.as_view(), name="blog"),
     # texts
     path('texts/', views.JournalTexts.as_view(), name="texts"),
+    # events
+    path('events/', views.Events.as_view(), name="events"),
     # search
     path('search/', views.Search.as_view(), name="search"),
     # impressum

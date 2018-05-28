@@ -1,0 +1,25 @@
+// Events page
+
+.events-view__title
+  margin-bottom: $m/4
+
+.events-view__item
+  margin-bottom: $m
+  &::before
+    content: "—"
+    display: block
+  &:first-child:before
+    display: none
+
+.events-view__item.past
+  opacity: .5
+
+.events-view__address
+  margin-bottom: 0 !important
+
+.events-view__link p
+  margin-bottom: 0 !important
+  font-style: italic
+
+.events-view__links-title
+  margin-bottom: $m/4

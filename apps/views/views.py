@@ -21,10 +21,12 @@ class Front(views.View):
 
     def get(self, request, *args, **kwargs):
         """ GET request """
+
         if request.user.is_staff:
-            last_issue = models.JournalIssue.objects.all().order_by('-date').first()
-            last_books = models.Book.objects.all().order_by('-date')[:3]
-            blogposts  = models.BlogText.objects.all().order_by('-date')[:50]
+            last_issue  = models.JournalIssue.objects.all().order_by('-date').first()
+            last_books  = models.Book.objects.all().order_by('-date')[:3]
+            last_events = models.Event.objects.all().filter(in_home=True).order_by('-datetime')[:3]
+            blogposts   = models.BlogText.objects.all().order_by('-date')[:50]
         else:
             last_issue = models.JournalIssue.objects.filter(is_published=True).order_by('-date').first()
             last_books = models.Book.objects.filter(
@@ -32,7 +34,8 @@ class Front(views.View):
                 in_listings = True,
                 in_home=True,
             ).order_by('-date')[:3]
-            blogposts  = models.BlogText.objects.filter(is_published=True).order_by('-date')[:50]
+            last_events = models.Event.objects.filter(is_published=True, in_home=True).order_by('-datetime')[:3]
+            blogposts   = models.BlogText.objects.filter(is_published=True).order_by('-date')[:50]
         return render(request, 'pages/front.html', locals())
 
 class BlogTextView(views.View):
@@ -200,6 +203,14 @@ class JournalTexts(views.View):
         object_list  = models.JournalText.objects.filter(authors__isnull=True)
         # related_texts = models.JournalText.objects.filter(author=author)
         return render(request, 'models/journaltexts.html', locals())
+
+
+class Events(ListView):
+    """View of events. TODO: order by distance to today"""
+
+    model    = models.Event
+    ordering = ['-datetime',]
+
 
 class Page(DetailView):
     """View of a single static page."""

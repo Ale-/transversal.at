@@ -1,3 +1,5 @@
+# python
+from datetime import datetime, timezone
 # django #
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -496,12 +498,20 @@ class Event(models.Model):
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
     slug            = models.SlugField(editable=False, blank=True)
     datetime        = models.DateTimeField(_('Date and time'), blank=False, null=True)
+    city            = models.CharField(_('City'), max_length=128, blank=False)
     address         = models.CharField(_('Address'), max_length=256, blank=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
+    is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
+    in_home         = models.BooleanField(_('Show in home'), default=True, null=False)
+    links           = GenericRelation(Link)
 
     def __str__(self):
         """String representation of this model objects."""
         return self.title
+
+    @property
+    def past(self):
+        return self.datetime < datetime.now(timezone.utc)
 
 
 class UserProfile(models.Model):
