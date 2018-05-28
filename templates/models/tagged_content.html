@@ -1,0 +1,66 @@
+{# Frontpage #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load utils i18n %}
+{% block body_classes %}tags-page{% endblock %}
+{% block page_html_title %}tag: {{ tag.name }}{% endblock %}
+
+{% block main %}
+<div class="blog-view">
+    <nav class="links">
+      {% fake_breadcrumb %}
+      {% if request.user.is_staff %}
+      <div class="links__staff">
+          <a href="{% url 'admin:models_tag_change' tag.id %}">
+              {% trans 'Edit this tag' %}
+          </a>
+      </div>
+      {% endif %}
+    </nav>
+    <h3 class="tags-page__title">
+        {% trans 'Blog posts tagged with' %} <span class="tag">#{{ tag.name }}</span>
+    </h3>
+    {% for post in object_list %}
+    <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
+        <div class="blog-view__titles">
+            {% for translation in post.translations.all %}
+                <h4 class="blog-view__title">
+                    <a href="/blog/{{ translation.slug }}">
+                        <span class="language">{{ translation.language }}</span> {{ translation.title }}
+                    </a>
+                </h4>
+            {% endfor %}
+            <h4 class="blog-view__title">
+                <a href="/blog/{{ post.slug }}">
+                    {{ post.title }}
+                </a>
+            </h4>
+            {% if post.subtitle %}
+            <h5 class="blog-view__subtitle">
+                {{ post.subtitle }}
+            </h5>
+            {% endif %}
+        </div>
+        <p class="blog-view__teaser">
+            {{ post.teaser | safe }}
+        </p>
+        <div class="blog-view__meta">
+            {% if post.author_text %}<span class="blog-view__author">{{ post.author_text }}</span>{% endif %}
+            <span class="blog-view__date">{{ post.date | date:"d m y" }}</span>
+            {% if post.tags.all|length > 0 %}
+            <ul class="blog-view__tags">
+                {% for tag in post.tags.all %}
+                    <li class="blog-view__tag">
+                        <a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'blocks/pager.html' with item_name='posts' %}
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

@@ -286,8 +286,6 @@ class Search(views.View):
             else:
                 object_list   = sorted(content, key = lambda i: getattr(i, 'date'), reverse=True)
 
-        return render(request, 'models/search_list.html', locals())
-
 
 class CuratedContent(DetailView):
     """View of a single static page."""
@@ -310,3 +308,10 @@ class APICurate(views.View):
             return HttpResponse("Item added successfully to user's list of curated content")
         profile.curated_content.remove(content)
         return HttpResponse("Item removed successfully from user's list of curated content", content_type="text/plain")
+
+class TaggedContent(views.View):
+
+    def get(self, request, slug):
+        tag         = models.Tag.objects.get(slug=slug)
+        object_list = models.BlogText.objects.filter(tags=tag)
+        return render(request, 'models/tagged_content.html', locals())

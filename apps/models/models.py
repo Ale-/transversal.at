@@ -13,7 +13,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from adminsortable.models import SortableMixin
 from gm2m import GM2MField
 # project
-from .categories import LANGUAGES
+from .categories import LANGUAGES, TAG_CATEGORIES
 
 
 class Image(models.Model):
@@ -56,6 +56,29 @@ class Link(models.Model):
         """String representation of this model objects."""
 
         return self.url
+
+
+class Tag(models.Model):
+    """ Attachment """
+
+    name           = models.CharField(_('Name of the tag'), max_length=200, blank=True, unique=True)
+    category       = models.CharField(_('Category of the tag'), choices=TAG_CATEGORIES, max_length=1, blank=False, default='t')
+    slug           = models.SlugField(editable=False, blank=True)
+
+    def __str__(self):
+        """String representation of this model objects."""
+
+        return self.name
+
+    def save(self, *args, **kwargs):
+        """Populate automatically 'slug' field"""
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        super(Tag, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('tags', args=[self.slug])
 
 
 class Biography(models.Model):
@@ -263,6 +286,7 @@ class BlogText(models.Model):
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     in_home         = models.BooleanField(_('Show in home'), default=False, null=False)
     in_archive      = models.BooleanField(_('Show in archive'), default=False, null=False)
+    tags            = models.ManyToManyField(Tag, verbose_name=_('Tags'), related_name='blogposts_tagged', blank=True)
 
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
                                             help_text=_('Date when the content should become available on the public site'))

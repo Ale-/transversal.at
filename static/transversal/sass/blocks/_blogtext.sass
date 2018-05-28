@@ -16,7 +16,9 @@
   font-weight: bold
 
 .blogtext__publish-info
+  display: inline-block
   margin: $m 0 0 !important
+  width: $m*4
   +date
 
 .blogtext__author
@@ -31,3 +33,16 @@
 
 .blogtext__subtitle
   margin: 0 0 $m/3
+
+.blogtext__tags
+  display: inline-block
+  width: calc(101% - #{$m*5})
+  text-align: right
+  font-family: $font_auxiliar
+  text-transform: uppercase
+  font-size: .7em
+
+.blogtext__tag
+  display: inline
+  margin-left: $m/2
+  border-bottom: 1px dotted $palette_blue

@@ -38,6 +38,25 @@ class LinkInline(GenericTabularInline):
     )
     extra = 1
 
+class TagAdmin(admin.ModelAdmin):
+
+    model = models.Tag
+    list_display  = ('name', 'category', 'view')
+    list_filter = ('category',)
+    fields = (
+        ( 'name', 'category' ),
+    )
+
+    def view(self, obj):
+        if obj.slug:
+            return format_html("<a href='" + reverse('tags', args=[obj.slug]) + "'>➜</a>")
+        else:
+            return None
+    view.short_description = 'View on site'
+
+admin.site.register(models.Tag, TagAdmin)
+
+
 class BiographyAdmin(admin.ModelAdmin):
     model    = models.Biography
     ordering = ('name',)
@@ -188,7 +207,8 @@ class BlogTextAdmin(admin.ModelAdmin):
                 ('fulltitle','subtitle'),
                 'date','teaser','body',
                 'authors','author_text',
-                'translators','translator_text'
+                'translators','translator_text',
+                'tags'
             )
         }),
         ('Metadata', {
@@ -202,7 +222,7 @@ class BlogTextAdmin(admin.ModelAdmin):
         })
     )
     inlines           = [ BlogTextTranslationInline ]
-    filter_horizontal = ('authors', 'translators')
+    filter_horizontal = ('authors', 'translators','tags')
 
 
     def view(self, obj):

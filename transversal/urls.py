@@ -48,6 +48,8 @@ urlpatterns = [
     path('<slug:slug>', views.Page.as_view(), name="static_page"),
     # me
     path('curated-content/<int:pk>', views.CuratedContent.as_view(), name="profile"),
+    # tags
+    path('tag/<slug:slug>', views.TaggedContent.as_view(), name="tags"),
     # API
     url(r'curate', views.APICurate.as_view(), name="api_curate")
 ]

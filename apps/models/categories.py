@@ -203,3 +203,9 @@ LANGUAGES = [
     ('zh', 'Chinese'),
     ('zu', 'Zulu')
 ]
+
+
+TAG_CATEGORIES = (
+    ('t', 'Tag'),
+    ('f', 'Fake issue')
+)
