@@ -16,6 +16,9 @@
       </div>
       {% endif %}
     </nav>
+    <p class="issue__date--full">
+      {{ object.date | date:"m Y"}}
+    </p>
     <h1 class="issue__title--full">
         <ul class="fadein">
             <li class="fadein__item active">{{ object.title }}</li>
@@ -24,9 +27,6 @@
             {% endfor %}
         </ul>
     </h1>
-    <p class="issue__date--full">
-      {{ object.date | date:"m Y"}}
-    </p>
     <ul class="issue__links">
         <li class="issue__link">
             <a href="{% url 'journal_issue_editorial' object.slug %}">
