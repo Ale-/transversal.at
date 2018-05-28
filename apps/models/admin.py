@@ -14,19 +14,15 @@ from apps.utils import admin_filters as filters
 
 def publish(modeladmin, request, queryset):
     for obj in queryset:
-        meta = obj.metadata.first()
-        if not meta.is_published:
-            meta.is_published = True
-            meta.save()
+        obj.is_published = True
+        obj.save()
 
 publish.short_description = "Publish selected elements"
 
 def unpublish(modeladmin, request, queryset):
     for obj in queryset:
-        meta = obj.metadata.first()
-        if meta.is_published:
-            meta.is_published = False
-            meta.save()
+        obj.is_published = False
+        obj.save()
 
 unpublish.short_description = "Unpublish selected elements"
 

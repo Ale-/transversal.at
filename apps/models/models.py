@@ -58,37 +58,6 @@ class Link(models.Model):
         return self.url
 
 
-class Metadata(models.Model):
-    """ Metadata of the different content items """
-
-    effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
-                                            help_text=_('Date when the content should become available on the public site'))
-    expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
-                                            help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
-    copyright            = models.TextField(_('Copyright'), blank=True, null=True,
-                                            help_text=_('A list of copyright info for this content'))
-    comments             = models.TextField(_('Comments'), blank=True, null=True,
-                                            help_text=_('Private'))
-    is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
-    content_type         = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id            = models.PositiveIntegerField()
-    source_content       = GenericForeignKey('content_type', 'object_id')
-
-    class Meta:
-        verbose_name = _('Metadata')
-        verbose_name_plural = _('Metadata')
-        unique_together   = ('content_type', 'object_id')
-
-    def __str__(self):
-        """String representation of this model objects."""
-
-        return str(self.source_content)
-
-
 class Biography(models.Model):
     """ Biographies of people that collaborate or work in the different texts """
 
@@ -97,7 +66,6 @@ class Biography(models.Model):
     surname              = models.CharField(_('Surname'), max_length=200, blank=True, null=True)
     email                = models.EmailField(_('Email'), blank=True, null=True)
     description          = RichTextUploadingField(_('Description'), blank=True, null=True)
-    metadata             = GenericRelation(Metadata)
 
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
                                             help_text=_('Date when the content should become available on the public site'))
@@ -149,7 +117,6 @@ class JournalIssue(models.Model):
     editorial_title = models.CharField(_('Editorial title'), max_length=200, blank=True, null=True)
     editorial       = RichTextUploadingField(_('Editorial'), blank=True, null=True)
     impressum       = RichTextUploadingField(_('Impressum'), blank=True, null=True)
-    metadata        = GenericRelation(Metadata)
 
     # metadata
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
@@ -296,7 +263,6 @@ class BlogText(models.Model):
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     in_home         = models.BooleanField(_('Show in home'), default=False, null=False)
     in_archive      = models.BooleanField(_('Show in archive'), default=False, null=False)
-    metadata        = GenericRelation(Metadata)
 
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
                                             help_text=_('Date when the content should become available on the public site'))
@@ -352,7 +318,6 @@ class BlogTextTranslation(models.Model):
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     author_text     = models.CharField(_('Author attribution'), max_length=200, blank=True, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), blank=True)
-    metadata        = GenericRelation(Metadata)
 
     # metadata
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
@@ -407,7 +372,6 @@ class Book(models.Model):
     pdf_file           = models.FileField(_('Pdf file'), blank=True, null=True)
     epub_file          = models.FileField(_('Epub file'), blank=True, null=True)
     downloads_foot     = models.TextField(_('Text below downloads'), blank=True, max_length=256)
-    metadata           = GenericRelation(Metadata)
     image              = GenericRelation(Image)
     image_foot         = models.TextField(_('Text below cover image'), blank=True)
     external_url_title = models.CharField(_('Title of the main external link'), blank=True, max_length=128)
