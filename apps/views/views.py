@@ -116,10 +116,29 @@ class BooksView(views.View):
                     books_wrappers.append(wrapper)
         return render(request, 'models/book_list.html', locals());
 
-class BioView(DetailView):
+class BioView(views.View):
     """View of a single blog text."""
 
-    model = models.Biography
+    def get(self, request, slug):
+        object = models.Biography.objects.get(slug=slug)
+
+        # get texts and reorder them based on translations
+        translations = []
+        texts        = models.JournalText.objects.filter(authors=object).order_by('-issue')
+        pks          = []
+        for text in texts:
+            if text.pk not in pks:
+                _translations = [text]
+                for translation in text.translations.all():
+                    _translations.append(translation)
+                    pks.append(translation.pk)
+                translations.append(_translations)
+        links_publications = object.links.filter(category='p').order_by('title')
+        links_translations = object.links.filter(category='t').order_by('title')
+        links_documents    = object.links.filter(category='b').order_by('title')
+        links_default      = object.links.filter(category='d').order_by('title')
+
+        return render(request, 'models/biography_detail.html', locals());
 
 
 class JournalIssues(ListView):

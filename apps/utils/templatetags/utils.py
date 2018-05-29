@@ -62,3 +62,7 @@ def is_curated(obj, user):
 def filesize(url):
     print( print(settings.BASE_DIR + url) )
     return os.path.getsize(settings.BASE_DIR + url)
+
+@register.filter
+def sort_by(queryset, order):
+    return queryset.order_by(order)

@@ -1,129 +1,180 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load utils i18n %}
+{# Biography detail #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load utils i18n %}
 {% block body_classes %}author{% endblock %}
 {% block page_html_title %}{{ object.fullname }}{% endblock %}
 
 {% block main %}
-    <div class="biography-wrapper">
-        <nav class="links">
-          {% fake_breadcrumb %}
-          {% if request.user.is_staff %}
-          <div class="links__staff">
-              <a href="{% url 'admin:models_biography_change' object.id %}">
-                  {% trans 'Edit this biography' %}
-              </a>
-          </div>
-          {% endif %}
-        </nav>
-        <h1 class="biography__name">
-            {{ object.fullname }}
-        </h1>
-        <div class="biography__meta">
-            {% if object.texts_created.all|length > 0 %}
-            <div class="biography__meta-journals">
-                <h5>journal texts</h5>
-                <ul>
-                {% for text in object.texts_created.all|order_by:"-date" %}
-                    <li>
-                        {% if text.slug and text.issue.slug %}
-                        <a href="{% url 'journal_text' text.issue.slug text.slug text.language %}">
-                          {{ text.title }}
-                        </a>
-                        {% else %}
-                          {{ text.title }}
-                        {% endif %}
-                        <p>{{ text.author_text }}</p>
-                    </li>
+<div class="biography-wrapper">
+    <nav class="links">
+      {% fake_breadcrumb %}
+      {% if request.user.is_staff %}
+      <div class="links__staff">
+          <a href="{% url 'admin:models_biography_change' object.id %}">
+              {% trans 'Edit this biography' %}
+          </a>
+      </div>
+      {% endif %}
+    </nav>
+    <h1 class="biography__name">
+        {{ object.fullname }}
+    </h1>
+    <div class="biography__meta">
+        {% if object.texts_created.all|length > 0 %}
+        <div class="biography__meta-journals">
+            <h5>{% trans 'Journal' %}</h5>
+            {% for issue in translations %}
+            <ul class="issue">
+                {% for text in issue %}
+                <li class="text">
+                    {% if text.slug and text.issue.slug %}
+                    <a href="{% url 'journal_text' text.issue.slug text.slug text.language %}">
+                      {{ text.title }}
+                    </a>
+                    {% else %}
+                      {{ text.title }}
+                    {% endif %}
+                    <p>{{ text.author_text }}</p>
+                </li>
                 {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.books_written.all|length > 0 %}
-            <div class="biography__meta-books">
-                <h5>books</h5>
-                <ul>
-                {% for text in object.books_written.all|order_by:"title" %}
-                    <li>
-                        <a href="/books/{{ text.slug }}">{{ text.title }}</a>
-                        <p>{{ text.teaser | safe }}</p>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.books_translated.all|length > 0 %}
-            <div class="biography__meta-translations">
-                <h5>books translated</h5>
-                <ul>
-                {% for text in object.books_translated.all %}
-                    <li>
-                        <a href="/books/{{ text.slug }}">{{ text.title }}</a>
-                        <p>{{ text.author_text}}</p>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.blogposts_written.all|length > 0 %}
-            <div class="biography__meta-books">
-                <h5>documents</h5>
-                <ul>
-                    {% for text in object.blogposts_written.all|order_by:"-date" %}
-                    <li class="biography__meta-book-list">
-                        <ul>
-                            <li>
-                                <a href="{% url 'blog_text' text.slug %}">{{ text.title }}</a>
-                                <p>{{ text.date | date:"m Y" }}</p>
-                            </li>
-                            {% for translation in text.translations.all %}
-                            <li>
-                                <a href="{% url 'blog_text' translation.slug %}">{{ translation.title }}</a>
-                                <p>{{ text.date | date:"m Y" }}</p>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.texts_translated.all|length > 0 %}
-            <div class="biography__meta-journals">
-                <h5>translations</h5>
-                <ul>
-                {% for text in object.texts_translated.all %}
-                    <li>
-                        {% if text.slug and text.issue.slug %}
-                        <a href="{% url 'journal_text' text.issue.slug text.slug text.language %}">{{ text.title }}</a>
-                        {% else %}
-                           {{ text.title }}
-                        {% endif %}
-                        <p>{{ text.author_text}}</p>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.links.all|length > 0 %}
-            <div class="biography__meta-links">
-                <h5>links</h5>
-                <ul>
-                {% for link in object.links.all %}
-                    <li>
-                        <a href="{{ link.url }}" target="_blank">{{ link.title }}</a>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
+            </ul>
+            {% endfor %}
         </div>
-        <div class="biography__email">
-            <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+        {% endif %}
+        {% if object.books_written.all|length > 0 %}
+        <div class="biography__meta-books">
+            <h5>{% trans 'Publications' %}</h5>
+            <ul>
+            {% for text in object.books_written.all|order_by:"title" %}
+                <li>
+                    <a href="/books/{{ text.slug }}">{{ text.title }}</a>
+                    <p>{{ text.author_text | safe }}</p>
+                </li>
+            {% endfor %}
+            </ul>
         </div>
-        <div class="biography__body">
-            {{ object.description | safe }}
+        {% endif %}
+        {% if links_publications|length > 0 %}
+        <div class="biography__meta-books-external">
+            <h5>{% trans 'Publications [external sites]' %}</h5>
+            <ul>
+            {% for link in links_publications.all %}
+                <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                    {% if link.description %}
+                      <p>{{ link.description }}</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
         </div>
+        {% endif %}
+        {% if object.books_translated.all|length > 0 %}
+        <div class="biography__meta-translations">
+            <h5>books translated</h5>
+            <ul>
+            {% for text in object.books_translated.all %}
+                <li>
+                    <a href="/books/{{ text.slug }}">{{ text.title }}</a>
+                    <p>{{ text.author_text}}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if object.blogposts_written.all|length > 0 %}
+        <div class="biography__meta-books">
+            <h5>{% trans 'Documents' %}</h5>
+            <ul>
+                {% for text in object.blogposts_written.all|order_by:"-date" %}
+                <li class="biography__meta-book-list">
+                    <ul>
+                        <li>
+                            <a href="{% url 'blog_text' text.slug %}">{{ text.title }}</a>
+                            <p>{{ text.date | date:"m Y" }}</p>
+                        </li>
+                        {% for translation in text.translations.all %}
+                        <li>
+                            <a href="{% url 'blog_text' translation.slug %}">{{ translation.title }}</a>
+                            <p>{{ text.date | date:"m Y" }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if links_documents|length > 0 %}
+        <div class="biography__meta-documents-external">
+            <h5>{% trans 'Documents [external sites]' %}</h5>
+            <ul>
+            {% for link in links_documents %}
+                <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                    {% if link.description %}
+                      <p>{{ link.description }}</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if object.texts_translated.all|length > 0 %}
+        <div class="biography__meta-journals">
+            <h5>{% trans 'Translations' %}</h5>
+            <ul>
+            {% for text in object.texts_translated.all|sort_by:'title' %}
+                <li>
+                    {% if text.slug and text.issue.slug %}
+                    <a href="{% url 'journal_text' text.issue.slug text.slug text.language %}">{{ text.title }}</a>
+                    {% else %}
+                       {{ text.title }}
+                    {% endif %}
+                    <p>{{ text.author_text}}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if links_translations|length > 0 %}
+        <div class="biography__meta-translation-external">
+            <h5>{% trans 'Translations [external sites]' %}</h5>
+            <ul>
+            {% for link in links_translations %}
+                <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                    {% if link.description %}
+                      <p>{{ link.description }}</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if links_default|length > 0 %}
+        <div class="biography__meta-links">
+            <h5>{% trans 'Links' %}</h5>
+            <ul>
+            {% for link in links_default %}
+                <li>
+                    <a href="{{ link.url }}" target="_blank">
+                        {{ link.title }}
+                    </a>
+                    {% if link.description %}
+                      <p>{{ link.description }}</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     </div>
-{% endblock %}
-
-{% block page_scripts %}
+    <div class="biography__email">
+        <a href="mailto:{{ object.email }}">{{ object.email }}</a>
+    </div>
+    <div class="biography__body">
+        {{ object.description | safe }}
+    </div>
+</div>
 {% endblock %}

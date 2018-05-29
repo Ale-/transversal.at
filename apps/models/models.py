@@ -13,7 +13,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from adminsortable.models import SortableMixin
 from gm2m import GM2MField
 # project
-from .categories import LANGUAGES, TAG_CATEGORIES
+from .categories import LANGUAGES, TAG_CATEGORIES, LINK_CATEGORIES
 
 
 class Image(models.Model):
@@ -48,9 +48,11 @@ class Link(models.Model):
 
     url            = models.URLField(_('URL of the link'), blank=False)
     title          = models.CharField(_('Title of the link'), max_length=200, blank=True)
+    category       = models.CharField(_('Category'), max_length=1, default='d', blank=False, choices=LINK_CATEGORIES)
     content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     source_content = GenericForeignKey('content_type', 'object_id')
+    description    = models.CharField(_('Description'), max_length=256, blank=True)
 
     def __str__(self):
         """String representation of this model objects."""

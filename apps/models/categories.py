@@ -204,8 +204,14 @@ LANGUAGES = [
     ('zu', 'Zulu')
 ]
 
-
 TAG_CATEGORIES = (
     ('t', 'Tag'),
     ('f', 'Fake issue')
+)
+
+LINK_CATEGORIES = (
+    ('d', 'Default'),
+    ('p', 'Publication'),
+    ('t', 'Translation'),
+    ('b', 'Document')
 )

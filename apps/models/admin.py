@@ -30,6 +30,15 @@ class ImageInline(GenericTabularInline):
     model = models.Image
     extra = 1
 
+class CategorizedLinkInline(GenericTabularInline):
+    model = models.Link
+
+    fields = (
+        ( 'url', 'title' ),
+        ('category', 'description')
+    )
+    extra = 1
+
 class LinkInline(GenericTabularInline):
     model = models.Link
 
@@ -37,6 +46,7 @@ class LinkInline(GenericTabularInline):
         ( 'url', 'title' ),
     )
     extra = 1
+
 
 class TagAdmin(admin.ModelAdmin):
 
@@ -82,7 +92,7 @@ class BiographyAdmin(admin.ModelAdmin):
         })
     )
 
-    inlines      = [ LinkInline ]
+    inlines      = [ CategorizedLinkInline ]
 
     def view(self, obj):
         if obj.slug:
