@@ -80,6 +80,17 @@ class BookView(DetailView):
             raise Http404("Book does not exist")
         return obj
 
+class BookExcerptView(DetailView):
+    """View of a single blog text."""
+
+    model = models.BookExcerpt
+
+    def get_object(self, queryset=None):
+        obj = super(BookExcerptView, self).get_object(queryset=queryset)
+        if not obj.is_published and not self.request.user.is_staff:
+            raise Http404("Book excerpt does not exist")
+        return obj
+
 
 class BlogView(ListView):
     """View of a single blog text."""

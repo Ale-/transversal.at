@@ -293,7 +293,18 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(models.Book, BookAdmin)
 
 class BookExcerptAdmin(admin.ModelAdmin):
-    model = models.BookExcerpt
+    model        = models.BookExcerpt
+    list_display = ('title', 'source', 'is_published', 'view')
+    list_filter  = ('source_text', 'is_published')
+    ordering     = ('source_text', 'title')
+
+    def source(self, obj):
+        return format_html("<a href='" + reverse('book_text', args=[obj.source_text.slug]) + "'>" + obj.source_text.title + "</a>")
+
+    def view(self, obj):
+        return format_html("<a href='" + reverse('book_excerpt', args=[obj.source_text.slug, obj.pk]) + "'>➜</a>")
+
+    view.short_description = 'See'
 
 admin.site.register(models.BookExcerpt, BookExcerptAdmin)
 

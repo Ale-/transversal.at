@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^$', views.Front.as_view(), name="front"),
     # books
     path('books/<slug:slug>', views.BookView.as_view(), name="book_text"),
+    path('books/<slug:book_slug>/<int:pk>', views.BookExcerptView.as_view(), name="book_excerpt"),
     path('books/', views.BooksView.as_view(), name="book_texts"),
     # biographies
     path('bio/<slug:slug>', views.BioView.as_view(), name="bio"),

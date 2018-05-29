@@ -1,4 +1,6 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load i18n utils %}
+{# Book detail #} 
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
 {% block body_classes %}book-page{% endblock %}
 {% block page_html_title %}{{ object.title }}{% endblock %}
 
@@ -34,15 +36,21 @@
         <h1 class="book__title">
             {{ object.title }}
         </h1>
+        {% if object.subtitle %}
         <h4 class="book__subtitle">
             {{ object.subtitle }}
         </h4>
+        {% endif %}
+        {% if object.author_text %}
         <div class="book__author">
             {{ object.author_text }}
         </div>
+        {% endif %}
+        {% if object.publisher_text %}
         <div class="book__publisher">
             {{ object.publisher_text | safe }}
         </div>
+        {% endif %}
         <div class="book__meta">
             {% if object.image %}
             <div class="book__meta-image">
@@ -151,6 +159,21 @@
                             <a href="{% url 'book_text' book.slug %}">
                                 {{ book.title }}
                             </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.excerpts.all|length > 0 %}
+            <div class="book__meta-excerpts">
+                <h5>{% trans 'Excerpts' %}</h5>
+                <ul>
+                    {% for excerpt in object.excerpts.all %}
+                        <li>
+                            <a href="{% url 'book_excerpt' book.slug excerpt.pk %}">
+                                {{ excerpt.title }}
+                            </a>
+                            <p>{{ excerpt.get_language_display }}</p>
                         </li>
                     {% endfor %}
                 </ul>

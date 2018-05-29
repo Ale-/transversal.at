@@ -444,12 +444,12 @@ class BookExcerpt(models.Model):
     """ Book excerpts """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug            = models.SlugField(editable=False, blank=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
-    language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
+    language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES, default='en')
     teaser          = RichTextUploadingField(_('Teaser'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     source_text     = models.ForeignKey(Book, related_name='excerpts', verbose_name=_('Source text'), on_delete=models.SET_NULL, null=True)
+    is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
 
     class Meta:
         verbose_name = _('Book excerpt')
@@ -457,7 +457,7 @@ class BookExcerpt(models.Model):
 
     def __str__(self):
         """String representation of this model objects."""
-        return source_text.title + ": " + self.title
+        return self.source_text.title + ": " + self.title
 
 
 class HeaderText(models.Model):

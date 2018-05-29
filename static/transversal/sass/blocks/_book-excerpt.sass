@@ -1,34 +1,26 @@
-.book__title
+.bookexcerpt__title
   font-size: 1.5em
-  margin: $m 0 0
-.book__subtitle
+  margin: 0
+.bookexcerpt__src_title
+  margin-bottom: 0 !important
+.bookexcerpt__subtitle
   margin: 0 0 $m/2
-.book-wrapper
+.bookexcerpt-wrapper
   padding: $m
 
-.book__publisher,
-.book__author
+.bookexcerpt__publisher,
+.bookexcerpt__author
   font-family: $font_auxiliar
   margin: $m/4 0
 
-.book-header
-  background: $palette_grey
-  color: $palette_orange
-  font-size: 2.5em
-  height: 0.9em
-  overflow: hidden
-  text-indent: $m/2
-
-.book__body
+.bookexcerpt__body
   margin: $m*2 0
   font-size: 1.2em
 
 .book__unpublished
-  font-size: .75em
-  float: right
-  color: rgba(red, .75)
+  +date
 
-.book__meta-image.lightbox
+.bookexcerpt__meta-image.lightbox
   position: fixed
   left: 0
   top: 0

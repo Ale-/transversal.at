@@ -1,0 +1,69 @@
+{# Book excerpt detail #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}bookexcerpt-page{% endblock %}
+{% block page_html_title %}{{ object.source_text.title }}: {{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="book-header">
+        {{ object.source_text.title }}
+    </div>
+    <div class="book-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_bookexcerpt_change' object.id %}">
+                  {% trans 'Edit this book excerpt' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+
+        {% if not object.is_published or not object.in_listings %}
+        <p class="book__unpublished">
+            <strong>Not public</strong>
+        </p>
+        {% endif %}
+
+        <p class="bookexcerpt__src_title">
+            {{ object.source_text.title }}
+        </p>
+        <h1 class="bookexcerpt__title">
+            {{ object.title }}
+        </h1>
+        {% if object.subtitle %}
+        <h4 class="bookexcerpt__subtitle">
+            {{ object.subtitle }}
+        </h4>
+        {% endif %}
+        {% if object.source_text.author_text %}
+        <div class="bookexcerpt__author">
+            {{ object.source_text.author_text | safe }}
+        </div>
+        {% endif %}
+        {% if object.source_text.publisher_text %}
+        <div class="bookexcerpt__publisher">
+            {{ object.source_text.publisher_text | safe }}
+        </div>
+        {% endif %}
+        <div class="bookexcerpt__meta">
+            {% if object.source_text.image %}
+            <div class="bookexcerpt__meta-src_image">
+                <img src="{{ object.source_text.image.first.image_file.url }}" />
+            </div>
+            {% endif %}
+            <div class="bookexcerpt__meta-src_title">
+                <small>{% trans 'Source' %}</small>
+                <h5>
+                    <a href="{% url 'book_text' object.source_text.slug %}">
+                        {{ object.source_text.title }}
+                    </a>
+                </h5>
+            </div>
+        </div>
+        <div class="bookexcerpt__body">
+            {{ object.body | safe }}
+        </div>
+    </div>
+{% endblock %}
