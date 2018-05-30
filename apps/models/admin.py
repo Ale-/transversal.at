@@ -86,7 +86,6 @@ class BiographyAdmin(admin.ModelAdmin):
             'fields'  : (
                 'is_published',
                 ('effective_date', 'expiration_date'),
-                ('content_author', 'content_contributors'),
                 'copyright','comments'
             ),
         })
@@ -134,7 +133,6 @@ class JournalTextAdmin(admin.ModelAdmin):
             'fields': (
                 ('slug', 'is_published'),
                 ('effective_date','expiration_date'),
-                ('content_author','content_contributors'),
                 'copyright','comments'
             ),
         })
@@ -179,7 +177,6 @@ class JournalIssueAdmin(NonSortableParentAdmin):
             'fields': (
                 'is_published',
                 ('effective_date','expiration_date'),
-                ('content_author','content_contributors'),
                 'copyright','comments'
             ),
         })
@@ -226,7 +223,6 @@ class BlogTextAdmin(admin.ModelAdmin):
             'fields': (
                 ('is_published','in_home','in_archive'),
                 ('effective_date','expiration_date'),
-                ('content_author','content_contributors'),
                 'copyright','comments'
             ),
         })
@@ -277,7 +273,6 @@ class BookAdmin(admin.ModelAdmin):
             'fields': (
                 ('is_published','in_home','in_listings'),
                 ('effective_date','expiration_date'),
-                ('content_author','content_contributors'),
                 'copyright','comments',
             ),
         })

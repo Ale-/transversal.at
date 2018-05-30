@@ -96,10 +96,6 @@ class Biography(models.Model):
                                             help_text=_('Date when the content should become available on the public site'))
     expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
                                             help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
     copyright            = models.TextField(_('Copyright'), blank=True, null=True,
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
@@ -148,10 +144,6 @@ class JournalIssue(models.Model):
                                             help_text=_('Date when the content should become available on the public site'))
     expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
                                             help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
     copyright            = models.TextField(_('Copyright'), blank=True, null=True,
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
@@ -170,10 +162,10 @@ class JournalIssue(models.Model):
         """Id of the object based on date."""
         return self.date.strftime("%m%y")
 
-    # def save(self, *args, **kwargs):
-    #     """Populate automatically 'slug' field"""
-    #     if not self.slug:
-    #         self.slug = self.date.strftime("%m%y")
+    def save(self, *args, **kwargs):
+        """Populate automatically 'slug' field"""
+        if not self.slug:
+            self.slug = self.date.strftime("%m%y")
 
     @property
     def authors(self):
@@ -225,10 +217,6 @@ class JournalText(SortableMixin):
                                             help_text=_('Date when the content should become available on the public site'))
     expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
                                             help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
     copyright            = models.TextField(_('Copyright'), blank=True, null=True,
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
@@ -294,10 +282,6 @@ class BlogText(models.Model):
                                             help_text=_('Date when the content should become available on the public site'))
     expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
                                             help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
     copyright            = models.TextField(_('Copyright'), blank=True, null=True,
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
@@ -350,10 +334,6 @@ class BlogTextTranslation(models.Model):
                                             help_text=_('Date when the content should become available on the public site'))
     expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
                                             help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
     copyright            = models.TextField(_('Copyright'), blank=True, null=True,
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
@@ -408,10 +388,6 @@ class Book(models.Model):
                                             help_text=_('Date when the content should become available on the public site'))
     expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
                                             help_text=_('Date when the content should no longer be visible on the public site'))
-    content_author       = models.TextField(_('Creators'), blank=True, null=True,
-                                            help_text=_('Persons responsible for creating the content of this item. The principal creator should come first.'))
-    content_contributors = models.TextField(_('Contributors'), blank=True, null=True,
-                                            help_text=_('Persons responsible for making contributions to the content of this item.'))
     copyright            = models.TextField(_('Copyright'), blank=True, null=True,
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
