@@ -52,7 +52,7 @@ class Link(models.Model):
     content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     source_content = GenericForeignKey('content_type', 'object_id')
-    description    = models.CharField(_('Description'), max_length=256, blank=True)
+    description    = models.CharField(_('Description'), max_length=256, blank=True, null=True)
 
     def __str__(self):
         """String representation of this model objects."""
