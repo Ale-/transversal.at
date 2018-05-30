@@ -316,6 +316,9 @@ class Search(views.View):
             else:
                 object_list   = sorted(content, key = lambda i: getattr(i, 'date'), reverse=True)
 
+        return render(request, 'models/search_list.html', locals())
+
+
 
 class CuratedContent(DetailView):
     """View of a single static page."""
