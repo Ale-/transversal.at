@@ -320,11 +320,17 @@ class Search(views.View):
 
 
 
-class CuratedContent(DetailView):
+class CuratedContent(views.View):
     """View of a single static page."""
 
     model = models.UserProfile
 
+    @method_decorator(login_required)
+    def get(self, request, pk):
+        pk              = pk
+        profile,created = models.UserProfile.objects.get_or_create(user=request.user)
+        obj             = profile
+        return render(request, 'models/userprofile_detail.html', { 'object' : obj } )
 
 class APICurate(views.View):
     """ An API method to allow users to select their curated content """
