@@ -2,11 +2,6 @@
   padding: $m
 .blog-view__item
   margin-bottom: $m
-  &::before
-    content: "—"
-    display: block
-  &:first-child:before
-    display: none
 .blog-view__item.unpublished
   background-color: #f5f5f5
   padding: $m
@@ -22,20 +17,17 @@
 .blog-view__title
   margin: $m/4 0 0
   line-height: 1.2
-  &:before
-    content: "·"
-    color: $palette_blue
 .blog-view__subtitle
-  margin: 0 0 0 $m/2
+  margin: 0 0 0 $m/4
 .blog-view__title:last-child
-  margin-bottom: $m/2
+  margin-bottom: $m/4
 .blog-view__titles
-  +links($palette_blue, $color_text, .25s ease)
+  +links(#118cb0, $color_text, .25s ease)
 .blog-view__meta
   margin-top: $m/4
   font-family: $font_headers
   float: none !important
-  font-size: .9em
+  font-size: .85em
 .blog-view__author:not(:empty)
   color: $palette_grey
   margin-right: $m/3
@@ -43,9 +35,10 @@
   font-size: .85em
   font-family: $font_auxiliar
 .blog-view__teaser
-  margin-top: $m/2
-.blog-view__teaser
   +links($palette_blue, black, .2s ease)
+  margin-bottom: 0 !important
+  p:last-child
+    margin-bottom: 0 !important
 
 .blog-view__tags
   display: inline-block

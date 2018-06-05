@@ -3,20 +3,27 @@
 .view-lastevents
   background-color: $palette_grey
   color: white
-  height: $m*2
+  +links_none
+
+.view-lastevents__link
   padding: 0 $m
-  line-height: $m*2
-  +links($palette_orange, whitem, .2s ease)
+  line-height: $m*1.5
+  height: $m*1.5
+  display: block
+  +transition(background-color .2s ease)
+  &:hover
+    background-color: darken($palette_grey, 10%)
 
 .view-lastevents__title
   display: inline
+  margin-
 
 .view-lastevents__items
   display: inline-block
   width: calc(100% - #{$m*9})
   margin-left: $m
   position: relative
-  top: -30px
+  top: -23px
 
 .view-lastevents__item
   position: absolute

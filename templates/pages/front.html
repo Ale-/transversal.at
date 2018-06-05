@@ -67,12 +67,10 @@
         {% endfor %}
     </div>
     <div class="view-lastevents">
+    <a class="view-lastevents__link" href="{% url 'events' %}" title="{% trans 'See last events' %}">
         <h5 class="view-lastevents__title">
-            {% trans 'Last events' %}
+            {% trans 'Featured events' %}
         </h5>
-        <a class="view-lastevents__link" href="{% url 'events' %}">
-            [{% trans 'See all' %}]
-        </a>
         <ul class="view-lastevents__items fadein">
             {% for event in last_events %}
                 <li class="view-lastevents__item fadein__item">
@@ -88,6 +86,7 @@
                 </li>
             {% endfor %}
         </ul>
+    </a>
     </div>
     <div class="blog-view">
     {% for post in blogposts %}
@@ -111,9 +110,9 @@
                 </h5>
                 {% endif %}
             </div>
-            <p class="blog-view__teaser">
+            <div class="blog-view__teaser">
                 {{ post.teaser | safe }}
-            </p>
+            </div>
             <div class="blog-view__meta">
                 {% if post.author_text %}
                 <span class="blog-view__author">{{ post.author_text }}</span>

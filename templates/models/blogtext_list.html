@@ -26,9 +26,9 @@
                 </h5>
                 {% endif %}
             </div>
-            <p class="blog-view__teaser">
+            <div class="blog-view__teaser">
                 {{ post.teaser | safe }}
-            </p>
+            </div>
             <div class="blog-view__meta">
                 {% if post.author_text %}<span class="blog-view__author">{{ post.author_text }}</span>{% endif %}
                 <span class="blog-view__date">{{ post.date | date:"d m y" }}</span>
