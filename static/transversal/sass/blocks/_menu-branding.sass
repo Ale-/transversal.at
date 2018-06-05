@@ -1,0 +1,24 @@
+// Menu branding
+  /templates/menus/menu-branding.html
+
+.menu-branding
+  color: white
+  text-align: right
+  margin: $m/2 $m/2 0
+  position: absolute
+  right: 0
+  bottom: $m*1.5
+  font-family: $font_headers
+
+.menu-branding__item
+  display: inline
+
+.menu-branding__item.home
+  +links(white, $palette_orange, .2s ease)
+
+.menu-branding__item.contact
+  +links(white, $palette_blue, .2s ease)
+  font-family: $font_auxiliar
+
+.menu-branding .separator
+  opacity: .25

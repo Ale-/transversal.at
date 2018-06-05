@@ -115,6 +115,14 @@ $(document).ready( function()
     }
 
     // Bind curateContent to its triggers
+    $('.collapsed .search-widget__submit').click( function(e){
+        if( $('.search-widget__query').val().length == 0){
+            e.preventDefault();
+            $('.search-widget').toggleClass('collapsed');
+        }
+    });
+
+    // Bind curateContent to its triggers
     $('#curate-button').click( function(e){
         curateContent( $(this) );
     });

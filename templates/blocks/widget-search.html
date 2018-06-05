@@ -1,9 +1,10 @@
 {# Search block #} {% load static %}
 
-<form class="search-widget" action="{% url 'search' %}">
+<form class="search-widget collapsed" action="{% url 'search' %}">
     <input type="hidden" name="lang" value="all" />
     <input type="hidden" name="type" value="all" />
     <input type="hidden" name="sort" value="title" />
     <input class="search-widget__query" type="text" placeholder="Search..." name="q" />
     <input class="search-widget__submit" type="submit" value="" />
+    <a href="{% url 'search' %}">Advanced search</a>
 </form>

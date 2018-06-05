@@ -254,10 +254,10 @@ class Search(views.View):
     def get(self, request, *args, **kwargs):
 
         # Arguments of the query
-        text  = request.GET.get('q')
-        model = request.GET.get('type')
-        sort  = request.GET.get('sort')
-        lang  = request.GET.get('lang')
+        text  = request.GET.get('q')    if request.GET else ''
+        model = request.GET.get('type') if request.GET else 'all'
+        sort  = request.GET.get('sort') if request.GET else 'title'
+        lang  = request.GET.get('lang') if request.GET else 'all'
 
         # Set a list of current languages in searchable contents
         # TODO: reduce queries to database here, maybe cache used languages in database?

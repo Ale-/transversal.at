@@ -1,0 +1,47 @@
+/*
+  Search widget
+  /templates/blocks/widget-search.html
+
+.search-widget
+  position: absolute
+  right: 0
+  top: 0
+  font-family: $font_auxiliar
+  font-size: .75em
+  +links(white, darken($palette_blue, 10%), .2s ease)
+
+.search-widget__query
+  background: white
+  border: 0
+  height: 30px
+  width: $m*8
+  opacity: 1
+  padding: 0 $m/2
+  +transition(width .2s ease, opacity .2s ease)
+
+.search-widget a
+  display: block
+  margin-top: $m/6
+  text-align: right
+  margin-right: $m
+
+.collapsed .search-widget__query,
+.collapsed a
+  width: 0
+  opacity: 0
+
+.search-widget__submit
+  background: url('../img/search.svg') no-repeat center center darken($palette_blue, 10%)
+  background-size: 16px 16px
+  border: 0
+  color: white
+  text-transform: uppercase !important
+  padding: $m/4 $m/2
+  height: 30px
+  float: right
+  +transition(background-color .2s ease)
+
+.collapsed .search-widget__submit
+  background-color: transparent
+.collapsed .search-widget__submit:hover
+  background-color: darken($palette_blue, 10%)
