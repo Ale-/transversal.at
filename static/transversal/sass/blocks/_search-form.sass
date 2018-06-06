@@ -44,8 +44,19 @@
   margin: $m/2 0 0 !important
   text-transform: lowercase
 
-.search-items
+.search-items,
+.biography-items
   padding: $m
+
+.biography-items
+  border-bottom: 1px solid $palette_grey
+  +links(#444, #555, .2s ease)
+
+.biography-items__label
+  color: #555
+
+.biography-items__bio
+  +h(4)
 
 .search-items__empty
   text-align: center

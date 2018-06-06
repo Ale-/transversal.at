@@ -327,6 +327,10 @@ class Search(views.View):
             else:
                 object_list   = sorted(content, key = lambda i: getattr(i, 'date'), reverse=True)
 
+        # Add biographies
+        if text:
+            biographies = models.Biography.objects.filter(Q(name__contains=text)|Q(surname__contains=text))
+
         return render(request, 'models/search_list.html', locals())
 
 

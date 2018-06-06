@@ -50,6 +50,22 @@
         </p>
     </form>
 
+    {% if biographies|length > 0 %}
+    <div class="biography-items">
+        <p class="biography-items__label">
+            {% trans 'Bios with links to all texts' %}
+        </p>
+        <ul class="biography-items__bios">
+        {% for bio in biographies %}
+            <li class="biography-items__bio">
+                <a href="{% url 'bio' bio.slug %}">
+                    {{ bio.fullname }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
     <div class="search-items">
     {% for object in object_list %}
         <div class="search-item">
