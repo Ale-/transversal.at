@@ -21,6 +21,10 @@ def js(file):
     return  settings.STATIC_URL + settings.PROJECT_STATIC_FOLDER + '/js/' + file
 
 @register.simple_tag
+def bower(path):
+    return  settings.STATIC_URL + settings.PROJECT_STATIC_FOLDER + '/js/bower_components/' + path
+
+@register.simple_tag
 def img(file):
     return  settings.STATIC_URL + settings.PROJECT_STATIC_FOLDER + '/img/' + file
 

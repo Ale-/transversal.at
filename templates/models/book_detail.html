@@ -1,10 +1,11 @@
-{# Book detail #} 
+{# Book detail #}
 {% extends 'layouts/single-fixed-column.html' %}
-{% load i18n utils %}
+{% load i18n static utils %}
 {% block body_classes %}book-page{% endblock %}
 {% block page_html_title %}{{ object.title }}{% endblock %}
 
 {% block main %}
+<div class="book-page__content" {% if hl %}data-hl="{{ hl }}"{% endif %}>
     <div class="book-header">
         {{ object.title }}
     </div>
@@ -183,8 +184,11 @@
         <div class="book__body">
             {{ object.body | safe }}
         </div>
-
-
         {% include 'blocks/widget-curate.html' with obj=book modifier='page' %}
     </div>
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+    <script type="text/javascript" src="{% static 'jquery-highlight/jquery.highlight.js' %}"></script>
 {% endblock %}

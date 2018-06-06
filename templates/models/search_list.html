@@ -54,7 +54,7 @@
     {% for object in object_list %}
         <div class="search-item">
             <h4 class="search-item__title search-item__title--{{ object|verbose_name_slug }}">
-                <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+                <a href="{{ object.get_absolute_url }}?hl={{ text }}">{{ object.title }}</a>
             </h4>
             {% if object.subtitle %}
             <p class="search-item__subtitle">

@@ -58,6 +58,9 @@ class BlogTextView(views.View):
             if not object.source_text.is_published and not request.user.is_staff:
                 raise Http404("Post does not exist")
 
+        if self.request.GET.get('hl'):
+            hl = self.request.GET.get('hl')
+
         return render(request, 'models/blogtext_detail.html', locals())
 
 class BlogTextTranslationLegacyView(views.View):
@@ -73,6 +76,12 @@ class BookView(DetailView):
     """View of a single blog text."""
 
     model = models.Book
+
+    def get_context_data(self, **kwargs):
+        context = super(BookView, self).get_context_data(**kwargs)
+        if self.request.GET.get('hl'):
+            context['hl'] = self.request.GET.get('hl')
+        return context
 
     def get_object(self, queryset=None):
         obj = super(BookView, self).get_object(queryset=queryset)
@@ -221,6 +230,8 @@ class JournalText(views.View):
         slug          = self.kwargs['text_slug']
         lang          = self.kwargs['text_lang']
         object        = models.JournalText.objects.filter(issue=issue,slug=slug,language=lang).first()
+        if self.request.GET.get('hl'):
+            hl = self.request.GET.get('hl')
         if not object.is_published and not request.user.is_staff :
             raise Http404("Issue does not exist")
         return render(request, 'models/journaltext_detail.html', locals())

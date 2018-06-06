@@ -3,8 +3,8 @@
  * Common scripts to be used throughout the site
  */
 
-$(document).ready( function()
-{
+!(function($){ $(document).ready(
+function(){
 
     /**
      *  Scroll up button
@@ -114,6 +114,13 @@ $(document).ready( function()
         });
     }
 
+    // Highlight selected text in DOM nodes
+    // with an attribute 'data-hl' set
+    $('[data-hl]').each( function(el){
+        var query = $(this).attr('data-hl');
+        $(this).highlight(query);
+    });
+
     // Bind curateContent to its triggers
     $('.collapsed .search-widget__submit').click( function(e){
         if( $('.search-widget__query').val().length == 0){
@@ -132,5 +139,4 @@ $(document).ready( function()
         $(this).toggleClass('lightbox');
     });
 
-
-});
+})})(jQuery);

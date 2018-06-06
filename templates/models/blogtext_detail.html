@@ -5,6 +5,7 @@
 {% block page_html_title %}transversal.at{% endblock %}
 
 {% block main %}
+<div class="blogtext__content" {% if hl %}data-hl="{{ hl }}"{% endif %}>
     <div class="blogtext-wrapper">
         <nav class="links">
           {% fake_breadcrumb %}
@@ -111,6 +112,10 @@
             {{ object.body | safe }}
         </div>
     </div>
-
     {% include 'blocks/widget-curate.html' with obj=object modifier='page' %}
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+    <script type="text/javascript" src="{% static 'jquery-highlight/jquery.highlight.js' %}"></script>
 {% endblock %}

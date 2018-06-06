@@ -1,8 +1,11 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %} {% load static utils i18n %}
+{# Journal text detail #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load static utils i18n %}
 {% block body_classes %}journal-text{% endblock %}
 {% block page_html_title %}{{ object.title }}{% endblock %}
 
 {% block main %}
+<div class="journal-text__content" {% if hl %}data-hl="{{ hl }}"{% endif %}>
     <div class="text-wrapper">
         <nav class="links">
           {% fake_breadcrumb %}
@@ -99,9 +102,11 @@
           {{ object.body | safe }}
         </p>
 
-          {% include 'blocks/widget-curate.html' with obj=object modifier='page' %}
+        {% include 'blocks/widget-curate.html' with obj=object modifier='page' %}
     </div>
+</div>
 {% endblock %}
 
 {% block page_scripts %}
+    <script type="text/javascript" src="{% static 'jquery-highlight/jquery.highlight.js' %}"></script>
 {% endblock %}
