@@ -1,4 +1,6 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %}
+{# Book list #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load imagekit %}
 {% block body_classes %}books{% endblock %}
 {% block page_html_title %}Books{% endblock %}
 
@@ -18,7 +20,7 @@
                 <div class="related-book {% if not object.is_published or not object.in_listings %}unpublished{% endif %}">
                     {% if object.image %}
                     <div class="book__title--image">
-                        <img src="{{ object.image.first.image_file.url }}" />
+                        <img src="{{ object.image.first.thumbnail.url }}" />
                     </div>
                     {% endif %}
                     <h4 class="book__title--list">

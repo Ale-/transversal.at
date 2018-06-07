@@ -44,7 +44,7 @@
             </p>
             <div class="view-lastbooks__item-body">
                 <figure class="view-lastbooks__item-image">
-                    <img src="{{ book.image.first.image_file.url }}" />
+                    <img src="{{ book.image.first.thumbnail.url }}" />
                 </figure>
                 {% if not book.is_published %}
                 <p class="view-lastbooks__item-unpublished">

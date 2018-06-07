@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 from adminsortable.models import SortableMixin
 from gm2m import GM2MField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 # project
 from .categories import LANGUAGES, TAG_CATEGORIES, LINK_CATEGORIES
 
@@ -20,6 +22,10 @@ class Image(models.Model):
     """ Image """
 
     image_file     = models.ImageField(_('Image file'), blank=False)
+    thumbnail      = ImageSpecField(source='image_file',
+                                    processors=[ResizeToFill(100, 80)],
+                                    format='JPEG',
+                                    options={'quality': 90})
     content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     source_content = GenericForeignKey('content_type', 'object_id')

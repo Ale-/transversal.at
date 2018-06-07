@@ -30,10 +30,10 @@ class Command(BaseCommand):
         books = Book.objects.all()
         for book in books:
             image = Image(
-                image_file = '/img/books/' + book.slug + '.png',
+                image_file = 'img/books/' + book.slug + '.png',
                 source_content = book
             )
             image.save()
-            book.pdf_file = '/pdf/' + book.slug + '.pdf'
-            book.epub_file = '/epub/' + book.slug + '.epub'
+            book.pdf_file = 'pdf/' + book.slug + '.pdf'
+            book.epub_file = 'epub/' + book.slug + '.epub'
             book.save()
