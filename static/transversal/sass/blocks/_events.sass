@@ -1,10 +1,14 @@
 // Events page
 
 .events-view__title
-  margin-bottom: $m/4
+  margin: $m/4 0
+
+.events-view__meta
+  margin: 0 0 $m/4
 
 .events-view__item
   margin-bottom: $m
+  +links(#118cb0, $color_text, .25s ease)
   &::before
     content: "—"
     display: block
@@ -23,3 +27,6 @@
 
 .events-view__links-title
   margin-bottom: $m/4
+
+.event-page__title
+  margin-bottom: $m*2

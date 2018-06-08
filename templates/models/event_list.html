@@ -16,7 +16,7 @@
     {% endif %}
 </nav>
 <h1 class="event-page__title">
-    {% trans 'Next events' %}
+    {% trans 'Incoming events' %}
 </h1>
 <div class="events-view">
 {% for event in object_list %}
@@ -24,23 +24,35 @@
         <h4 class="events-view__title">
             {{ event.title }}
         </h4>
-        <p class="events-view__text">
-            {{ event.body | safe}}
-        </p>
-        <p class="events-view__address">
-            <em>where:</em> {{ event.address }} ({{ event.city }})
-        </p>
-        <p class="events-view__datetime">
-            <em>when:</em> {{ event.datetime }}
-        </p>
+        <h6 class="events-view__meta">
+            {{ event.datetime }} · {{ event.address }} ({{ event.city }})
+        </h6>
+        <div class="events-view__text">
+            {% if event.summary %}
+            {{ event.summary | safe }}
+            {% else %}
+            {{ event.body | safe }}
+            {% endif %}
+            {% if event.extended_info %}
+            <span class="events-view__see-more">
+                <a href="{{ event.get_absolute_url }}">
+                    {% trans 'Read more' %}
+                </a>
+            </span>
+            {% endif %}
+        </div>
         {% if event.links.all|length > 0 %}
         <ul class="events-view__links">
+            <h6 class="events-view__links-title">
+                {% trans 'External links' %}
+            </h6>
             {% for link in event.links.all %}
                 <li class="events-view__link">
-                    <p>{{ link.title }}:</p>
-                    <a href="{{ link.url }}" target="_blank">
-                        {{ link.url }}
-                    </a>
+                    <p>{{ link.title }}:
+                        <a href="{{ link.url }}" target="_blank">
+                            {{ link.url }}
+                        </a>
+                    </p>
                 </li>
             {% endfor %}
         </ul>

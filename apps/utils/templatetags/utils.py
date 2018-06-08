@@ -1,5 +1,5 @@
 # python
-import os
+import os, re
 # django
 from django import template
 from django.utils.translation import ugettext_lazy as _
@@ -70,3 +70,8 @@ def filesize(url):
 @register.filter
 def sort_by(queryset, order):
     return queryset.order_by(order)
+
+@register.filter
+def googlify(text):
+    value = re.sub(r'[^\w\s-]', '', text).strip().lower()
+    return mark_safe(re.sub(r'[-\s]+', '+', text))

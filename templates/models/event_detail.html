@@ -1,0 +1,56 @@
+{# Event detail #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load static utils i18n %}
+{% block body_classes %}event{% endblock %}
+{% block page_html_title %}{{ event.title }}{% endblock %}
+
+{% block main %}
+<div class="blogtext__content">
+    <div class="blogtext-wrapper">
+        <nav class="links">
+          {% fake_breadcrumb %}
+          {% if request.user.is_staff %}
+          <div class="links__staff">
+              <a href="{% url 'admin:models_event_change' object.id %}">
+                  {% trans 'Edit this event' %}
+              </a>
+          </div>
+          {% endif %}
+        </nav>
+        <div class="event__meta">
+          <div class="event__datetime">
+            {{ object.datetime }}
+          </div>
+          <div class="event__address">
+            <a href="https://google.es/maps/search/?api=1&query={{ object.address|googlify }}+{{ object.city|googlify }}"
+            target="_blank">
+            {{ object.address }} ({{ object.city }})
+          </a>
+        </div>
+        {% if object.links.all|length > 0 %}
+        <ul class="event__links">
+          <h5 class="events__links-title">
+            External links
+          </h5>
+          {% for link in object.links.all %}
+          <li class="event__link">
+            <p>{{ link.title }}</p>
+            <p>
+              <a href="{{ link.url }}" target="_blank">
+                {{ link.url }}
+              </a>
+            </p>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+        <h1 class="event__title">
+            {{ object.title }}
+        </h1>
+        <div class="event__body">
+            {{ object.body | safe }}
+        </div>
+    </div>
+</div>
+{% endblock %}

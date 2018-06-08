@@ -48,6 +48,8 @@ urlpatterns = [
     path('texts/', views.JournalTexts.as_view(), name="texts"),
     # events
     path('events/', views.Events.as_view(), name="events"),
+    # events
+    path('event/<slug:slug>', views.EventView.as_view(), name="event"),
     # search
     path('search/', views.Search.as_view(), name="search"),
     # impressum

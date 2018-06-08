@@ -34,24 +34,6 @@
         </p>
         {% endif %}
 
-        <h1 class="book__title">
-            {{ object.title }}
-        </h1>
-        {% if object.subtitle %}
-        <h4 class="book__subtitle">
-            {{ object.subtitle }}
-        </h4>
-        {% endif %}
-        {% if object.author_text %}
-        <div class="book__author">
-            {{ object.author_text }}
-        </div>
-        {% endif %}
-        {% if object.publisher_text %}
-        <div class="book__publisher">
-            {{ object.publisher_text | safe }}
-        </div>
-        {% endif %}
         <div class="book__meta">
             {% if object.image %}
             <div class="book__meta-image">
@@ -181,6 +163,24 @@
             </div>
             {% endif %}
         </div>
+        <h1 class="book__title">
+            {{ object.title }}
+        </h1>
+        {% if object.subtitle %}
+        <h4 class="book__subtitle">
+            {{ object.subtitle }}
+        </h4>
+        {% endif %}
+        {% if object.author_text %}
+        <div class="book__author">
+            {{ object.author_text }}
+        </div>
+        {% endif %}
+        {% if object.publisher_text %}
+        <div class="book__publisher">
+            {{ object.publisher_text | safe }}
+        </div>
+        {% endif %}
         <div class="book__body">
             {{ object.body | safe }}
         </div>

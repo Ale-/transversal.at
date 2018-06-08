@@ -25,16 +25,23 @@ class Front(views.View):
         if request.user.is_staff:
             last_issue  = models.JournalIssue.objects.all().order_by('-date').first()
             last_books  = models.Book.objects.all().order_by('-date')[:3]
-            last_events = models.Event.objects.all().filter(in_home=True).order_by('-datetime')[:3]
+            last_events = models.Event.objects.all().filter(
+                in_home=True,
+                datetime__gt=datetime.now(),
+            ).order_by('-datetime')[:3]
             blogposts   = models.BlogText.objects.all().order_by('-date')[:50]
         else:
             last_issue = models.JournalIssue.objects.filter(is_published=True).order_by('-date').first()
             last_books = models.Book.objects.filter(
                 is_published=True,
-                in_listings = True,
+                in_listings=True,
                 in_home=True,
             ).order_by('-date')[:3]
-            last_events = models.Event.objects.filter(is_published=True, in_home=True).order_by('-datetime')[:3]
+            last_events = models.Event.objects.filter(
+                is_published=True,
+                datetime__gt=datetime.now(),
+                in_home=True
+            ).order_by('-datetime')[:3]
             blogposts   = models.BlogText.objects.filter(is_published=True).order_by('-date')[:50]
         return render(request, 'pages/front.html', locals())
 
@@ -252,6 +259,19 @@ class Events(ListView):
     model    = models.Event
     ordering = ['-datetime',]
 
+    def get_queryset(self):
+        """ Return the list of items for this view. """
+
+        filters = Q(datetime__gt=datetime.now())
+        if self.request.user.is_anonymous:
+            filters = filters & Q(is_published=True)
+
+        return models.Event.objects.filter(filters)
+
+class EventView(DetailView):
+
+    model = models.Event
+    
 
 class Page(DetailView):
     """View of a single static page."""

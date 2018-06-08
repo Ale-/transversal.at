@@ -317,12 +317,13 @@ class EventAdmin(admin.ModelAdmin):
             'fields': (
                 ('title', 'datetime'),
                 ('city', 'address'),
+                'summary',
                 'body',
             )
         }),
         ('Metadata', {
             'fields': (
-                ('is_published', 'in_home',),
+                ('is_published', 'in_home', 'extended_info'),
             ),
         })
     )

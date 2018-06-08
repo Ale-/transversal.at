@@ -3,7 +3,8 @@
 .text__meta,
 .issue__meta,
 .biography__meta,
-.blogtext__meta
+.blogtext__meta,
+.event__meta
   float: right
   font-family: $font_headers
   width: $m*10
@@ -23,7 +24,7 @@
     margin: 0 0 $m/2
     text-transform: uppercase
     font-size: .8em
-    color: rgba($color_text, .5)
+    color: rgba($color_text, .75)
   > div:first-child h5,
   > ul:first-child h5
     margin-top: 0
@@ -40,9 +41,25 @@
 .bookexcerpt__meta > div,
 .bookexcerpt__meta > ul,
   background-color: $palette_orange
-.blogtext__meta > div
+.blogtext__meta > div,
   background-color: #f5f5f5
   +links(#333, #222, .2s ease)
+.event__meta > div,
+.event__meta > ul
+  border-bottom: 2px solid white !important
+  background-color: #f5f5f5
+  +links($color_text, $palette_blue, .2s ease)
+
+.events__links-title
+  margin-top: 0
+
+.event__meta a
+  border-bottom: 1px dotted $color_text
+
+.event__meta .event__link
+  margin-bottom: $m/3
+  p
+    margin-bottom: 0
 
 .blogtext__meta-translations
   a
@@ -100,3 +117,6 @@
   margin-bottom: $m/2
   &:last-child
     border: 0
+
+.book__meta
+  margin-top: 0

@@ -66,6 +66,7 @@
         </a>
         {% endfor %}
     </div>
+    {% if last_events|length > 0 %}
     <div class="view-lastevents">
     <a class="view-lastevents__link" href="{% url 'events' %}" title="{% trans 'See last events' %}">
         <h5 class="view-lastevents__title">
@@ -88,6 +89,7 @@
         </ul>
     </a>
     </div>
+    {% endif %}
     <div class="blog-view">
     {% for post in blogposts %}
         <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
