@@ -181,7 +181,7 @@ class JournalIssueAdmin(NonSortableParentAdmin):
             ),
         })
     )
-    inlines      = [ JournalIssueTitleInline, JournalTextInline ]
+    inlines      = [ JournalIssueTitleInline, LinkInline, JournalTextInline ]
 
     def view(self, obj):
         try:

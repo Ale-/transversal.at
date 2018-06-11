@@ -7,18 +7,15 @@
 {% block main %}
 <div class="issue-wrapper--full">
     <nav class="links">
-      {% fake_breadcrumb %}
-      {% if request.user.is_staff %}
-      <div class="links__staff">
-          <a href="{% url 'admin:models_journalissue_change' object.id %}">
-              {% trans 'Edit this journal' %}
-          </a>
-      </div>
-      {% endif %}
+        {% fake_breadcrumb %}
+        {% if request.user.is_staff %}
+        <div class="links__staff">
+            <a href="{% url 'admin:models_journalissue_change' object.id %}">
+                {% trans 'Edit this journal' %}
+            </a>
+        </div>
+        {% endif %}
     </nav>
-    <p class="issue__date--full">
-      {{ object.date | date:"m Y"}}
-    </p>
     <h1 class="issue__title--full">
         <ul class="fadein">
             <li class="fadein__item active">{{ object.title }}</li>
@@ -27,6 +24,20 @@
             {% endfor %}
         </ul>
     </h1>
+    <div class="issue__date-links--full">
+        <span class="issue__date--full">
+          {{ object.date | date:"m Y"}}
+        </span>
+        {% if object.links.all|length > 0 %}
+            <span class="issue__external-links--full">
+            {% for link in object.links.all %}
+                , <a target="_blank" href="{{ link.url }}" >
+                    {{ link.title }}
+                </a>
+            {% endfor %}
+            </span>
+        {% endif %}
+    </div>
     <ul class="issue__links">
         <li class="issue__link">
             <a href="{% url 'journal_issue_editorial' object.slug %}">

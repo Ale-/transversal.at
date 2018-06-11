@@ -144,6 +144,7 @@ class JournalIssue(models.Model):
     editorial_title = models.CharField(_('Editorial title'), max_length=200, blank=True, null=True)
     editorial       = RichTextUploadingField(_('Editorial'), blank=True, null=True)
     impressum       = RichTextUploadingField(_('Impressum'), blank=True, null=True)
+    links           = GenericRelation(Link)
 
     # metadata
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
