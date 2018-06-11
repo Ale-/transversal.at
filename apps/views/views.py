@@ -137,7 +137,6 @@ class BooksView(views.View):
                 if book.is_published or request.user.is_staff:
                     wrapper = [ book ]
                     for related_book in book.related_books.all():
-                            print(related_book.id)
                             wrapper.append(related_book)
                             excluded_ids.append(related_book.id)
                     books_wrappers.append(wrapper)
@@ -271,7 +270,7 @@ class Events(ListView):
 class EventView(DetailView):
 
     model = models.Event
-    
+
 
 class Page(DetailView):
     """View of a single static page."""

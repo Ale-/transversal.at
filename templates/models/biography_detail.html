@@ -170,11 +170,15 @@
         </div>
         {% endif %}
     </div>
+    {% if object.email %}
     <div class="biography__email">
         <a href="mailto:{{ object.email }}">{{ object.email }}</a>
     </div>
+    {% endif %}
+    {% if object.description %}
     <div class="biography__body">
         {{ object.description | safe }}
     </div>
+    {% endif %}
 </div>
 {% endblock %}

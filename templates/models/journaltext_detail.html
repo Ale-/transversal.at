@@ -29,7 +29,11 @@
           {{ object.date | date:"m Y"}}
         </p>
         <h1 class="text__title">
+            {% if object.fulltitle %}
+            {{ object.fulltitle }}
+            {% else %}
             {{ object.title }}
+            {% endif %}
         </h1>
         {% if object.subtitle %}
         <h2 class="text__subtitle">

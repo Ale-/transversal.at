@@ -236,10 +236,14 @@ class JournalText(SortableMixin):
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
+
         if not self.slug:
             slug = ""
+            super(JournalText, self).save(*args, **kwargs)
             if self.authors:
+                print(self.id)
                 for i,author in enumerate(self.authors.all()):
+                    print(author.name)
                     if i>0:
                         slug += "-"
                     if author.surname:
@@ -249,7 +253,9 @@ class JournalText(SortableMixin):
             else:
                 slug = slugify(self.title)
             self.slug = slug
-        super(JournalText, self).save(*args, **kwargs)
+            super(JournalText, self).save(*args, **kwargs)
+        else:
+            super(JournalText, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         # To prevent errors when rendering lists with badly imported text
@@ -372,7 +378,7 @@ class Book(models.Model):
     teaser             = RichTextUploadingField(_('Teaser'), blank=True, null=True)
     body               = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors            = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='books_written', blank=True)
-    author_text        = models.CharField(_('Author attribution'), max_length=200, blank=False, null=True)
+    author_text        = models.CharField(_('Author attribution'), max_length=256, blank=False, null=True)
     translators        = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='books_translated', blank=True)
     publisher_text     = models.CharField(_('Publisher info'), max_length=200, blank=False, null=True)
     related_books      = models.ManyToManyField('self', verbose_name=_('Related publications'), blank=True)
@@ -398,7 +404,7 @@ class Book(models.Model):
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
-    is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
+    is_published         = models.BooleanField(_('Is visible'), default=True, null=False)
     links                = GenericRelation(Link)
 
     @property

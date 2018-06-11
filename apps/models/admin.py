@@ -113,7 +113,7 @@ class JournalTextAdmin(admin.ModelAdmin):
     # list
     ordering          = ('issue', 'title')
     actions           = [publish, unpublish]
-    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published')
+    list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published', 'issue')
     list_display      = ('title', 'issue', 'date', 'author_text', 'view', 'is_published')
 
     # form
@@ -154,8 +154,8 @@ class JournalIssueTitleInline(admin.TabularInline):
 
 class JournalTextInline(SortableTabularInline):
     model           = models.JournalText
-    fields          = ('title', 'author_text', 'column_end')
-    readonly_fields = ('title', 'author_text')
+    fields          = ('title', 'author_text', 'column_end',)
+    readonly_fields = ('title', 'author_text',)
     extra = 1
 
 class JournalIssueAdmin(NonSortableParentAdmin):

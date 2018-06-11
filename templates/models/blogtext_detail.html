@@ -53,7 +53,7 @@
         </h1>
         {% if object.subtitle %}
         <h5 class="blogtext__subtitle">
-            {{ object.subtitle }}
+            {{ object.subtitle | safe }}
         </h5>
         {% endif %}
         <div class="blogtext__meta">
@@ -63,7 +63,7 @@
                 <ul>
                     {% for author in authors %}
                     <li>
-                        <a href="{% url 'bio' author.slug %}">{{ author.surname }}, {{ author.name }}</a>
+                        <a href="{% url 'bio' author.slug %}">{{ author.name }} {{ author.surname }}</a>
                     </li>
                     {% endfor %}
                 </ul>
