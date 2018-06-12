@@ -45,7 +45,7 @@
         </p>
         {% if object.translator_text %}
         <p class="text__translator-text">
-            {{ object.translator_text }}
+            {{ object.translator_text | safe }}
         </p>
         {% endif %}
 

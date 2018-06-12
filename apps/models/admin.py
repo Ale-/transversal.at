@@ -154,8 +154,8 @@ class JournalIssueTitleInline(admin.TabularInline):
 
 class JournalTextInline(SortableTabularInline):
     model           = models.JournalText
-    fields          = ('title', 'author_text', 'column_end',)
-    readonly_fields = ('title', 'author_text',)
+    fields          = ('author_text', 'title', 'language', 'column_end', 'is_published')
+    readonly_fields = ('title', 'author_text', 'language')
     extra = 1
 
 class JournalIssueAdmin(NonSortableParentAdmin):
