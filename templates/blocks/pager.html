@@ -1,19 +1,21 @@
-{# View paginator #} {% load utils %}
+{# Paginator block #}
+{% load utils %}
 
 {% if is_paginated %}
     <div class="pager">
         <div class="pager__pages">
             <span class="page-prev">
             {% if page_obj.has_previous %}
-                <a href="/blog?page={{ page_obj.previous_page_number }}">↤</a>
+                <a href="?page={{ page_obj.previous_page_number }}">↤</a>
             {% endif %}
             </span>
             <span class="page-current">
-                Page <span class="pager__count-n">{{ page_obj.number }}</span> of <span class="pager__count-n">{{ page_obj.paginator.num_pages }}</span>
+                Page <span class="pager__count-n">{{ page_obj.number }}</span>
+                of <span class="pager__count-n">{{ page_obj.paginator.num_pages }}</span>
             </span>
             <span class="page-next">
             {% if page_obj.has_next %}
-                <a href="/blog?page={{ page_obj.next_page_number }}">↦</a>
+                <a href="?page={{ page_obj.next_page_number }}">↦</a>
             {% endif %}
             </span>
         </div>
