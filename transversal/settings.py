@@ -47,7 +47,8 @@ CONTRIB_APPS = (
     'ckeditor_uploader',
     'gm2m',
     'djangobower',
-    'imagekit'
+    'imagekit',
+    'easy_pdf'
 )
 
 PROJECT_APPS = (

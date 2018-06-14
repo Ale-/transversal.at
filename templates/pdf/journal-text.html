@@ -1,0 +1,34 @@
+{# journal text pdfs #}
+{% extends "easy_pdf/base.html" %}
+
+{% block extra_style %}
+    {# to prevent inconsistent encoding of utf-8 characters #}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    {% include 'pdf/style.html' %}
+{% endblock %}
+
+{# document header #}
+{% block page_header %}
+    <p>{{ object.date|date:"m Y" }}</p>
+    <h1>{{ object.title }}</h1>
+    {% if object.subtitle %}
+        <h2>{{ object.subtitle }}</h2>
+    {% endif %}
+    {% if object.author_text %}
+        <h5><em>{{ object.author_text }}</em></h5>
+    {% endif %}
+{% endblock %}
+
+{# document content #}
+{% block content %}
+    <div id="content">
+        <p>{{ object.body | safe }}</p>
+    </div>
+
+    {# document footer #}
+    <div id="footerContent">
+    {% block page_foot %}
+        <pdf:pagenumber />
+    {% endblock %}
+    </div>
+{% endblock %}

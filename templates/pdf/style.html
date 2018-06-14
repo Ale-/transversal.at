@@ -1,0 +1,66 @@
+{# pdf documents styles #}
+
+<style type="text/css">
+    @font-face {
+        font-family: 'dejavu';
+        src: url('/static/transversal/sass/fonts/dejavusans/dejavusans.ttf');
+    }
+    @font-face {
+        font-family: 'dejavu-bold';
+        src: url('/static/transversal/sass/fonts/dejavusans-bold/dejavusans-bold.ttf');
+    }
+    @font-face {
+        font-family: 'junicode';
+        src: url('/static/transversal/sass/fonts/junicode/junicode.ttf');
+    }
+    @font-face {
+        font-family: 'junicode-italic';
+        src: url('/static/transversal/sass/fonts/junicode/junicode-italic.ttf');
+    }
+    @font-face {
+        font-family: 'junicode-bold';
+        src: url('/static/transversal/sass/fonts/junicode/junicode-bold.ttf');
+    }
+    @font-face {
+        font-family: 'junicode-bold-italic';
+        src: url('/static/transversal/sass/fonts/junicode/junicode-bold-italic.ttf');
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'dejavu-bold';
+        color: #222;
+        transform: translateY(-20px);
+    }
+    body {
+        font-family: 'junicode', serif;
+        color: #222;
+    }
+    #content {
+        margin-top: 2cm;
+    }
+    #content em,
+    #content i {
+        font-family: 'junicode-italic', serif;
+    }
+    #content strong,
+    #content b {
+        font-family: 'junicode-bold', serif;
+    }
+    #content strong em,
+    #content em strong {
+        font-family: 'junicode-bold-italic', serif;
+    }
+    a, a:link, a:visited, a:hover, a:active {
+        color: #e00 !important;
+    }
+
+    @page {
+        margin: 2cm 8cm 2cm 2cm;
+        @frame footer {
+            -pdf-frame-content: footerContent;
+            bottom: 0cm;
+            margin-left: 18cm;
+            margin-right: 0cm;
+            height: 1cm;
+       }
+    }
+</style>

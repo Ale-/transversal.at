@@ -1,0 +1,8 @@
+{# print block #}
+{% load static utils %}
+
+<p class="page__print--{{ class_modifier }}">
+    <a href="{% url url id %}" target="_blank">
+        <img src="{% img 'print.png' %}" />
+    </a>
+</p>
