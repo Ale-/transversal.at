@@ -25,7 +25,7 @@ class Front(views.View):
         """ GET request """
 
         if request.user.is_staff:
-            last_issue  = models.JournalIssue.objects.filter(is_published=True).order_by('-date').first()
+            last_issue  = models.JournalIssue.objects.filter(is_published='p').order_by('-date').first()
             last_books  = models.Book.objects.all().order_by('-date')[:3]
             last_events = models.Event.objects.all().filter(
                 in_home=True,
@@ -33,7 +33,7 @@ class Front(views.View):
             ).order_by('-datetime')[:3]
             blogposts   = models.BlogText.objects.all().order_by('-date')[:50]
         else:
-            last_issue = models.JournalIssue.objects.filter(is_published=True).order_by('-date').first()
+            last_issue = models.JournalIssue.objects.filter(is_published='p').order_by('-date').first()
             last_books = models.Book.objects.filter(
                 is_published=True,
                 in_listings=True,
@@ -137,20 +137,6 @@ class BooksView(views.View):
     """View of a single blog text."""
 
     def get(self, request, *args, **kwargs):
-        # if self.request.user.is_staff:
-        #     books = models.Book.objects.all().order_by('-date')
-        # else:
-        #     books = models.Book.objects.filter(is_published=True, in_listings=True).order_by('-date')
-        # excluded_ids = []
-        # books_wrappers = []
-        # for book in books:
-        #     if not book.id in excluded_ids:
-        #         if book.is_published or request.user.is_staff:
-        #             wrapper = [ book ]
-        #             for related_book in book.related_books.all():
-        #                     wrapper.append(related_book)
-        #                     excluded_ids.append(related_book.id)
-        #             books_wrappers.append(wrapper)
         books = models.Book.objects.filter(parent_book__isnull=True).order_by('-date')
         return render(request, 'models/book_list.html', locals());
 

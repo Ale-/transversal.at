@@ -4,6 +4,7 @@
 
 {% block main %}
     {% for object in object_list %}
+        {% if object.is_published != 'i' or request.user.is_staff %}
         <div class="issue-header">
             <ul class="fadein">
                 {% for text in object.texts.all %}
@@ -21,15 +22,22 @@
                 </a>
             </div>
             {% endif %}
+            {% if object.is_published != 'v' or request.user.is_staff %}
             <div class="issue__date">
                 {{ object.date | date:"m Y" }}
             </div>
+            {% endif %}
             <h4 class="issue__title">
+                {% if object.is_published != 'v' or request.user.is_staff %}
                 <a href="{% url 'journal_issue' object.date_id %}">
                     {{ object.title }}
                 </a>
+                {% else %}
+                    <em>incoming</em> {{ object.title }}
+                {% endif %}
             </h4>
         </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
 

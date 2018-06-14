@@ -215,3 +215,9 @@ LINK_CATEGORIES = (
     ('t', 'Translation'),
     ('b', 'Document')
 )
+
+ISSUE_CATEGORIES = (
+    ('p', 'Published'),
+    ('i', 'Internal'),
+    ('v', 'Visible'),
+)

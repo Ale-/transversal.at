@@ -15,7 +15,7 @@ from gm2m import GM2MField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 # project
-from .categories import LANGUAGES, TAG_CATEGORIES, LINK_CATEGORIES
+from .categories import LANGUAGES, TAG_CATEGORIES, LINK_CATEGORIES, ISSUE_CATEGORIES
 
 
 class Image(models.Model):
@@ -134,7 +134,7 @@ class JournalIssue(models.Model):
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
     date            = models.DateField(_('Date'), blank=True, null=True,
                                         help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '))
-    slug            = models.SlugField(blank=True, editable=False)
+    slug            = models.SlugField(blank=True)
     editorial_title = models.CharField(_('Editorial title'), max_length=200, blank=True, null=True)
     editorial       = RichTextUploadingField(_('Editorial'), blank=True, null=True)
     impressum       = RichTextUploadingField(_('Impressum'), blank=True, null=True)
@@ -149,7 +149,7 @@ class JournalIssue(models.Model):
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
-    is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
+    is_published         = models.CharField(_('Is published'), choices=ISSUE_CATEGORIES, max_length=2, default='i', null=True, blank=False)
 
     class Meta:
         verbose_name = _('Journal issue')

@@ -171,9 +171,9 @@ class JournalIssueAdmin(NonSortableParentAdmin):
           'fields': (('title', 'date'), 'editorial_title', 'editorial', 'impressum')
         }),
         ('Metadata', {
-            # 'classes' : ('collapse',),
+            'classes' : ('collapse',),
             'fields': (
-                'is_published',
+                'is_published', 'slug',
                 ('effective_date','expiration_date'),
                 'copyright','comments'
             ),
