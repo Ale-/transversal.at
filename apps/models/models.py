@@ -132,7 +132,8 @@ class JournalIssue(models.Model):
     """ Journal issues """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    date            = models.DateField(_('Date'), blank=True, null=True)
+    date            = models.DateField(_('Date'), blank=True, null=True,
+                                        help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '))
     slug            = models.SlugField(blank=True, editable=False)
     editorial_title = models.CharField(_('Editorial title'), max_length=200, blank=True, null=True)
     editorial       = RichTextUploadingField(_('Editorial'), blank=True, null=True)
@@ -202,9 +203,11 @@ class JournalText(SortableMixin):
     slug            = models.SlugField(blank=True)
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
-    issue           = models.ForeignKey(JournalIssue, verbose_name=_('Journal issue'), related_name='texts', blank=True, null=True, on_delete=models.SET_NULL)
+    issue           = models.ForeignKey(JournalIssue, verbose_name=_('Journal issue'), related_name='texts', blank=False, null=True, on_delete=models.SET_NULL)
     language        = models.CharField(_('Language'), max_length=2, default='en', choices=LANGUAGES)
-    date            = models.DateField(_('Date'), blank=True, null=True)
+    date            = models.DateField(_('Date'), blank=True, null=True,
+                                       help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '
+                                                   'If you don\'t introduce a date the text will use issue\'s date'))
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='texts_created', blank=True)
     author_text     = models.CharField(_('Author attribution'), max_length=200, null=True)
@@ -249,9 +252,10 @@ class JournalText(SortableMixin):
             else:
                 slug = slugify(self.title)
             self.slug = slug
-            super(JournalText, self).save(*args, **kwargs)
-        else:
-            super(JournalText, self).save(*args, **kwargs)
+        if not self.date:
+            self.date = self.issue.date
+
+        super(JournalText, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         # To prevent errors when rendering lists with badly imported text
@@ -275,7 +279,8 @@ class BlogText(models.Model):
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
-    date            = models.DateField(_('Date'), blank=True, null=True)
+    date            = models.DateField(_('Date'), blank=True, null=True,
+                                        help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '))
     teaser          = RichTextUploadingField(_('Teaser'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'),  related_name='blogposts_written', blank=True)
@@ -328,6 +333,8 @@ class BlogTextTranslation(models.Model):
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
     slug            = models.SlugField(blank=True)
+    date            = models.DateField(_('Date'), blank=True, null=True,
+                                        help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '))
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
@@ -371,7 +378,8 @@ class Book(SortableMixin):
 
     title              = models.CharField(_('Title'), max_length=200, blank=False, null=True)
     slug               = models.SlugField(editable=False, blank=True)
-    date               = models.DateField(_('Date'), blank=True, null=True)
+    date               = models.DateField(_('Date'), blank=True, null=True,
+                                           help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '))
     subtitle           = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language           = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
     teaser             = RichTextUploadingField(_('Teaser'), blank=True, null=True)
