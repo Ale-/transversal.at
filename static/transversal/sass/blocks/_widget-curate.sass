@@ -21,11 +21,11 @@
 .curate-button__tooltip
   display: none
 
-#curate-button
+[data-curate]
   +button_none
   +transition(opacity .25s ease)
-#curate-button:hover
-  opacity: .75
+  &:hover
+    opacity: .75
 
 [class*='curate-widget__button-remove']:before
   content: "🞤"

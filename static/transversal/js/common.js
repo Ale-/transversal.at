@@ -130,7 +130,7 @@ function(){
     });
 
     // Bind curateContent to its triggers
-    $('#curate-button').click( function(e){
+    $('[data-curate]').click( function(e){
         curateContent( $(this) );
     });
 

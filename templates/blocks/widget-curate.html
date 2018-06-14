@@ -4,12 +4,12 @@
 {% if request.user.is_authenticated %}
 <div class="curate-widget--{{ modifier }}">
     {% if obj|is_curated:request.user %}
-    <button id="curate-button" class="curate-widget__button-remove--{{ modifier }}"
+    <button class="curate-widget__button-remove--{{ modifier }}" data-curate
             data-contenttype="{{ obj|contenttype }}" data-pk="{{ obj.pk }}" data-action="remove">
         {% trans 'Remove this item from your list of curated content' %}
     </button>
     {% else %}
-    <button id="curate-button" class="curate-widget__button-add--{{ modifier }}"
+    <button class="curate-widget__button-add--{{ modifier }}" data-curate
             data-contenttype="{{ obj|contenttype }}" data-pk="{{ obj.pk }}" data-action="add">
         {% trans 'Add this item to your list of curated content' %}
     </button>
