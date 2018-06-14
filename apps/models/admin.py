@@ -28,7 +28,7 @@ unpublish.short_description = "Unpublish selected elements"
 
 class ImageInline(GenericTabularInline):
     model = models.Image
-    extra = 1
+    extra = 0
 
 class CategorizedLinkInline(GenericTabularInline):
     model = models.Link
@@ -37,7 +37,7 @@ class CategorizedLinkInline(GenericTabularInline):
         ( 'url', 'title' ),
         ('category', 'description')
     )
-    extra = 1
+    extra = 0
 
 class LinkInline(GenericTabularInline):
     model = models.Link
@@ -45,7 +45,7 @@ class LinkInline(GenericTabularInline):
     fields = (
         ( 'url', 'title' ),
     )
-    extra = 1
+    extra = 0
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -84,9 +84,7 @@ class BiographyAdmin(admin.ModelAdmin):
         ('Metadata', {
             'classes' : ('collapse',),
             'fields'  : (
-                'is_published',
-                ('effective_date', 'expiration_date'),
-                'copyright','comments'
+                'slug', 'is_published', 'comments'
             ),
         })
     )
@@ -105,7 +103,7 @@ admin.site.register(models.Biography, BiographyAdmin)
 
 class JournalIssueTitleInline(admin.TabularInline):
     model = models.JournalIssueTitle
-    extra = 1
+    extra = 0
 
 class JournalTextAdmin(admin.ModelAdmin):
     model             = models.JournalText
@@ -150,20 +148,20 @@ admin.site.register(models.JournalText, JournalTextAdmin)
 
 class JournalIssueTitleInline(admin.TabularInline):
     model = models.JournalIssueTitle
-    extra = 1
+    extra = 0
 
 class JournalTextInline(SortableTabularInline):
     model           = models.JournalText
     fields          = ('author_text', 'title', 'language', 'column_end', 'is_published')
     readonly_fields = ('title', 'author_text', 'language')
-    extra = 1
+    extra = 0
 
 class JournalIssueAdmin(NonSortableParentAdmin):
     model        = models.JournalIssue
 
     # list
     ordering     = ('-date', 'title',)
-    list_display = ('title', 'date', 'view')
+    list_display = ('title', 'date', 'is_published', 'view')
     list_filter  = (filters.TitleFilter, 'is_published')
     actions      = [ publish, unpublish ]
 
@@ -173,7 +171,7 @@ class JournalIssueAdmin(NonSortableParentAdmin):
           'fields': (('title', 'date'), 'editorial_title', 'editorial', 'impressum')
         }),
         ('Metadata', {
-            'classes' : ('collapse',),
+            # 'classes' : ('collapse',),
             'fields': (
                 'is_published',
                 ('effective_date','expiration_date'),
@@ -248,7 +246,13 @@ admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
 
 admin.site.register(models.BlogText, BlogTextAdmin)
 
-class BookAdmin(admin.ModelAdmin):
+class ParentBookInline(SortableTabularInline):
+    model           = models.Book
+    fields          = ('title', 'language', 'author_text', 'is_published')
+    readonly_fields = ('title', 'author_text', 'language')
+    extra = 0
+
+class BookAdmin(NonSortableParentAdmin):
     model             = models.Book
 
     # list
@@ -262,11 +266,18 @@ class BookAdmin(admin.ModelAdmin):
         ('', {
             'fields': (
                 ('title','subtitle'),
-                'language', 'date', 'teaser', 'body',
-                'authors', 'author_text', 'featured_text', 'translators', 'publisher_text',
-                'related_books', 'pdf_file', 'epub_file', 'downloads_foot', 'image_foot',
-                ('external_url', 'external_url_title'), 'use_external_url'
+                ('language', 'parent_book'),
+                'date', 'teaser', 'featured_text', 'body',
+                'authors', 'author_text', 'translators', 'publisher_text',
+                ('external_url', 'external_url_title'),
+                'use_external_url'
             )
+        }),
+        ('Files', {
+            'classes' : ('collapse',),
+            'fields': (
+                'pdf_file', 'epub_file', 'downloads_foot', 'image_foot'
+            ),
         }),
         ('Metadata', {
             'classes' : ('collapse',),
@@ -277,8 +288,8 @@ class BookAdmin(admin.ModelAdmin):
             ),
         })
     )
-    inlines           = [ ImageInline, LinkInline ]
-    filter_horizontal = ('authors', 'translators', 'related_books')
+    inlines           = [ ImageInline, LinkInline, ParentBookInline ]
+    filter_horizontal = ('authors', 'translators',)
 
     def view(self, obj):
         return format_html("<a href='" + reverse('book_text', args=[obj.slug]) + "'>➜</a>")

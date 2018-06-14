@@ -92,18 +92,11 @@ class Tag(models.Model):
 class Biography(models.Model):
     """ Biographies of people that collaborate or work in the different texts """
 
-    slug                 = models.SlugField(editable=False, blank=True)
+    slug                 = models.SlugField(blank=True)
     name                 = models.CharField(_('Name'), max_length=200, blank=False, null=True)
     surname              = models.CharField(_('Surname'), max_length=200, blank=True, null=True)
     email                = models.EmailField(_('Email'), blank=True, null=True)
     description          = RichTextUploadingField(_('Description'), blank=True, null=True)
-
-    effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
-                                            help_text=_('Date when the content should become available on the public site'))
-    expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
-                                            help_text=_('Date when the content should no longer be visible on the public site'))
-    copyright            = models.TextField(_('Copyright'), blank=True, null=True,
-                                            help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
     is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
@@ -173,6 +166,8 @@ class JournalIssue(models.Model):
         """Populate automatically 'slug' field"""
         if not self.slug:
             self.slug = self.date.strftime("%m%y")
+
+        super(JournalIssue, self).save(*args, **kwargs)
 
     @property
     def authors(self):
@@ -332,7 +327,7 @@ class BlogTextTranslation(models.Model):
     """ Texts of the journals """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug            = models.SlugField(blank=True, editable=False)
+    slug            = models.SlugField(blank=True)
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
@@ -368,7 +363,10 @@ class BlogTextTranslation(models.Model):
         """String representation of this model objects."""
         return self.title
 
-class Book(models.Model):
+    def get_absolute_url(self):
+        return reverse('blog_text', args=[self.slug])
+
+class Book(SortableMixin):
     """ Books """
 
     title              = models.CharField(_('Title'), max_length=200, blank=False, null=True)
@@ -383,6 +381,7 @@ class Book(models.Model):
     translators        = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='books_translated', blank=True)
     publisher_text     = models.CharField(_('Publisher info'), max_length=200, blank=False, null=True)
     related_books      = models.ManyToManyField('self', verbose_name=_('Related publications'), blank=True)
+    parent_book        = models.ForeignKey('self', verbose_name=_('Parent publication'), blank=True, null=True, on_delete=models.SET_NULL)
     in_home            = models.BooleanField(_('Show in home'), default=False, null=False)
     featured_text      = models.TextField(_('Text to be used at featured view in home'), blank=True,
                                             help_text=_('Summary to be shown in the featured view at the home. '
@@ -407,6 +406,10 @@ class Book(models.Model):
                                             help_text=_('Private'))
     is_published         = models.BooleanField(_('Is visible'), default=True, null=False)
     links                = GenericRelation(Link)
+    order                = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ('order',)
 
     @property
     def epub_size(self):
