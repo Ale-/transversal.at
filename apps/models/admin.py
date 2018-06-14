@@ -240,6 +240,7 @@ class BlogTextTranslationAdmin(admin.ModelAdmin):
     model        = models.BlogTextTranslation
     ordering     = ('-source_text', 'title',)
     list_display = ('title', 'source_text')
+    list_filter  = ('source_text', 'is_published')
     actions      = [ publish, unpublish ]
 
 admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
