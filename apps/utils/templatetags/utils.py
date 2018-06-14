@@ -75,3 +75,10 @@ def sort_by(queryset, order):
 def googlify(text):
     value = re.sub(r'[^\w\s-]', '', text).strip().lower()
     return mark_safe(re.sub(r'[-\s]+', '+', text))
+
+@register.simple_tag
+def rtl(langcode):
+    if langcode in ['ar', 'fa', 'he', 'az', 'ku', 'ur']:
+        return 'dir=rtl'
+    else:
+        return ' '
