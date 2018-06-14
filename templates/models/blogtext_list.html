@@ -10,6 +10,15 @@
     {% for post in object_list %}
         <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
             <div class="blog-view__titles">
+                {% if post.fake_issues|length > 0 %}
+                <ul class="blog-view__tags">
+                    {% for tag in post.fake_issues %}
+                        <li class="blog-view__tag">
+                            <a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <h4 class="blog-view__title" {% rtl post.language %}>
                     <a href="/blog/{{ post.slug }}">
                         {{ post.title }}
@@ -34,15 +43,6 @@
             <div class="blog-view__meta">
                 {% if post.author_text %}<span class="blog-view__author">{{ post.author_text }}</span>{% endif %}
                 <span class="blog-view__date">{{ post.date | date:"d m y" }}</span>
-                {% if post.tags.all|length > 0 %}
-                <ul class="blog-view__tags">
-                    {% for tag in post.tags.all %}
-                        <li class="blog-view__tag">
-                            <a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
             </div>
         </div>
     {% endfor %}

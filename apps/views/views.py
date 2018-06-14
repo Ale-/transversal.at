@@ -52,7 +52,6 @@ class BlogTextView(views.View):
 
     def get(self, request, *args, **kwargs):
         slug    = self.kwargs['slug']
-        print(slug)
         try:
             object  = models.BlogText.objects.get(slug=slug)
             authors = object.authors.order_by('surname')
@@ -207,7 +206,6 @@ class JournalIssue(views.View):
                 texts_ordered[-1][-1]['titles'].append(text)
             if text.column_end:
                 texts_ordered.append( [] )
-            print(texts_ordered)
 
         return render(request, 'models/journalissue_detail.html', locals())
 
