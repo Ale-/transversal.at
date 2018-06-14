@@ -45,7 +45,7 @@
         </p>
         {% if object.tags.all|length > 0 %}
         <ul class="blogtext__tags">
-            {% for tag in object.tags.all %}
+            {% for tag in object.tags.all|order_by:'category' %}
                 <li class="blogtext__tag">
                     <a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a>
                 </li>

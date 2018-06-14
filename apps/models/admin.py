@@ -55,6 +55,7 @@ class TagAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     fields = (
         ( 'name', 'category' ),
+        'description'
     )
 
     def view(self, obj):

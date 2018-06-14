@@ -42,17 +42,23 @@
 
 .blog-view__tags
   display: inline-block
-  margin-left: $m/2
-  font-family: $font_auxiliar
   font-size: .75em
-  text-transform: uppercase
   position: relative
-  top: -3px
+  margin-bottom: 8px
 
-.blog-view__tag
+.blog-view__tag,
+.blogtext__tag
+  font-family: $font_headers
   display: inline !important
-  margin-left: $m/2
-  border-bottom: 1px dotted $palette_blue
+  margin-right: $m/2
+  padding: 2px 8px
+  +border-radius(3px)
 
 .tags-page__title .tag
   opacity: .9
+
+.tags-page__description
+  margin-bottom: $m*2
+
+.blog-view__tag
+  background-color: #eee

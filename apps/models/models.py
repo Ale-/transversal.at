@@ -72,6 +72,7 @@ class Tag(models.Model):
     name           = models.CharField(_('Name of the tag'), max_length=200, blank=True, unique=True)
     category       = models.CharField(_('Category of the tag'), choices=TAG_CATEGORIES, max_length=1, blank=False, default='t')
     slug           = models.SlugField(editable=False, blank=True)
+    description    = RichTextUploadingField(_('Description'), blank=True, null=True)
 
     def __str__(self):
         """String representation of this model objects."""
@@ -319,6 +320,12 @@ class BlogText(models.Model):
     @property
     def translated(self, *args, **kwargs):
         return len(self.translations.all())>0
+
+    @property
+    def fake_issues(self, *args, **kwargs):
+        return self.tags.filter(category='f')
+
+
 
     class Meta:
         verbose_name = _('Blog text')
