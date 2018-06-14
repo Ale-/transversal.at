@@ -59,7 +59,7 @@
                 <ul class="issue__texts">
                     {% for text in author.titles %}
                         {% if text.slug %}
-                        <li class="issue__text">
+                        <li {% rtl text.language %} class="issue__text">
                             <a href="{% url 'journal_text' object.slug text.slug text.language %}">
                             {{ text.title | safe }}
                             </a>

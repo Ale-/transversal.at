@@ -1,0 +1,49 @@
+{# Book list #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load imagekit %}
+{% block body_classes %}books{% endblock %}
+{% block page_html_title %}Books{% endblock %}
+
+{% block main %}
+    <div class="related-books">
+    {% for wrapper in books_wrappers %}
+        <div class="related-books">
+            <ul class="related-books-titles fadein">
+                {% for object in wrapper %}
+                <li class="related-books-title fadein__item">
+                    {{ object.title }}
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="related-books-wrapper">
+            {% for object in wrapper %}
+                <div class="related-book {% if not object.is_published or not object.in_listings %}unpublished{% endif %}">
+                    {% if object.image %}
+                    <div class="book__title--image">
+                        <img src="{{ object.image.first.thumbnail.url }}" />
+                    </div>
+                    {% endif %}
+                    <h4 class="book__title--list">
+                        {% if object.external_url and object.use_external_url %}
+                        <a href="{{ object.external_url }}" target="_blank">
+                        {% else %}
+                        <a href="{% url 'book_text' object.slug %}">
+                        {% endif %}
+                            {{ object.title }}
+                        </a>
+                    </h4>
+                    {% if object.subtitle %}
+                    <h5 class="book__subtitle--list">
+                        {{ object.subtitle }}
+                    </h5>
+                    {% endif %}
+                    <div class="book__meta--list">
+                        {{ object.teaser | safe }}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

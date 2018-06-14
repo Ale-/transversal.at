@@ -12,7 +12,7 @@
 .book__meta--list
   font-family: $font_auxiliar
 
-.related-books-titles
+.related-books__titles
   background: $palette_grey
   color: $palette_orange
   font-size: 2.5em
@@ -23,20 +23,20 @@
   position: relative
   z-index: 0
 
-.related-books-title
+.related-books__title
   position: absolute
   z-index: 0
   white-space: nowrap
   overflow: hidden
   max-width: 100%
 
-.related-books-wrapper
+.related-books__wrapper
   background-color: white
   position: relative
   z-index: 1
   +clearfix
 
-.related-book
+.book--list
   display: inline-block
   float: left
   width: 33%
@@ -60,7 +60,7 @@
     left: $m
     opacity: .75
 
-.book__title--image
+.book__image--list
   float: right
   width: 100px
   margin-left: $m/2

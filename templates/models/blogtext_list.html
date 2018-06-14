@@ -1,4 +1,6 @@
-{# Frontpage #} {% extends 'layouts/single-fixed-column.html' %}
+{# BlogText lists #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load utils %}
 {% block body_classes %}blog-page{% endblock %}
 {% block page_html_title %}Blog{% endblock %}
 
@@ -8,13 +10,13 @@
     {% for post in object_list %}
         <div class="blog-view__item {% if not post.is_published %}unpublished{% endif %}">
             <div class="blog-view__titles">
-                <h4 class="blog-view__title">
+                <h4 class="blog-view__title" {% rtl post.language %}>
                     <a href="/blog/{{ post.slug }}">
                         {{ post.title }}
                     </a>
                 </h4>
                 {% for translation in post.translations.all %}
-                    <h4 class="blog-view__title">
+                    <h4 class="blog-view__title" {% rtl translation.language %}>
                         <a href="/blog/{{ translation.slug }}">
                             <span class="language">{{ translation.language }}</span> {{ translation.title }}
                         </a>
@@ -26,7 +28,7 @@
                 </h5>
                 {% endif %}
             </div>
-            <div class="blog-view__teaser">
+            <div class="blog-view__teaser" {% rtl post.language %}>
                 {{ post.teaser | safe }}
             </div>
             <div class="blog-view__meta">

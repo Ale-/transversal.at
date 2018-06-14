@@ -47,11 +47,11 @@
             {% endif %}
             {% if object.links.all|length > 0 %}
             <ul class="book__meta-links">
+                <h5>
+                  links
+                </h5>
                 {% for link in object.links.all %}
                 <li class="book__meta-link">
-                    <h5>
-                        links
-                    </h5>
                     <a href="{{ link.url }}" target="_blank">
                         {{ link.title }}
                     </a>
@@ -109,9 +109,9 @@
             <div class="book__meta-biographies">
                 <h5>biographies</h5>
                 <ul>
-                    {% for author in object.authors.all %}
+                    {% for author in object.authors.all|order_by:"surname" %}
                         <li>
-                            <a href="/bio/{{ author.slug }}">
+                            <a href="{{ author.get_absolute_url }}">
                                 {{ author.fullname }}
                             </a>
                         </li>
@@ -123,10 +123,10 @@
             <div class="book__meta-biographies">
                 <h5>biographies (translation)</h5>
                 <ul>
-                    {% for author in object.translators.all %}
+                    {% for translator in object.translators.all|order_by:"surname" %}
                         <li>
-                            <a href="/bio/{{ author.slug }}">
-                                {{ author.fullname }}
+                            <a href="{{ translator.get_absolute_url }}">
+                                {{ translator.fullname }}
                             </a>
                         </li>
                     {% endfor %}

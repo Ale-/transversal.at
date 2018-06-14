@@ -7,34 +7,44 @@
 .event__meta
   float: right
   font-family: $font_headers
+  font-size: .9em
   width: $m*10
-  margin: $m*2 #{-$m} $m*2 $m*2
-  color: rgba($color_text, .7)
+  margin: $m #{-$m} $m*2 $m*2
+  color: rgba($color_text, .85)
   > div,
   > ul,
     padding: $m/2
   > div:not(:last-child),
   > ul:not(:last-child),
-    border-bottom: 1px dashed rgba(white, .5)
+    border-bottom: 4px solid white
   > div li,
   > ul li
     margin-bottom: $m/6
   > div h5,
   > ul h5
-    margin: 0 0 $m/2
+    margin: 0 0 $m/4
     text-transform: uppercase
     font-size: .8em
-    color: rgba($color_text, .75)
+    color: rgba($color_text, .85)
+    border-bottom: 1px solid rgba(white, .75)
   > div:first-child h5,
   > ul:first-child h5
     margin-top: 0
-  p
-    font-size: .8em
   &:empty
     display: none !important
+  li > p
+    margin-bottom: 0 !important
+  li > p + p
+    font-size: .85em
+    line-height: 1.1
+    font-family: $font_auxiliar
 
 .biography__meta
   width: 50%
+.biography__meta-journals > ul
+  border-bottom: 2px solid white
+  &:last-child
+    border: 0
 
 .book__meta > div,
 .book__meta > ul,
@@ -42,13 +52,13 @@
 .bookexcerpt__meta > ul,
   background-color: $palette_orange
 .blogtext__meta > div,
-  background-color: #f5f5f5
-  +links(#333, #222, .2s ease)
+  background-color: #9a9b9d
+  +links(white, #ddd, .2s ease)
 .event__meta > div,
 .event__meta > ul
   border-bottom: 2px solid white !important
-  background-color: #f5f5f5
-  +links($color_text, $palette_blue, .2s ease)
+  background-color: #9a9b9d
+  +links(white, #ddd, .2s ease)
 
 .events__links-title
   margin-top: 0
@@ -60,10 +70,6 @@
   margin-bottom: $m/3
   p
     margin-bottom: 0
-
-.blogtext__meta-translations
-  a
-    font-weight: bold
 
 .book__meta,
 .bookexcerpt__meta,
@@ -92,8 +98,6 @@
 .biography__meta-book-list:last-child
   border-bottom: 0
 
-[class*='__meta-']
-  font-size: .85em
 .book__meta > div.book__meta-image
   padding: 0
   margin-bottom: 2px

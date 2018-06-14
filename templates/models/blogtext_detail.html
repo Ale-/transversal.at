@@ -11,7 +11,11 @@
           {% fake_breadcrumb %}
           {% if request.user.is_staff %}
           <div class="links__staff">
+              {% if not object.source_text %}
               <a href="{% url 'admin:models_blogtext_change' object.id %}">
+              {% else %}
+              <a href="{% url 'admin:models_blogtexttranslation_change' object.id %}">
+              {% endif %}
                   {% trans 'Edit this post' %}
               </a>
           </div>
@@ -48,6 +52,10 @@
             {% endfor %}
         </ul>
         {% endif %}
+
+        {# print to pdf link #}
+        {% include 'blocks/print.html' with class_modifier='blog' url='blog_text_pdf' id=object.pk %}
+
         <h1 class="blogtext__title">
             {{ object.title }}
         </h1>
@@ -56,44 +64,6 @@
             {{ object.subtitle | safe }}
         </h5>
         {% endif %}
-        <div class="blogtext__meta">
-            {% if object.authors.all|length > 0 or object.source_text.authors.all|length > 0 %}
-            <div class="blogtext__meta-authors">
-                <h5>{% trans 'authors' %}</h5>
-                <ul>
-                    {% for author in authors %}
-                    <li>
-                        <a href="{% url 'bio' author.slug %}">{{ author.name }} {{ author.surname }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if object.translations.all|length > 0 or object.source_text %}
-            <div class="blogtext__meta-translations">
-                <h5>{% trans 'languages' %}</h5>
-                <ul class="blogtext__translations-list">
-                    <li>{{ object.get_language_display }}</li>
-                    {% if object.translations.all|length > 0 %}
-                    {% for translation in object.translations.all %}
-                        <li>
-                            <a href="/blog/{{ translation.slug }}">
-                                {{ translation.get_language_display }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                    {% endif %}
-                    {% if object.source_text %}
-                        <li>
-                            <a href="/blog/{{ object.source_text.slug }}">
-                                {{ object.source_text.get_language_display }}
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-            {% endif %}
-        </div>
         {% if object.author_text %}
         <p class="blogtext__author">
             {{ object.author_text }}
@@ -108,6 +78,69 @@
             {{ object.translator_text }}
         </p>
         {% endif %}
+        <div class="blogtext__meta">
+            {% if object.authors.all|length > 0 or object.source_text.authors.all|length > 0 %}
+            <div class="blogtext__meta-authors">
+                <h5>{% trans 'authors' %}</h5>
+                <ul>
+                    {% for author in authors %}
+                    <li>
+                        <a href="{{ author.get_absolute_url }}">
+                            {{ author.fullname }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.translators.all|length > 0 %}
+            <div class="blogtext__meta-translators">
+                <h5>{% trans 'translators' %}</h5>
+                <ul>
+                    {% for translator in object.translators.all|sort_by:'surname' %}
+                    <li>
+                        <a href="{{ translator.get_absolute_url }}">{{ translator.fullname }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if object.translations.all|length > 0 or object.source_text %}
+            <div class="blogtext__meta-translations">
+                <h5>{% trans 'languages' %}</h5>
+                <ul class="blogtext__translations-list">
+                    {% if object.translations.all|length > 0 %}
+                        <li>{{ object.get_language_display }}</li>
+                        {% for translation in object.translations.all %}
+                            <li>
+                                <a href="/blog/{{ translation.slug }}">
+                                    {{ translation.get_language_display }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if object.source_text %}
+                        <li>
+                            <a href="{{ object.source_text.get_absolute_url }}">
+                                {{ object.source_text.get_language_display }}
+                            </a>
+                        </li>
+                        {% for translation in object.source_text.translations.all %}
+                        <li>
+                            {% if translation.language != object.language %}
+                            <a href="{{ translation.get_absolute_url }}">
+                                {{ translation.get_language_display }}
+                            </a>
+                            {% else %}
+                                {{ translation.get_language_display }}
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
         <div class="blogtext__body">
             {{ object.body | safe }}
         </div>

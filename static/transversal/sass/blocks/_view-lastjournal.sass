@@ -14,14 +14,18 @@
 
 .view-lastjournal__title
   margin: 0
+  font-family: $font_headers
+  font-size: 1.2em
 
 .view-lastjournal__body
   +clearfix
+  height: $m*2.5
   background-color: $palette_blue
   +links(white, $palette_grey, .25s ease)
   padding: 0 $m
 
-.view-lastjournal__issue-title
+.view-lastjournal__issue-title,
+.view-lastjournal__title
   position: absolute
   z-index: 0
   max-width: 100%

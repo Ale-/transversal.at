@@ -16,18 +16,20 @@
         <div class="view-lastjournal__body">
             <a href="{% url 'journal_issue' last_issue.slug %}">
                 <p class="view-lastjournal__publish-info">
-                    {% if not last_issue.is_published %}
-                    <span class="view-lastjournal__unpublished">
-                        <strong>Not public</strong> ·
-                    </span>
-                    {% endif %}
                     <span class="view-lastjournal__date">
                         {{ last_issue.date | date:"m Y" }}
                     </span>
                 </p>
-                <h4 class="view-lastjournal__title">
-                    {{ last_issue.title }}
-                </h4>
+                <ul class="view-lastjournal__titles fadein">
+                    <li class="view-lastjournal__title fadein__item">
+                        {{ last_issue.title }}
+                    </li>
+                    {% for text in last_issue.titles.all %}
+                    <li class="view-lastjournal__title fadein__item">
+                        {{ text }}
+                    </li>
+                    {% endfor %}
+                </ul>
             </a>
         </div>
     </div>

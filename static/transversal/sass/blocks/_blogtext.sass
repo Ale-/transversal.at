@@ -2,7 +2,7 @@
   padding: $m
 
 .blogtext__translations
-  font-family: $font_headers
+  font-family: $font_auxiliar
   float: right
   padding: $m/3
   background-color: #9A9B9D
@@ -10,7 +10,7 @@
   width: $m*8
   +links(white, $color_text, .25s ease)
   a
-    font-weight: bold
+    font-family: $font_headers
 
 .blogtext__translations-label
   font-weight: bold
@@ -21,14 +21,18 @@
   width: $m*4
   +date
 
-.blogtext__author
+.blogtext__author,
+.blogtext__translator
   font-family: $font_auxiliar
 
+.blogtext__translator
+  font-size: .9em
+
 .blogtext__body
-  margin-top: $m*2
+  margin-top: $m
 
 .blogtext__title
-  margin: $m/3 0
+  margin: $m/6 0 $m/3
   line-height: 1.2
 
 .blogtext__subtitle

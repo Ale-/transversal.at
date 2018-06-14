@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
+# contrib
+from easy_pdf.views import PDFTemplateResponseMixin
 # project
 from apps.models import models, categories
 
@@ -23,7 +25,7 @@ class Front(views.View):
         """ GET request """
 
         if request.user.is_staff:
-            last_issue  = models.JournalIssue.objects.all().order_by('-date').first()
+            last_issue  = models.JournalIssue.objects.filter(is_published=True).order_by('-date').first()
             last_books  = models.Book.objects.all().order_by('-date')[:3]
             last_events = models.Event.objects.all().filter(
                 in_home=True,
@@ -50,7 +52,7 @@ class BlogTextView(views.View):
 
     def get(self, request, *args, **kwargs):
         slug    = self.kwargs['slug']
-
+        print(slug)
         try:
             object  = models.BlogText.objects.get(slug=slug)
             authors = object.authors.order_by('surname')
@@ -78,6 +80,15 @@ class BlogTextTranslationLegacyView(views.View):
         object = models.BlogTextTranslation.objects.get(slug=slug)
 
         return render(request, 'models/blogtext_detail.html', locals())
+
+class BlogTextPDF(PDFTemplateResponseMixin, DetailView):
+    model         = models.BlogText
+    template_name = 'pdf/blog-text.html'
+
+class BlogTextTranslationPDF(PDFTemplateResponseMixin, DetailView):
+    model         = models.BlogTextTranslation
+    template_name = 'pdf/blog-text.html'
+
 
 class BookView(DetailView):
     """View of a single blog text."""
@@ -126,39 +137,50 @@ class BooksView(views.View):
     """View of a single blog text."""
 
     def get(self, request, *args, **kwargs):
-        if self.request.user.is_staff:
-            books = models.Book.objects.all().order_by('-date')
-        else:
-            books = models.Book.objects.filter(is_published=True, in_listings=True).order_by('-date')
-        excluded_ids = []
-        books_wrappers = []
-        for book in books:
-            if not book.id in excluded_ids:
-                if book.is_published or request.user.is_staff:
-                    wrapper = [ book ]
-                    for related_book in book.related_books.all():
-                            wrapper.append(related_book)
-                            excluded_ids.append(related_book.id)
-                    books_wrappers.append(wrapper)
+        # if self.request.user.is_staff:
+        #     books = models.Book.objects.all().order_by('-date')
+        # else:
+        #     books = models.Book.objects.filter(is_published=True, in_listings=True).order_by('-date')
+        # excluded_ids = []
+        # books_wrappers = []
+        # for book in books:
+        #     if not book.id in excluded_ids:
+        #         if book.is_published or request.user.is_staff:
+        #             wrapper = [ book ]
+        #             for related_book in book.related_books.all():
+        #                     wrapper.append(related_book)
+        #                     excluded_ids.append(related_book.id)
+        #             books_wrappers.append(wrapper)
+        books = models.Book.objects.filter(parent_book__isnull=True).order_by('-date')
         return render(request, 'models/book_list.html', locals());
 
 class BioView(views.View):
-    """View of a single blog text."""
+    """View of a single biography."""
 
     def get(self, request, slug):
         object = models.Biography.objects.get(slug=slug)
 
         # get texts and reorder them based on translations
-        translations = []
-        texts        = models.JournalText.objects.filter(authors=object).order_by('-issue')
-        pks          = []
-        for text in texts:
-            if text.pk not in pks:
-                _translations = [text]
-                for translation in text.translations.all():
-                    _translations.append(translation)
-                    pks.append(translation.pk)
-                translations.append(_translations)
+        journal_texts = models.JournalText.objects.filter(authors=object).order_by('-issue__date', 'order')
+        journal_text_groups = []
+        last_slug  = ''
+        last_issue = {}
+        for text in journal_texts:
+            if text.slug != last_slug or text.issue != last_issue:
+                journal_text_groups.append( [text] )
+                last_slug  = text.slug
+                last_issue = text.issue
+            else:
+                journal_text_groups[-1].append(text)
+
+        texts_translated = models.JournalText.objects.filter(translators=object)
+        posts_translated = models.BlogText.objects.filter(translators=object)
+        trans_translated = models.BlogTextTranslation.objects.filter(translators=object)
+        books_translated = models.Book.objects.filter(translators=object)
+        translations     = sorted(
+            chain(texts_translated, posts_translated, trans_translated, books_translated),
+            key = lambda i: getattr(i, 'title'),
+        )
         links_publications = object.links.filter(category='p').order_by('title')
         links_translations = object.links.filter(category='t').order_by('title')
         links_documents    = object.links.filter(category='b').order_by('title')
@@ -227,6 +249,9 @@ class JournalIssueImpressum(views.View):
         html_title = "Impressum | " + object.title
         return render(request, 'models/journalissue_details.html', locals())
 
+class JournalTextPDF(PDFTemplateResponseMixin, DetailView):
+    model         = models.JournalText
+    template_name = 'pdf/journal-text.html'
 
 class JournalText(views.View):
     """View of a single journal text."""

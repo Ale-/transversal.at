@@ -1,0 +1,26 @@
+{# Book block in listings #}
+
+<div class="book--list {% if not book.is_published or not book.in_listings %}unpublished{% endif %}">
+    {% if book.image %}
+        <figure class="book__image--list">
+            <img src="{{ book.image.first.thumbnail.url }}" />
+        </figure>
+    {% endif %}
+    <h4 class="book__title--list">
+        {% if book.external_url and book.use_external_url %}
+            <a href="{{ book.external_url }}" target="_blank">
+        {% else %}
+            <a href="{% url 'book_text' book.slug %}">
+        {% endif %}
+            {{ book.title }}
+        </a>
+    </h4>
+    {% if book.subtitle %}
+        <h5 class="book__subtitle--list">
+            {{ book.subtitle }}
+        </h5>
+    {% endif %}
+    <div class="book__meta--list">
+        {{ book.teaser | safe }}
+    </div>
+</div>

@@ -26,9 +26,17 @@
         </div>
         {% endif %}
         <p class="text__date">
-          {{ object.date | date:"m Y"}}
+            {% if object.date %}
+            {{ object.date | date:"m Y" }}
+            {% else %}
+            {{ object.issue.date | date:"m Y" }}
+            {% endif %}
         </p>
-        <h1 class="text__title">
+
+        {# print to pdf link #}
+        {% include 'blocks/print.html' with class_modifier='journal' url='journal_text_pdf' id=object.pk %}
+
+        <h1 class="text__title" {% rtl object.language %}>
             {% if object.fulltitle %}
             {{ object.fulltitle }}
             {% else %}
