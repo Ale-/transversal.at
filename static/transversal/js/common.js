@@ -37,7 +37,7 @@ function(){
             window.setInterval( function(){
                 fade('.fadein__item', _this_);
             }, 4000 );
-        }, delay+=200 )
+        }, delay+=100 )
     });
 
     function fade(element, container){

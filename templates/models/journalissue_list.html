@@ -29,11 +29,32 @@
             {% endif %}
             <h4 class="issue__title">
                 {% if object.is_published != 'v' or request.user.is_staff %}
-                <a href="{% url 'journal_issue' object.date_id %}">
-                    {{ object.title }}
-                </a>
+                <ul class="fadein">
+                    <li class="fadein__item">
+                        <a href="{% url 'journal_issue' object.date_id %}">
+                            {{ object.title }}
+                        </a>
+                    </li>
+                    {% for item in object.titles.all %}
+                    <li class="fadein__item">
+                        <a href="{% url 'journal_issue' object.date_id %}">
+                            {{ item.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
                 {% else %}
-                    <em>incoming</em> {{ object.title }}
+                    <em>incoming</em>
+                    <ul class="fadein">
+                        <li class="fadein__item">
+                            {{ object.title }}
+                        </li>
+                        {% for item in object.titles.all %}
+                        <li class="fadein__item">
+                            {{ item.title }}
+                        </li>
+                        {% endfor %}
+                      </ul>
                 {% endif %}
             </h4>
         </div>
