@@ -323,8 +323,6 @@ class Search(views.View):
         blog_trans_languages   = [ (i['language']) for i in models.BlogTextTranslation.objects.values('language').distinct() ]
         lang_codes             = list(set( journal_text_languages + books_languages + blog_languages + blog_trans_languages))
         lang_codes.sort()
-        lang_codes.remove('')
-        lang_codes.remove('sh')
         languages              = [ (all_languages[l], l) for l in lang_codes ]
         languages.sort()
 

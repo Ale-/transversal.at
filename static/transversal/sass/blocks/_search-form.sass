@@ -3,7 +3,7 @@
   /templates/models/search_list.html
 
 .search-item:not(:first-child)
-  margin-top: $m
+  margin-top: $m/2
   &:before
     content: "—"
 
@@ -18,6 +18,7 @@
 
 .search-item__subtitle
   font-family: $font_headers
+  margin-bottom: $m/6 !important
 
 .search-item__meta
   font-size: .75em
@@ -41,15 +42,15 @@
   font-family: $font_headers
 
 .complex-search-results
-  margin: $m/2 0 0 !important
-  text-transform: lowercase
+  color: #444
+  margin: $m 0 0 $m
 
 .search-items,
 .biography-items
   padding: $m
 
 .biography-items
-  border-bottom: 1px solid $palette_grey
+  border-bottom: 2px solid $palette_grey
   +links(#444, #555, .2s ease)
 
 .biography-items__label

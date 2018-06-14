@@ -45,15 +45,12 @@
             </option>
         </select>
         <input type="submit" value="Search" />
-        <p class="complex-search-results">
-            {{ object_list|length }} references found
-        </p>
     </form>
 
     {% if biographies|length > 0 %}
     <div class="biography-items">
         <p class="biography-items__label">
-            {% trans 'Bios with links to all texts' %}
+            {% trans 'Biographies related to ' %}<strong>{{ text }}</strong>
         </p>
         <ul class="biography-items__bios">
         {% for bio in biographies %}
@@ -66,6 +63,10 @@
         </ul>
     </div>
     {% endif %}
+    <p class="complex-search-results">
+        {% if text %}Texts containing <strong>{{ text }}</strong>. {% endif %}
+        {{ object_list|length }} references found.
+    </p>
     <div class="search-items">
     {% for object in object_list %}
         <div class="search-item">
@@ -80,8 +81,14 @@
             </p>
             {% endif %}
             <p class="search-item__meta">
-                {{ object.author_text }} | {{ object.date }} | {{ object|verbose_name }}
+                ( {% if object.issue %}{{ object.issue.title }}
+                {% else %}{{ object|verbose_name }}{% endif %}
+                {% if object.author_text %}, {{ object.author_text }} {% endif %}
+                , {{ object.date }} )
             </p>
+            <div class="search-item__teaser">
+                {{ object.teaser | safe }}
+            </div>
         </div>
         {% empty %}
           <div class="search-items__empty">
