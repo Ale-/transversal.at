@@ -397,7 +397,7 @@ class Book(SortableMixin):
     authors            = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='books_written', blank=True)
     author_text        = models.CharField(_('Author attribution'), max_length=256, blank=False, null=True)
     translators        = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='books_translated', blank=True)
-    publisher_text     = models.CharField(_('Publisher info'), max_length=200, blank=False, null=True)
+    publisher_text     = models.TextField(_('Publisher info'), max_length=200, blank=False, null=True)
     related_books      = models.ManyToManyField('self', verbose_name=_('Related publications'), blank=True)
     parent_book        = models.ForeignKey('self', verbose_name=_('Parent publication'), blank=True, null=True, on_delete=models.SET_NULL)
     in_home            = models.BooleanField(_('Show in home'), default=False, null=False)
