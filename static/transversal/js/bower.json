@@ -1,0 +1,22 @@
+{
+  "name": "transversal",
+  "homepage": "https://github.com/Ale-/transversal.at",
+  "authors": [
+    "Ale <ale@wwb.cc>"
+  ],
+  "description": "External scripts for Transversal.at",
+  "main": "",
+  "license": "GPL v.3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-highlight": "^3.4.0",
+    "jquery": "^3.3.1"
+  }
+}

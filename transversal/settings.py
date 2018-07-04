@@ -15,12 +15,6 @@ PROJECT_STATIC_FOLDER = 'transversal'
 STATICFILES_DIRS = [
     ( PROJECT_STATIC_FOLDER, STATIC_ROOT + '/' + PROJECT_STATIC_FOLDER + '/' ),
 ]
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
-)
-BOWER_COMPONENTS_ROOT =  STATIC_ROOT
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'media')
@@ -46,7 +40,6 @@ CONTRIB_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'gm2m',
-    'djangobower',
     'imagekit',
     'easy_pdf'
 )
@@ -58,11 +51,6 @@ PROJECT_APPS = (
 )
 
 INSTALLED_APPS = CONTRIB_APPS + PROJECT_APPS
-
-BOWER_INSTALLED_APPS = (
-    'jquery',
-    'jquery-highlight',
-)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -15,7 +15,7 @@ static/admin/
 static/ckeditor/
 static/transversal/.sass-cache/
 static/transversal/css/
-static/bower_components/
+static/transversal/js/bower_components/
 
 # Media
 media/
