@@ -221,8 +221,7 @@ class BlogTextAdmin(admin.ModelAdmin):
             'classes' : ('collapse',),
             'fields': (
                 ('is_published','in_home','in_archive'),
-                ('effective_date','expiration_date'),
-                'copyright','comments'
+                'comments'
             ),
         })
     )
