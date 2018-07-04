@@ -220,6 +220,7 @@ class BlogTextAdmin(admin.ModelAdmin):
         ('Metadata', {
             'classes' : ('collapse',),
             'fields': (
+                'slug',
                 ('is_published','in_home','in_archive'),
                 'comments'
             ),

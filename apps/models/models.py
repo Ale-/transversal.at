@@ -280,7 +280,7 @@ class BlogText(models.Model):
     """ Texts of the journals """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug            = models.SlugField(editable=False, blank=True)
+    slug            = models.SlugField(blank=True)
     fulltitle       = models.CharField(_('Full title'), max_length=200, blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES)
