@@ -58,7 +58,16 @@
   opacity: .9
 
 .tags-page__description
-  margin-bottom: $m*2
+  margin-bottom: $m
+  max-width: 50%
+  text-align: justify
 
-.blog-view__tag
-  background-color: #eee
+.blog-view__tags
+  margin: 0 0 $m/4
+  text-transform: uppercase
+  font-size: .7em
+  font-family: $font_auxiliar
+
+.blog-view__tag.f
+  background: $palette_blue
+  +links(white, $color_text, .25s ease)
