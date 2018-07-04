@@ -5,6 +5,7 @@ from django.db.models import TextField
 from django.forms import Textarea
 from django.utils.html import format_html
 from django.urls import reverse
+from django import forms
 # contrib
 from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
 # app
@@ -67,9 +68,21 @@ class TagAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Tag, TagAdmin)
 
+class BiographyForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Biography
+        exclude = ()
+
+    def clean(self):
+        slug = self.cleaned_data.get('slug')
+        if models.Biography.objects.filter(slug=slug).exists():
+            raise forms.ValidationError('A biography with that slug already exists, please change it.')
+        return self.cleaned_data
 
 class BiographyAdmin(admin.ModelAdmin):
     model    = models.Biography
+    form = BiographyForm
     ordering = ('name',)
     list_display  = ('fullname', 'email', 'is_published', 'view')
     list_filter = (filters.SurnameFilter, 'is_published')
@@ -316,8 +329,23 @@ class BookExcerptAdmin(admin.ModelAdmin):
 
 admin.site.register(models.BookExcerpt, BookExcerptAdmin)
 
+class EventForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Event
+        exclude = ()
+
+    def clean(self):
+        start = self.cleaned_data.get('datetime')
+        end   = self.cleaned_data.get('end_date')
+        if end < start:
+            raise forms.ValidationError('End date must happen *after* the start of the event!')
+        return self.cleaned_data
+
+
 class EventAdmin(admin.ModelAdmin):
     model = models.Event
+    form  = EventForm
     # list
     ordering          = ('-datetime', 'title',)
     list_display      = ('title', 'datetime', 'city', 'is_published')
