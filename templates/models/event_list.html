@@ -2,7 +2,7 @@
 {% extends 'layouts/single-fixed-column.html' %}
 {% load i18n utils %}
 {% block body_classes %}event-page{% endblock %}
-{% block page_html_title %}Events{% endblock %}
+{% block page_html_title %}{% trans 'Calendar' %}{% endblock %}
 
 {% block main %}
 <nav class="links">
@@ -16,7 +16,7 @@
     {% endif %}
 </nav>
 <h1 class="event-page__title">
-    {% trans 'Incoming events' %}
+    {% trans 'Calendar' %}
 </h1>
 <div class="events-view">
 {% for event in object_list %}
