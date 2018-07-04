@@ -78,6 +78,7 @@
             {{ object.translator_text }}
         </p>
         {% endif %}
+        {% if object.authors.all|length > 0 or object.source_text.authors.all|length > 0 or object.translators.all|length > 0 or object.translations.all|length %}
         <div class="blogtext__meta">
             {% if object.authors.all|length > 0 or object.source_text.authors.all|length > 0 %}
             <div class="blogtext__meta-authors">
@@ -141,6 +142,7 @@
             </div>
             {% endif %}
         </div>
+        {% endif %}
         <div class="blogtext__body">
             {{ object.body | safe }}
         </div>
