@@ -265,7 +265,6 @@ class Events(ListView):
     """View of events. TODO: order by distance to today"""
 
     model    = models.Event
-    ordering = ['-datetime',]
 
     def get_queryset(self):
         """ Return the list of items for this view. """
@@ -274,7 +273,7 @@ class Events(ListView):
         if self.request.user.is_anonymous:
             filters = filters & Q(is_published=True)
 
-        return models.Event.objects.filter(filters)
+        return models.Event.objects.filter(filters).order_by('-datetime')
 
 class EventView(DetailView):
 
