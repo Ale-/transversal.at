@@ -57,7 +57,7 @@
         {% include 'blocks/print.html' with class_modifier='blog' url='blog_text_pdf' id=object.pk %}
 
         <h1 class="blogtext__title">
-            {{ object.title }}
+            {{ object.get_title }}
         </h1>
         {% if object.subtitle %}
         <h5 class="blogtext__subtitle">

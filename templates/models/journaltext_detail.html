@@ -37,11 +37,7 @@
         {% include 'blocks/print.html' with class_modifier='journal' url='journal_text_pdf' id=object.pk %}
 
         <h1 class="text__title" {% rtl object.language %}>
-            {% if object.fulltitle %}
-            {{ object.fulltitle }}
-            {% else %}
-            {{ object.title }}
-            {% endif %}
+            {{ object.get_title }}
         </h1>
         {% if object.subtitle %}
         <h2 class="text__subtitle">

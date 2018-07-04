@@ -267,6 +267,10 @@ class JournalText(SortableMixin):
             print("El texto " + str(self.pk) + " tiene problemas")
             return None
 
+    @property
+    def get_title(self):
+        return self.fulltitle if self.fulltitle else self.title
+
     def __str__(self):
         """String representation of this model objects."""
         return self.title
@@ -325,7 +329,9 @@ class BlogText(models.Model):
     def fake_issues(self, *args, **kwargs):
         return self.tags.filter(category='f')
 
-
+    @property
+    def get_title(self):
+        return self.fulltitle if self.fulltitle else self.title
 
     class Meta:
         verbose_name = _('Blog text')
@@ -379,6 +385,10 @@ class BlogTextTranslation(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog_text', args=[self.slug])
+
+    @property
+    def get_title(self):
+        return self.fulltitle if self.fulltitle else self.title
 
 class Book(SortableMixin):
     """ Books """
