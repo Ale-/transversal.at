@@ -66,8 +66,8 @@
         </div>
     </div>
     {% endfor %}
+    {% include 'blocks/pager.html' with item_name='posts' %}
 </div>
-{% include 'blocks/pager.html' with item_name='posts' %}
 {% endblock %}
 
 {% block page_scripts %}

@@ -388,9 +388,20 @@ class APICurate(views.View):
         profile.curated_content.remove(content)
         return HttpResponse("Item removed successfully from user's list of curated content", content_type="text/plain")
 
-class TaggedContent(views.View):
+class TaggedContent(ListView):
+    """View of tagged blog posts."""
 
-    def get(self, request, slug):
-        tag         = models.Tag.objects.get(slug=slug)
-        object_list = models.BlogText.objects.filter(tags=tag).order_by('-date')
-        return render(request, 'models/tagged_content.html', locals())
+    model = models.BlogText
+    ordering = ['-date']
+    paginate_by = 25
+    template_name = 'models/tagged_content.html'
+
+    def get_queryset(self):
+        tag = models.Tag.objects.get(slug=self.kwargs.get('slug'))
+        queryset = models.BlogText.objects.filter(tags=tag).order_by('-date')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(TaggedContent, self).get_context_data(**kwargs)
+        context['tag'] = models.Tag.objects.get(slug=self.kwargs.get('slug'))
+        return context
