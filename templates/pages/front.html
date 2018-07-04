@@ -99,8 +99,8 @@
                 {% if post.fake_issues|length > 0 %}
                 <ul class="blog-view__tags">
                     {% for tag in post.fake_issues %}
-                        <li class="blog-view__tag">
-                            <a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a>
+                        <li class="blog-view__tag {{ tag.category }}">
+                            <a href="{% url 'tags' tag.slug %}">{% if tag.category == 't' %}#{% endif %}{{ tag.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>

@@ -392,5 +392,5 @@ class TaggedContent(views.View):
 
     def get(self, request, slug):
         tag         = models.Tag.objects.get(slug=slug)
-        object_list = models.BlogText.objects.filter(tags=tag)
+        object_list = models.BlogText.objects.filter(tags=tag).order_by('-date')
         return render(request, 'models/tagged_content.html', locals())

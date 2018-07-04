@@ -40,20 +40,6 @@
   p:last-child
     margin-bottom: 0 !important
 
-.blog-view__tags
-  display: inline-block
-  font-size: .75em
-  position: relative
-  margin-bottom: 8px
-
-.blog-view__tag,
-.blogtext__tag
-  font-family: $font_headers
-  display: inline !important
-  margin-right: $m/2
-  padding: 2px 8px
-  +border-radius(3px)
-
 .tags-page__title .tag
   opacity: .9
 
@@ -66,8 +52,19 @@
   margin: 0 0 $m/4
   text-transform: uppercase
   font-size: .7em
-  font-family: $font_auxiliar
+  font-family: monospace
+  display: inline-block
+  position: relative
 
+.blog-view__tag,
+.blogtext__tag
+  display: inline !important
+  margin-right: $m/2
+  padding: 2px 8px
+  +border-radius(3px)
+
+.blog-view__tag.t
+  background-color: #eee
 .blog-view__tag.f
   background: $palette_blue
   +links(white, $color_text, .25s ease)
