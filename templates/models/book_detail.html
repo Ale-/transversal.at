@@ -133,17 +133,34 @@
                 </ul>
             </div>
             {% endif %}
-            {% if object.related_books.all|length > 0 %}
+            {% if object.parent_book or object.book_set.all|length > 0 %}
             <div class="book__meta-biographies">
                 <h5>{{ object.title }}</h5>
                 <ul>
-                    {% for book in object.related_books.all %}
+                    {% if object.parent_book %}
                         <li>
-                            <a href="{% url 'book_text' book.slug %}">
-                                {{ book.title }}
+                            <a href="{% url 'book_text' object.parent_book.slug %}">
+                                {{ object.parent_book.title }}
                             </a>
                         </li>
-                    {% endfor %}
+                        {% for book in object.parent_book.book_set.all %}
+                            {% if book.title != object.title %}
+                            <li>
+                                <a href="{% url 'book_text' book.slug %}">
+                                    {{ book.title }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% for book in object.book_set.all %}
+                            <li>
+                                <a href="{% url 'book_text' book.slug %}">
+                                    {{ book.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
             {% endif %}
