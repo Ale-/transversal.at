@@ -134,7 +134,12 @@
             </div>
         </div>
     {% endfor %}
+    <div class="see-more">
+        <a href="{% url 'blog' %}?page=2">
+            {% trans 'See more posts' %}
+        </a>
     </div>
+</div>
 {% endblock %}
 
 {% block page_scripts %}
