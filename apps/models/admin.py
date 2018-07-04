@@ -327,7 +327,8 @@ class EventAdmin(admin.ModelAdmin):
     fieldsets = (
         ('', {
             'fields': (
-                ('title', 'datetime'),
+                ('title', 'subtitle'),
+                ('datetime', 'end_date'),
                 ('city', 'address'),
                 'summary',
                 'body',

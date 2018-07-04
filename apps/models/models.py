@@ -496,17 +496,18 @@ class Event(models.Model):
     """ Events """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
+    subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     slug            = models.SlugField(editable=False, blank=True)
-    datetime        = models.DateTimeField(_('Date and time'), blank=False, null=True)
+    datetime        = models.DateTimeField(_('Start'), blank=False, null=True)
+    end_date        = models.DateTimeField(_('End'), blank=False, null=True)
     city            = models.CharField(_('City'), max_length=128, blank=False)
-    address         = models.CharField(_('Address'), max_length=256, blank=True)
+    address         = models.TextField(_('Address'), max_length=256, blank=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     summary         = models.TextField(_('Summary'), blank=True, help_text=_('If this field is not empty its content will be used in listings instead of the main body'))
     is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
     in_home         = models.BooleanField(_('Show in home'), default=True, null=False)
     extended_info   = models.BooleanField(_('Read more link'), default=False, null=False,
                                           help_text=_('Check this option if you want the event to have a "Read more" link connected to its section in the listings'))
-    links           = GenericRelation(Link)
 
     def __str__(self):
         """String representation of this model objects."""
