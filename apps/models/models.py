@@ -292,19 +292,12 @@ class BlogText(models.Model):
     author_text     = models.CharField(_('Author attribution'), max_length=200, blank=True, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='blogposts_translated', blank=True)
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
-    in_home         = models.BooleanField(_('Show in home'), default=False, null=False)
-    in_archive      = models.BooleanField(_('Show in archive'), default=False, null=False)
+    in_home         = models.BooleanField(_('Show in home'), default=True, null=False)
+    in_archive      = models.BooleanField(_('Show in archive'), default=True, null=False)
     tags            = models.ManyToManyField(Tag, verbose_name=_('Tags'), related_name='blogposts_tagged', blank=True)
-
-    effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
-                                            help_text=_('Date when the content should become available on the public site'))
-    expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
-                                            help_text=_('Date when the content should no longer be visible on the public site'))
-    copyright            = models.TextField(_('Copyright'), blank=True, null=True,
-                                            help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
-    is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
+    is_published         = models.BooleanField(_('Is visible'), default=True, null=False)
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
@@ -366,7 +359,7 @@ class BlogTextTranslation(models.Model):
                                             help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
-    is_published         = models.BooleanField(_('Is visible'), default=False, null=False)
+    is_published         = models.BooleanField(_('Is visible'), default=True, null=False)
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
@@ -376,8 +369,8 @@ class BlogTextTranslation(models.Model):
         super(BlogTextTranslation, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = _('Translation')
-        verbose_name_plural = _('Translations')
+        verbose_name = _('Blog translation')
+        verbose_name_plural = _('Blog translations')
 
     def __str__(self):
         """String representation of this model objects."""
