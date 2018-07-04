@@ -16,7 +16,9 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 # project
 from .categories import LANGUAGES, TAG_CATEGORIES, LINK_CATEGORIES, ISSUE_CATEGORIES
+from . import validators
 
+validate_file_type  = validators.FileTypeValidator()
 
 class Image(models.Model):
     """ Image """
@@ -38,7 +40,10 @@ class Image(models.Model):
 class Attachment(models.Model):
     """ Attachment """
 
-    attachment_file = models.ImageField(_('Attachment file'), blank=False)
+    attachment_file = models.FileField(_('Attachment file'), blank=False,
+                                        validators=[validate_file_type],
+                                        upload_to='attachments')
+    name            = models.CharField(_('Name of the file'), max_length=200, blank=False, null=True)
     content_type    = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id       = models.PositiveIntegerField()
     source_content  = GenericForeignKey('content_type', 'object_id')
@@ -46,7 +51,7 @@ class Attachment(models.Model):
     def __str__(self):
         """String representation of this model objects."""
 
-        return attachment_file.filename
+        return self.attachment_file.name
 
 
 class Link(models.Model):
@@ -217,6 +222,7 @@ class JournalText(SortableMixin):
     translations    = models.ManyToManyField('self', blank=True)
     order           = models.PositiveIntegerField(default=0, editable=False, db_index=True)
     column_end      = models.BooleanField(_('End of column'), default=False)
+    attachments     = GenericRelation(Attachment)
 
     # metadata
     effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
@@ -295,9 +301,10 @@ class BlogText(models.Model):
     in_home         = models.BooleanField(_('Show in home'), default=True, null=False)
     in_archive      = models.BooleanField(_('Show in archive'), default=True, null=False)
     tags            = models.ManyToManyField(Tag, verbose_name=_('Tags'), related_name='blogposts_tagged', blank=True)
-    comments             = models.TextField(_('Comments'), blank=True, null=True,
+    attachments     = GenericRelation(Attachment)
+    comments        = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
-    is_published         = models.BooleanField(_('Is visible'), default=True, null=False)
+    is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
@@ -409,6 +416,7 @@ class Book(SortableMixin):
     epub_file          = models.FileField(_('Epub file'), blank=True, null=True)
     downloads_foot     = models.TextField(_('Text below downloads'), blank=True, max_length=256)
     image              = GenericRelation(Image)
+    attachments        = GenericRelation(Attachment)
     image_foot         = models.TextField(_('Text below cover image'), blank=True)
     external_url_title = models.CharField(_('Title of the main external link'), blank=True, max_length=128)
     external_url       = models.URLField(_('URL of the main external link'), blank=True)
@@ -499,7 +507,7 @@ class Event(models.Model):
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     slug            = models.SlugField(editable=False, blank=True)
     datetime        = models.DateTimeField(_('Start'), blank=False, null=True)
-    end_date        = models.DateTimeField(_('End'), blank=False, null=True)
+    end_date        = models.DateTimeField(_('End'), blank=True, null=True)
     city            = models.CharField(_('City'), max_length=128, blank=False)
     address         = models.TextField(_('Address'), max_length=256, blank=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
@@ -508,6 +516,8 @@ class Event(models.Model):
     in_home         = models.BooleanField(_('Show in home'), default=True, null=False)
     extended_info   = models.BooleanField(_('Read more link'), default=False, null=False,
                                           help_text=_('Check this option if you want the event to have a "Read more" link connected to its section in the listings'))
+    attachments     = GenericRelation(Attachment)
+
 
     def __str__(self):
         """String representation of this model objects."""

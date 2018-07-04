@@ -164,6 +164,20 @@
                 </ul>
             </div>
             {% endif %}
+            {% if object.attachments.all|length > 0 %}
+            <div class="book__meta-attachments">
+                <h5>Attachments:</h5>
+                <ul class="book__meta-attachments-list">
+                {% for attachment in object.attachments.all %}
+                    <li class="book__meta-attachments-item">
+                        <a href="{{ attachment.attachment_file.url }}" target="_blank">
+                            {{ attachment.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
             {% if object.excerpts.all|length > 0 %}
             <div class="book__meta-excerpts">
                 <h5>{% trans 'Excerpts' %}</h5>

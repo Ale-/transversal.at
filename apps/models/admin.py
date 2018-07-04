@@ -48,6 +48,13 @@ class LinkInline(GenericTabularInline):
     )
     extra = 0
 
+class AttachmentInline(GenericTabularInline):
+    model = models.Attachment
+
+    fields = (
+        ( 'attachment_file', 'name' ),
+    )
+    extra = 0
 
 class TagAdmin(admin.ModelAdmin):
 
@@ -150,6 +157,7 @@ class JournalTextAdmin(admin.ModelAdmin):
         })
     )
     filter_horizontal = ('authors', 'translators', 'translations')
+    inlines = [AttachmentInline]
 
     def view(self, obj):
         try:
@@ -239,7 +247,7 @@ class BlogTextAdmin(admin.ModelAdmin):
             ),
         })
     )
-    inlines           = [ BlogTextTranslationInline ]
+    inlines           = [ BlogTextTranslationInline, AttachmentInline ]
     filter_horizontal = ('authors', 'translators','tags')
 
 
@@ -256,6 +264,7 @@ class BlogTextTranslationAdmin(admin.ModelAdmin):
     list_display = ('title', 'source_text')
     list_filter  = ('source_text', 'is_published')
     actions      = [ publish, unpublish ]
+    inlines      = [ AttachmentInline ]
 
 admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
 
@@ -303,7 +312,7 @@ class BookAdmin(NonSortableParentAdmin):
             ),
         })
     )
-    inlines           = [ ImageInline, LinkInline, ParentBookInline ]
+    inlines           = [ ImageInline, LinkInline, ParentBookInline, AttachmentInline ]
     filter_horizontal = ('authors', 'translators',)
 
     def view(self, obj):
@@ -342,6 +351,7 @@ class EventForm(forms.ModelForm):
             raise forms.ValidationError('End date must happen *after* the start of the event!')
         return self.cleaned_data
 
+
 class EventAdmin(admin.ModelAdmin):
     model = models.Event
     form  = EventForm
@@ -368,7 +378,7 @@ class EventAdmin(admin.ModelAdmin):
             ),
         })
     )
-    inlines           = [ LinkInline ]
+    inlines           = [ LinkInline, AttachmentInline ]
 
 
 admin.site.register(models.Event, EventAdmin)

@@ -98,6 +98,20 @@
                 </ul>
             </div>
             {% endif %}
+            {% if object.attachments.all|length > 0 %}
+            <div class="text__meta-attachments">
+                <h5>Attachments:</h5>
+                <ul class="text__meta-attachments-list">
+                {% for attachment in object.attachments.all %}
+                    <li class="text__meta-attachments-item">
+                        <a href="{{ attachment.attachment_file.url }}" target="_blank">
+                            {{ attachment.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
             <div class="text__meta-issue">
                 <h5>{% trans 'journal' %}</h5>
                 <a href="{% url 'journal_issue' object.issue.slug %}">

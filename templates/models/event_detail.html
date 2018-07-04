@@ -35,6 +35,20 @@
         <div class="event__body">
             {{ object.body | safe }}
         </div>
+        {% if object.attachments.all|length > 0 %}
+        <div class="event__attachments">
+            <h5>Attachments:</h5>
+            <ul class="event__attachments-list">
+            {% for attachment in object.attachments.all %}
+                <li class="event__attachments-item">
+                    » <a href="{{ attachment.attachment_file.url }}" target="_blank">
+                        {{ attachment.name }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
