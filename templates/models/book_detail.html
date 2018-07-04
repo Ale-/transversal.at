@@ -153,7 +153,7 @@
                 <ul>
                     {% for excerpt in object.excerpts.all %}
                         <li>
-                            <a href="{% url 'book_excerpt' book.slug excerpt.pk %}">
+                            <a href="{% url 'book_excerpt' book.slug excerpt.slug %}">
                                 {{ excerpt.title }}
                             </a>
                             <p>{{ excerpt.get_language_display }}</p>

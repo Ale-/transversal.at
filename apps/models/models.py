@@ -454,9 +454,9 @@ class BookExcerpt(models.Model):
     """ Book excerpts """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
+    slug            = models.SlugField(_('Slug'), blank=False, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES, default='en')
-    teaser          = RichTextUploadingField(_('Teaser'), blank=True, null=True)
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     source_text     = models.ForeignKey(Book, related_name='excerpts', verbose_name=_('Source text'), on_delete=models.SET_NULL, null=True)
     is_published    = models.BooleanField(_('Is visible'), default=True, null=False)

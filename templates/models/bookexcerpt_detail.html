@@ -37,16 +37,6 @@
             {{ object.subtitle }}
         </h4>
         {% endif %}
-        {% if object.source_text.author_text %}
-        <div class="bookexcerpt__author">
-            {{ object.source_text.author_text | safe }}
-        </div>
-        {% endif %}
-        {% if object.source_text.publisher_text %}
-        <div class="bookexcerpt__publisher">
-            {{ object.source_text.publisher_text | safe }}
-        </div>
-        {% endif %}
         <div class="bookexcerpt__meta">
             {% if object.source_text.image %}
             <div class="bookexcerpt__meta-src_image">
