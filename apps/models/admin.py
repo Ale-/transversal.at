@@ -338,10 +338,9 @@ class EventForm(forms.ModelForm):
     def clean(self):
         start = self.cleaned_data.get('datetime')
         end   = self.cleaned_data.get('end_date')
-        if end < start:
+        if end and end < start:
             raise forms.ValidationError('End date must happen *after* the start of the event!')
         return self.cleaned_data
-
 
 class EventAdmin(admin.ModelAdmin):
     model = models.Event
