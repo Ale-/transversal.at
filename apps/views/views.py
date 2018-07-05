@@ -26,7 +26,10 @@ class Front(views.View):
 
         if request.user.is_staff:
             last_issue  = models.JournalIssue.objects.filter(is_published='p').order_by('-date').first()
-            last_books  = models.Book.objects.all().order_by('-date')[:3]
+            last_books  = models.Book.objects.all().filter(
+                is_published = True,
+                in_home      = True,
+            ).order_by('-date')[:3]
             last_events = models.Event.objects.all().filter(
                 in_home=True,
                 datetime__gt=datetime.now(),
