@@ -83,7 +83,7 @@
     {% endif %}
     <p class="complex-search-results">
         {% if text %}Texts containing <strong>{{ text }}</strong>. {% endif %}
-        {{ object_list|length }} reference(s) found.
+        {{ object_list|length }} reference{{ object_list|length|pluralize }} found.
     </p>
     <div class="search-items">
     {% for object in object_list %}

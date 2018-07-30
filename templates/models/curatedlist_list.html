@@ -35,6 +35,9 @@
                 <p class="curated-lists__item-description">
                     {{ list.body | safe }}
                 <p>
+                <p class="curated-lists__item-length">
+                    {% trans 'Contains' %} {{ list.length }} {% trans 'text' %}{{ list.length|pluralize }}
+                <p>
                 <p class="curated-lists__item-by">
                     <span class="author">
                         {{ list.user.username }}

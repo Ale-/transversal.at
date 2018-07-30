@@ -544,10 +544,19 @@ class CuratedList(models.Model):
                                              help_text=_("Provide an optional description for your list"))
     date            = models.DateField(_('Date'), default=now, blank=True)
     public          = models.BooleanField(_('Public'), default=True)
+    length          = models.PositiveIntegerField(default=0)
     books           = models.ManyToManyField(Book, verbose_name=_('Books'), related_name='books', blank=True)
     book_excerpts   = models.ManyToManyField(BookExcerpt, verbose_name=_('Excerpts'), related_name='excerpts', blank=True)
     journal_texts   = models.ManyToManyField(JournalText, verbose_name=_('Journal texts'), related_name='journal_texts', blank=True)
     blog_texts      = models.ManyToManyField(BlogText, verbose_name=_('Blog posts'), related_name='blog_texts', blank=True)
+
+    def save(self, *args, **kwargs):
+        """Populate automatically 'slug' field"""
+        # Update length
+        self.length = self.books.all().count() + self.book_excerpts.all().count() + self.journal_texts.all().count() + self.blog_texts.all().count()
+        if self.length == 0:
+            self.public = False
+        super(CuratedList, self).save(*args, **kwargs)
 
     @property
     def username(self):

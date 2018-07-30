@@ -418,7 +418,7 @@ class CuratedLists(ListView):
     model = models.CuratedList
 
     def get_queryset(self):
-        return models.CuratedList.objects.filter(public=True)
+        return models.CuratedList.objects.filter(public=True).order_by('-date')
 
     def get_context_data(self, **kwargs):
         context = super(CuratedLists, self).get_context_data(**kwargs)
