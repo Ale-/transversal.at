@@ -35,7 +35,7 @@
                 {% endfor %}
                 {% if post.subtitle %}
                 <h5 class="blog-view__subtitle">
-                    {{ post.subtitle }}
+                    {{ post.subtitle | safe }}
                 </h5>
                 {% endif %}
             </div>
