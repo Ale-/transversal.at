@@ -449,12 +449,14 @@ class BookExcerpt(models.Model):
     """ Book excerpts """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug            = models.SlugField(_('Slug'), blank=False, null=True)
+    slug            = models.SlugField(_('Slug'), blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
     language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES, default='en')
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     source_text     = models.ForeignKey(Book, related_name='excerpts', verbose_name=_('Source text'), on_delete=models.SET_NULL, null=True)
     is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
+    pages           = models.CharField(_('Pages'), max_length=64, blank=True,
+                                        help_text=_('Specify optionally the pages that contain the excerpt. For instance: "113-138"'))
 
     class Meta:
         verbose_name = _('Book excerpt')
@@ -464,6 +466,14 @@ class BookExcerpt(models.Model):
         """String representation of this model objects."""
         return self.source_text.title + ": " + self.title
 
+    def get_absolute_url(self):
+        return reverse('book_excerpt', args=[self.source_text.slug, self.slug])
+
+    def save(self, *args, **kwargs):
+        """Populate automatically 'slug' field"""
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(BookExcerpt, self).save(*args, **kwargs)
 
 class HeaderText(models.Model):
 

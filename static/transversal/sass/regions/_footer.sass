@@ -9,9 +9,12 @@
   background-color: #4a4b4d
   padding: $m
 
+// Create space for the widget to add items to curated lists
+// (only visible for logged-in users)
 .logged-in
   &.blogtext,
   &.book-page,
-  &.journal-text
+  &.journal-text,
+  &.excerpt-page
     .region-footer
       margin-bottom: $m*3

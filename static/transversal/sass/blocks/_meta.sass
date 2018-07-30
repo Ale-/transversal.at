@@ -1,5 +1,5 @@
 .book__meta,
-.bookexcerpt__meta,
+.excerpt__meta,
 .text__meta,
 .issue__meta,
 .biography__meta,
@@ -47,8 +47,8 @@
 
 .book__meta > div,
 .book__meta > ul,
-.bookexcerpt__meta > div,
-.bookexcerpt__meta > ul,
+.excerpt__meta > div,
+.excerpt__meta > ul,
   background-color: $palette_orange
 .blogtext__meta > div,
   background-color: #9a9b9d
@@ -58,7 +58,7 @@
   margin-top: 0
 
 .book__meta,
-.bookexcerpt__meta,
+.excerpt__meta,
 .text__meta,
 .issue__meta,
 .biography__meta
@@ -108,5 +108,13 @@
   &:last-child
     border: 0
 
+.excerpt__meta-src
+  +links_none
+  a
+    font-size: .7em
+    text-transform: uppercase
+    font-family: $font_auxiliar
+    margin-top: $m/2
+    border-bottom: 1px dotted $color_text
 .book__meta
   margin-top: 0
