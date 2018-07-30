@@ -29,21 +29,35 @@
   padding: $m
   font-family: $font_auxiliar
   font-size: .7em
-  text-transform: uppercase
+  p:not(.search-intro)
+    margin: $m/3 auto
+    max-width: $m*32
   span
+    text-transform: uppercase
     margin: 0 $m/2
+    display: inline-block
   span:first-child
     margin-left: 0
 
+.search-intro
+  font-size: 1rem
+
 .complex-search input[type=submit]
-  margin-left: $m
   text-transform: uppercase
+  background-color: #555
+  color: white
   border: 0
   font-family: $font_headers
+  float: right
+  line-height: $m
 
 .complex-search-results
+  background-color: #f5f5f5
   color: #444
   margin: $m 0 0 $m
+  display: inline-block
+  padding: $m/3 $m/2
+  font-size: .9em
 
 .search-items,
 .biography-items

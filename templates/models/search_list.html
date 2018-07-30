@@ -4,59 +4,65 @@
 
 {% block main %}
     <form class="complex-search" action="{% url 'search' %}">
-        <span>Search for</span>
-        <input type="text" name="q" value="{{ text }}" />
-        <span> in </span>
-        <select name="type" />
-            <option {% if model == 'all' %}selected{% endif %} value="all" >
-                all content
-            </option>
-            <option {% if model == 'books' %}selected{% endif %} value="books">
-                books
-            </option>
-            <option {% if model == 'texts' %}selected{% endif %} value="texts">
-                journal texts
-            </option>
-            <option {% if model == 'blog' %}selected{% endif %} value="blog">
-                blog
-            </option>
-        </select>
-        <span> in </span>
-        <select name="lang" />
-            <option {% if lang == 'all' %}selected{% endif %} value="all">
-                all languages
-            </option>
-            {% for label,code in languages %}
-                <option value="{{ code }}" {% if lang == code %}selected{% endif %}>
-                    {{ label }}
+        <p class="search-intro">
+            {% lorem %}
+        </p>
+        <p>
+            <span>Search</span>
+            <input type="text" name="q" value="{{ text }}" placeholder="Anything" />
+            <span> in </span>
+            <select name="type" />
+                <option {% if model == 'all' %}selected{% endif %} value="all" >
+                    all content
                 </option>
-            {% endfor %}
-        </select>
-        <span> by </span>
-        <select name="author">
-            <option {% if author == 'all' %}selected{% endif %} value="all">
-                all authors
-            </option>
-            {% for label,code in authors %}
-                <option value="{{ code }}" {% if author == code %}selected{% endif %}>
-                    {{ label }}
+                <option {% if model == 'books' %}selected{% endif %} value="books">
+                    books
                 </option>
-            {% endfor %}
-        </select>
-        <br/>
-        <span> sorted by </span>
-        <select name="sort" />
-            <option {% if sort == 'title' %}selected{% endif %} value="title">
-                title A-Z
-            </option>
-            <option {% if sort == '-date' %}selected{% endif %} value="-date">
-                newer first
-            </option>
-            <option {% if sort == 'date' %}selected{% endif %} value="date">
-                older first
-            </option>
-        </select>
-        <input type="submit" value="Search" />
+                <option {% if model == 'texts' %}selected{% endif %} value="texts">
+                    journal texts
+                </option>
+                <option {% if model == 'blog' %}selected{% endif %} value="blog">
+                    blog
+                </option>
+            </select>
+            <span> in </span>
+            <select name="lang" />
+                <option {% if lang == 'all' %}selected{% endif %} value="all">
+                    all languages
+                </option>
+                {% for label,code in languages %}
+                    <option value="{{ code }}" {% if lang == code %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            <span> by </span>
+            <select name="author">
+                <option {% if author == 'all' %}selected{% endif %} value="all">
+                    all authors
+                </option>
+                {% for label,code in authors %}
+                    <option value="{{ code }}" {% if author == code %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <span> sort by </span>
+            <select name="sort" />
+                <option {% if sort == 'title' %}selected{% endif %} value="title">
+                    title A-Z
+                </option>
+                <option {% if sort == '-date' %}selected{% endif %} value="-date">
+                    newer first
+                </option>
+                <option {% if sort == 'date' %}selected{% endif %} value="date">
+                    older first
+                </option>
+            </select>
+            <input type="submit" value="Search" />
+        </p>
     </form>
 
     {% if biographies|length > 0 %}
@@ -77,7 +83,7 @@
     {% endif %}
     <p class="complex-search-results">
         {% if text %}Texts containing <strong>{{ text }}</strong>. {% endif %}
-        {{ object_list|length }} references found.
+        {{ object_list|length }} reference(s) found.
     </p>
     <div class="search-items">
     {% for object in object_list %}
