@@ -1,5 +1,6 @@
 # django
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabularInline
 from django.db.models import TextField
 from django.forms import Textarea
@@ -86,8 +87,8 @@ class BiographyForm(forms.ModelForm):
         slug = self.cleaned_data.get('slug')
         if not slug:
             slug = slugify(self.cleaned_data.get('surname'))
-        if models.Biography.objects.filter(slug=slug).exists():
-            raise forms.ValidationError('A biography with that slug already exists, please change it.')
+        if models.Biography.objects.filter(slug=slug).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError(_('A biography with that slug already exists.'))
         return self.cleaned_data
 
 class BiographyAdmin(admin.ModelAdmin):
