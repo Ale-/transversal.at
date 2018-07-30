@@ -6,11 +6,22 @@
   margin: 0
 .curated-content__item-meta
   font-family: $font_auxiliar
-  margin-top: $m/2
-  font-size: .9em
-
+  margin: $m/3 0 0
+  .author
+    font-size: .9em
+    color: $palette_grey
+    font-family: $font_headers
+    margin-right: $m/3
+  .date
+    font-size: .8em
+.curated-content__item-type
+  font-size: .8em
+  font-family: $font_auxiliar
+  margin-bottom: 0 !important
+  &::first-letter
+    text-transform: uppercase
 .curated-content__item
-  margin-bottom: $m
+  margin-bottom: $m/2
   position: relative
   &::before
     content: "—"

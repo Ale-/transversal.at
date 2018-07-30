@@ -323,8 +323,8 @@ class BlogText(models.Model):
         return self.fulltitle if self.fulltitle else self.title
 
     class Meta:
-        verbose_name = _('Blog text')
-        verbose_name_plural = _('Blog texts')
+        verbose_name = _('Blog post')
+        verbose_name_plural = _('Blog posts')
 
     def __str__(self):
         """String representation of this model objects."""
@@ -451,25 +451,26 @@ class BookExcerpt(models.Model):
     """ Book excerpts """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug            = models.SlugField(_('Slug'), blank=True, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
-    language        = models.CharField(_('Language'), max_length=2, choices=LANGUAGES, default='en')
-    body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     source_text     = models.ForeignKey(Book, related_name='excerpts', verbose_name=_('Source text'), on_delete=models.SET_NULL, null=True)
-    is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
     pages           = models.CharField(_('Pages'), max_length=64, blank=True,
                                         help_text=_('Specify optionally the pages that contain the excerpt. For instance: "113-138"'))
 
     class Meta:
-        verbose_name = _('Book excerpt')
-        verbose_name_plural = _('Book excerpts')
+        verbose_name = _('Essay')
+        verbose_name_plural = _('Essays')
 
     def __str__(self):
         """String representation of this model objects."""
         return self.source_text.title + ": " + self.title
 
-    def get_absolute_url(self):
-        return reverse('book_excerpt', args=[self.source_text.slug, self.slug])
+    @property
+    def author_text(self):
+        return self.source_text.author_text
+
+    @property
+    def date(self):
+        return self.source_text.date
 
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
