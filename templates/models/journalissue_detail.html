@@ -63,6 +63,11 @@
                             <a href="{% url 'journal_text' object.slug text.slug text.language %}">
                             {{ text.title | safe }}
                             </a>
+                            {% if request.user.is_staff %}
+                            | <a class="edit-text" href="{% url 'admin:models_journaltext_change' text.id %}">
+                                Edit this text
+                            </a>
+                            {% endif %}
                             {% if not text.is_published %}
                             <span class="issue_not-published">
                                 Not public
