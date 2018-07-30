@@ -32,6 +32,18 @@
                 </option>
             {% endfor %}
         </select>
+        <span> by </span>
+        <select name="author">
+            <option {% if author == 'all' %}selected{% endif %} value="all">
+                all authors
+            </option>
+            {% for label,code in authors %}
+                <option value="{{ code }}" {% if author == code %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+        <br/>
         <span> sorted by </span>
         <select name="sort" />
             <option {% if sort == 'title' %}selected{% endif %} value="title">
@@ -72,12 +84,12 @@
         <div class="search-item">
             <h4 class="search-item__title search-item__title--{{ object|verbose_name_slug }}">
                 <a href="{{ object.get_absolute_url }}?hl={{ text }}">
-                  {{ object.title }}
+                  {{ object.title | safe }}
                 </a>
             </h4>
             {% if object.subtitle %}
             <p class="search-item__subtitle">
-                {{ object.subtitle }}
+                {{ object.subtitle | safe }}
             </p>
             {% endif %}
             <p class="search-item__meta">

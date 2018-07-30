@@ -295,10 +295,11 @@ class Search(views.View):
     def get(self, request, *args, **kwargs):
 
         # Arguments of the query
-        text  = request.GET.get('q')    if request.GET else ''
-        model = request.GET.get('type') if request.GET else 'all'
-        sort  = request.GET.get('sort') if request.GET else 'title'
-        lang  = request.GET.get('lang') if request.GET else 'all'
+        text   = request.GET.get('q', '')
+        model  = request.GET.get('type', 'all')
+        sort   = request.GET.get('sort', 'title')
+        lang   = request.GET.get('lang', 'all')
+        author = request.GET.get('author', 'all')
 
         # Set a list of current languages in searchable contents
         # TODO: reduce queries to database here, maybe cache used languages in database?
@@ -312,14 +313,21 @@ class Search(views.View):
         languages              = [ (all_languages[l], l) for l in lang_codes ]
         languages.sort()
 
+        # Set a list of current authors in searchable contents
+        authors = [ (i.fullname[:30], str(i.id)) for i in models.Biography.objects.all().order_by('surname') ]
+
         # Create the queryset
-        query = Q()
+        query             = Q()
+        blog_translations = {}
         if text:
             query = query|Q(title__icontains=text)|Q(body__icontains=text)|Q(author_text__icontains=text)
         if lang != 'all':
             query = query&Q(language=lang)
         if request.user.is_anonymous:
             query = query&Q(is_published=True)
+        if author != 'all':
+            blog_translations = models.BlogTextTranslation.objects.filter(query&Q(source_text__authors=author)).order_by(sort)
+            query = query&Q(authors=author)
 
         # only books
         if model == 'books':
@@ -330,7 +338,6 @@ class Search(views.View):
         # only journal texts
         elif model == 'blog':
             blog_posts        = models.BlogText.objects.filter(query).order_by(sort)
-            blog_translations = models.BlogTextTranslation.objects.filter(query).order_by(sort)
             content           = chain(blog_posts, blog_translations)
 
             # chain querysets and order alphabetically
@@ -345,8 +352,7 @@ class Search(views.View):
             books             = models.Book.objects.filter(query)
             journal_texts     = models.JournalText.objects.filter(query)
             blog_texts        = models.BlogText.objects.filter(query)
-            blog_translations = models.BlogTextTranslation.objects.filter(query).order_by(sort)
-            content           = chain(books, journal_texts, blog_texts, blog_translations)
+            content = chain(books, journal_texts, blog_texts, blog_translations)
 
             # chain querysets and order alphabetically
             # TODO: solve bug when sorting chained content
