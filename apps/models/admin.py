@@ -386,6 +386,21 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Event, EventAdmin)
-
 admin.site.register(models.HeaderText)
 admin.site.register(models.Page)
+
+
+class CuratedListAdmin(admin.ModelAdmin):
+    model = models.CuratedList
+    exclude           = ['user']
+    list_display      = ('name', 'user', 'date', 'public')
+    ordering          = ('-date',)
+    filter_horizontal = ('books', 'book_excerpts', 'journal_texts', 'blog_texts')
+    list_filter       = ('public', 'user')
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.user = request.user
+        obj.save()
+
+admin.site.register(models.CuratedList, CuratedListAdmin)

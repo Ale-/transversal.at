@@ -23,7 +23,7 @@ urlpatterns = [
 
     # API
     # curate
-    path('curate', views.APICurate.as_view(), name="api_curate"),
+    # path('curate', views.APICurate.as_view(), name="api_curate"),
 
     # PAGES
     # front
@@ -55,12 +55,16 @@ urlpatterns = [
     path('event/<slug:slug>', views.EventView.as_view(), name="event"),
     # search
     path('search/', views.Search.as_view(), name="search"),
-    # impressum
-    path('<slug:slug>', views.Page.as_view(), name="static_page"),
+    # user lists
+    path('curated-content/', views.CuratedLists.as_view(), name="curated_lists"),
+    # user lists
+    path('curated-content/me', views.UserCuratedLists.as_view(), name="user_curated_lists"),
     # me
-    path('curated-content/<int:pk>', views.CuratedContent.as_view(), name="profile"),
+    path('curated-content/<int:pk>', views.CuratedList.as_view(), name="curated_list"),
     # tags
     path('tag/<slug:slug>', views.TaggedContent.as_view(), name="tags"),
+    # static pages
+    path('<slug:slug>', views.Page.as_view(), name="static_page"),
 ]
 
 # Static and media in development

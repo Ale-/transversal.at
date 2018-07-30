@@ -1,0 +1,33 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}user-curated-content{% endblock %}
+{% block page_html_title %}{{ object.username}} profile{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+      {% if request.user == object.user or request.user.is_staff %}
+      <div class="links__staff">
+          <a href="{% url 'admin:models_curatedlist_change' object.id %}">
+              {% trans 'Edit this list' %}
+          </a>
+      </div>
+      {% endif %}
+    </nav>
+    <h1 class="page__title">
+        {{ object.name }}
+    </h1>
+    <div class="curated-content-wrapper">
+        <div class="curated-content">
+            <p class="curated-content__description">
+                {{ object.body | safe }}
+            </p>
+            <ul class="curated-content__items">
+            {% for item in object.get_content %}
+                {% include 'views/curated-item.html' with item=item %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

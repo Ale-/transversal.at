@@ -1,11 +1,13 @@
 # python
 from datetime import datetime, timezone
+from itertools import chain
 # django #
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
+from django.utils.timezone import now
 from django.urls import reverse
 from django.contrib.auth.models import User
 # contrib
@@ -533,23 +535,43 @@ class Event(models.Model):
     def past(self):
         return self.datetime < datetime.now(timezone.utc)
 
-
-class UserProfile(models.Model):
+class CuratedList(models.Model):
     """ User profiles """
 
-    user            = models.OneToOneField(User, on_delete=models.CASCADE)
-    curated_content = GM2MField()
+    user            = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
+    name            = models.CharField(_('Name'), max_length=128, blank=False, null=True)
+    body            = RichTextUploadingField(_('Description'), blank=True, null=True,
+                                             help_text=_("Provide an optional description for your list"))
+    date            = models.DateField(_('Date'), default=now, blank=True)
+    public          = models.BooleanField(_('Public'), default=True)
+    books           = models.ManyToManyField(Book, verbose_name=_('Books'), related_name='books', blank=True)
+    book_excerpts   = models.ManyToManyField(BookExcerpt, verbose_name=_('Excerpts'), related_name='excerpts', blank=True)
+    journal_texts   = models.ManyToManyField(JournalText, verbose_name=_('Journal texts'), related_name='journal_texts', blank=True)
+    blog_texts      = models.ManyToManyField(BlogText, verbose_name=_('Blog posts'), related_name='blog_texts', blank=True)
 
     @property
     def username(self):
         """Returns full name of user or username"""
-
         user = self.user
         if user.first_name:
             return user.first_name + " " + user.last_name
         return user.username
 
+    def get_absolute_url(self):
+        return reverse('curated_list', args=[self.pk])
+
+    @property
+    def get_content(self):
+        """Returns all content"""
+        items = chain(
+            self.books.all(),
+            self.book_excerpts.all(),
+            self.journal_texts.all(),
+            self.blog_texts.all()
+        )
+        sorted_items = sorted(items, key = lambda i: getattr(i, 'title'))
+        return sorted_items
+
     def __str__(self):
         """String representation of this model objects."""
-
-        return self.user.username
+        return self.name

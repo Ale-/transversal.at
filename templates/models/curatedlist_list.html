@@ -1,0 +1,60 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}curated-lists{% endblock %}
+{% block page_html_title %}{{ object.username}} {% trans 'curated lists' %}{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+      {% if personal %}
+      <div class="links__staff">
+          <a href="{% url 'admin:auth_user_change' request.user.id %}">
+              {% trans 'Edit your user' %}
+          </a>
+      </div>
+      {% endif %}
+    </nav>
+    <h1 class="page__title">
+        {% if personal %}
+        Your lists
+        {% else %}
+        Lists of curated content by users
+        {% endif %}
+    </h1>
+    <div class="curated-lists-wrapper">
+        <div class="curated-lists">
+            <ul class="curated-lists__items">
+            {% for list in object_list %}
+            <li class="curated-lists__item">
+                <h3 class="curated-lists__item-name">
+                    <a href="{{ list.get_absolute_url }}">
+                        {{ list.name }}
+                    </a>
+                </h3>
+                <p class="curated-lists__item-description">
+                    {{ list.body | safe }}
+                <p>
+                <p class="curated-lists__item-by">
+                    <span class="author">
+                        {{ list.user.username }}
+                    </span>
+                    <span class="date">
+                        {{ list.date|date:'d m y' }}
+                    </span>
+                </p>
+            </li>
+            {% empty %}
+            <div class="search-items__empty">
+                <p class="search-items__empty-icon">
+                    ∅
+                </p>
+                <p class="search-items__empty-text">
+                    {% trans "There's no curated content yet!" %}
+                </p>
+            </div>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

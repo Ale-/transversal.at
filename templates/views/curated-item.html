@@ -1,0 +1,17 @@
+{% load utils %}
+
+<li class="curated-content__item">
+    <h4 class="curated-content__item-title">
+        <a href="{{ item.get_absolute_url }}">
+            {{ item.title }}
+        </a>
+    </h4>
+    {% if item.subtitle %}
+    <h5 class="curated-content__item-subtitle">
+        {{ item.subtitle }}
+    </h5>
+    {% endif %}
+    <p class="curated-content__item-meta">
+        {{ item.author_text }} | {{ item.date }} | {{ item|verbose_name }}
+    </p>
+</li>

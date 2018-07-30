@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
@@ -368,34 +369,30 @@ class Search(views.View):
         return render(request, 'models/search_list.html', locals())
 
 
-
-class CuratedContent(views.View):
+class CuratedList(DetailView):
     """View of a single static page."""
 
-    model = models.UserProfile
+    model = models.CuratedList
 
-    @method_decorator(login_required)
-    def get(self, request, pk):
-        pk              = pk
-        profile,created = models.UserProfile.objects.get_or_create(user=request.user)
-        obj             = profile
-        return render(request, 'models/userprofile_detail.html', { 'object' : obj } )
-
-class APICurate(views.View):
-    """ An API method to allow users to select their curated content """
-
-    @method_decorator(login_required)
-    def get(self, request):
-        pk              = request.GET.get('pk')
-        contenttype     = ContentType.objects.get(model=request.GET.get('contenttype'))
-        content         = contenttype.get_object_for_this_type(pk=pk)
-        profile,created = models.UserProfile.objects.get_or_create(user=request.user)
-        action          = request.GET.get('action')
-        if action == 'add':
-            profile.curated_content.add(content)
-            return HttpResponse("Item added successfully to user's list of curated content")
-        profile.curated_content.remove(content)
-        return HttpResponse("Item removed successfully from user's list of curated content", content_type="text/plain")
+# class APICurate(views.View):
+#     """ An API method to allow users to select their curated content """
+#
+#     @method_decorator(login_required)
+#     def get(self, request):
+#         pk              = request.GET.get('pk')
+#         content_type    = ContentType.objects.get(model=request.GET.get('contenttype'))
+#         content         = content_type.get_object_for_this_type(pk=pk)
+#         profile,created = models.UserProfile.objects.get_or_create(user=request.user)
+#         action          = request.GET.get('action')
+#         if action == 'add':
+#             models.ContentSelection.objects.create(
+#                 content_type = content_type,
+#                 object_id    = pk,
+#                 profile      = profile,
+#             )
+#             return HttpResponse("Item added successfully to user's list of curated content")
+#         models.ContentSelection.get(source_content=content).delete()
+#         return HttpResponse("Item removed successfully from user's list of curated content", content_type="text/plain")
 
 class TaggedContent(ListView):
     """View of tagged blog posts."""
@@ -413,4 +410,31 @@ class TaggedContent(ListView):
     def get_context_data(self, **kwargs):
         context = super(TaggedContent, self).get_context_data(**kwargs)
         context['tag'] = models.Tag.objects.get(slug=self.kwargs.get('slug'))
+        return context
+
+class CuratedLists(ListView):
+    """ Vief of curated lists of content. """
+
+    model = models.CuratedList
+
+    def get_queryset(self):
+        return models.CuratedList.objects.filter(public=True)
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedLists, self).get_context_data(**kwargs)
+        context['personal'] = False
+        return context
+
+
+class UserCuratedLists(ListView):
+    """ Vief of curated lists of content. """
+
+    model = models.CuratedList
+
+    def get_queryset(self):
+        return models.CuratedList.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserCuratedLists, self).get_context_data(**kwargs)
+        context['personal'] = True
         return context

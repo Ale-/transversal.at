@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="menu-admin__link-user--{% if modifier %}--{{ modifier }}{% endif %}">
-            <a href="{% url 'profile' request.user.pk %}"
+            <a href="{% url 'user_curated_lists' %}"
                title="{% trans 'Go to your user profile' %}">
                 <img src="{% img 'user.svg' %}" />
             </a>

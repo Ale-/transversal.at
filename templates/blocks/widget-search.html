@@ -6,5 +6,9 @@
     <input type="hidden" name="sort" value="title" />
     <input class="search-widget__query" type="text" placeholder="Search..." name="q" />
     <input class="search-widget__submit" type="submit" value="" />
-    <a href="{% url 'search' %}">Advanced search</a>
+    <ul class="search-widget__links">
+        <li><a href="{% url 'search' %}">Advanced search</a></li>
+          |
+        <li><a href="{% url 'curated_lists' %}">Curated lists of content</a></li>
+    </ul>
 </form>

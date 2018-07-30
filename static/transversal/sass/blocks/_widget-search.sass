@@ -19,14 +19,16 @@
   padding: 0 $m/2
   +transition(width .2s ease, opacity .2s ease)
 
-.search-widget a
-  display: block
+.search-widget__links
   margin-top: $m/6
   text-align: right
-  margin-right: $m
+  margin-right: $m/3
+  color: #999
+  li
+    display: inline
 
 .collapsed .search-widget__query,
-.collapsed a
+.collapsed .search-widget__links
   width: 0
   opacity: 0
 
