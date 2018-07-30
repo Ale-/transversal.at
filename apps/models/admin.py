@@ -94,7 +94,7 @@ class BiographyForm(forms.ModelForm):
 class BiographyAdmin(admin.ModelAdmin):
     model    = models.Biography
     form = BiographyForm
-    ordering = ('name',)
+    ordering = ('surname',)
     list_display  = ('fullname', 'email', 'is_published', 'view')
     list_filter = (filters.SurnameFilter, 'is_published')
     actions = [ publish, unpublish ]
