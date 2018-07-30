@@ -4,7 +4,8 @@ from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabul
 from django.db.models import TextField
 from django.forms import Textarea
 from django.utils.html import format_html
-from django.urls import reverse
+from django.utils.text import slugify
+from django.urls import reverse, reverse_lazy
 from django import forms
 # contrib
 from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
@@ -83,6 +84,8 @@ class BiographyForm(forms.ModelForm):
 
     def clean(self):
         slug = self.cleaned_data.get('slug')
+        if not slug:
+            slug = slugify(self.cleaned_data.get('surname'))
         if models.Biography.objects.filter(slug=slug).exists():
             raise forms.ValidationError('A biography with that slug already exists, please change it.')
         return self.cleaned_data
@@ -130,7 +133,7 @@ class JournalTextAdmin(admin.ModelAdmin):
     model             = models.JournalText
 
     # list
-    ordering          = ('issue', 'title')
+    ordering          = ('issue',)
     actions           = [publish, unpublish]
     list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published', 'issue')
     list_display      = ('title', 'issue', 'date', 'author_text', 'view', 'is_published')
@@ -151,8 +154,7 @@ class JournalTextAdmin(admin.ModelAdmin):
             'classes' : ('collapse',),
             'fields': (
                 ('slug', 'is_published'),
-                ('effective_date','expiration_date'),
-                'copyright','comments'
+                'comments'
             ),
         })
     )
@@ -174,9 +176,12 @@ class JournalIssueTitleInline(admin.TabularInline):
 
 class JournalTextInline(SortableTabularInline):
     model           = models.JournalText
-    fields          = ('author_text', 'title', 'language', 'column_end', 'is_published')
-    readonly_fields = ('title', 'author_text', 'language')
+    fields          = ('author_text', 'linked_title', 'language', 'column_end', 'is_published')
+    readonly_fields = ('linked_title', 'author_text', 'language')
     extra = 0
+
+    def linked_title(self, obj):
+        return format_html("<a href='" + reverse('journal_text', args=[obj.issue.slug, obj.slug, obj.language]) + "'>" + obj.title + "</a>")
 
 class JournalIssueAdmin(NonSortableParentAdmin):
     model        = models.JournalIssue
@@ -190,14 +195,13 @@ class JournalIssueAdmin(NonSortableParentAdmin):
     # form
     fieldsets = (
         ('', {
-          'fields': (('title', 'date'), 'editorial_title', 'editorial', 'impressum')
+          'fields': (('title', 'date'), 'editorial', 'impressum')
         }),
         ('Metadata', {
             'classes' : ('collapse',),
             'fields': (
                 'is_published', 'slug',
-                ('effective_date','expiration_date'),
-                'copyright','comments'
+                'comments'
             ),
         })
     )
