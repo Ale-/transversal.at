@@ -166,11 +166,6 @@
     <div class="biography__body">
     {% if object.description %}
         {{ object.description | safe }}
-    {% else %}
-        <p>Currently there's no information about this author in our database.</p>
-        <a href="https://duckduckgo.com/?q={{ object.fullname|googlify }}" target="_blank">
-            Look for {{ object.fullname }} through DuckDuckGo's search engine.
-        </a>
     {% endif %}
     </div>
 </div>
