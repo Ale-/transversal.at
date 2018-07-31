@@ -6,14 +6,20 @@
 
 {% block main %}
     <nav class="links">
-      {% fake_breadcrumb %}
-      {% if personal %}
-      <div class="links__staff">
-          <a href="{% url 'admin:auth_user_change' request.user.id %}">
-              {% trans 'Edit your user' %}
-          </a>
-      </div>
-      {% endif %}
+        {% fake_breadcrumb %}
+        {% if personal %}
+        <div class="links__staff">
+            <a href="{% url 'admin:auth_user_change' request.user.id %}">
+                {% trans 'Edit your user' %}
+            </a>
+        </div>
+        {% elif request.user.is_staff %}
+        <div class="links__staff">
+            <a href="{% url 'admin:models_curatedlist_add' %}">
+                {% trans 'Create a new list' %}
+            </a>
+        </div>
+        {% endif %}
     </nav>
     <h1 class="page__title">
         {% if personal %}

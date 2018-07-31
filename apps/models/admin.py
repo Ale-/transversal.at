@@ -397,15 +397,23 @@ admin.site.register(models.Page, PageAdmin)
 
 class CuratedListAdmin(admin.ModelAdmin):
     model = models.CuratedList
-    exclude           = ['user']
+    exclude           = ('user', 'length')
     list_display      = ('name', 'user', 'date', 'public')
     ordering          = ('-date',)
     filter_horizontal = ('books', 'book_excerpts', 'journal_texts', 'blog_texts')
     list_filter       = ('public', 'user')
 
     def save_model(self, request, obj, form, change):
+        # set current user as owner of the list
         if not change:
             obj.user = request.user
+        # calculate lenght of the list automatically
+        l = 0
+        for field in ['books', 'book_excerpts', 'journal_texts', 'blog_texts']:
+            l+= len(request.POST.get(field, []))
+        obj.length = l
+        if l == 0:
+            obj.public = False
         obj.save()
 
 admin.site.register(models.CuratedList, CuratedListAdmin)
