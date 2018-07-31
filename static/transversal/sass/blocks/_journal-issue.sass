@@ -15,6 +15,8 @@
     line-height: 1.1
 .issue__date-links--full
   font-family: $font_auxiliar
+  +breakpoint('xs')
+    margin-top: $m*5
 .issue__date--full
   +date
 .issue__text-lang
@@ -23,7 +25,9 @@
   color: #444
   font-size: .7em
 .issue__links
-  margin: $m 0
+  margin-bottom: $m
+  +breakpoint('sm')
+    margin: $m 0
 .issue__link
   font-family: $font_headers
   display: inline
@@ -46,16 +50,19 @@
 .texts-column
   display: inline-block
   vertical-align: top
-  margin-right: $m
-  &:last-child
-    margin-right: 0
+  +breakpoint('sm')
+    margin-right: $m
+    &:last-child
+      margin-right: 0
 
 $w: (100%, 50%, 33.33%, 25%, 20%)
 @for $i from 1 through 5
   $f: ($i - 1)/$i
   .cols-#{$i} .texts-column
-    float: left
-    width: calc(#{nth($w, $i)} - #{$m*$f})
+    width: 100%
+    +breakpoint('sm')
+      float: left
+      width: calc(#{nth($w, $i)} - #{$m*$f})
 
 .issue__texts-item
   margin-bottom: $m

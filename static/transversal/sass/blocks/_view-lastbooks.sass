@@ -5,12 +5,14 @@
   +clearfix
 
 .view-lastbooks__item
-  display: inline-block
-  width: 33.3%
-  float: left
   text-overflow: ellipsis
+  +breakpoint('sm')
+    display: inline-block
+    width: 33.3%
+    float: left
 
 .view-lastbooks__item-header
+  width: 100%
   background-color: $palette_grey
   color: $palette_orange
   font-size: 2.25em

@@ -37,9 +37,11 @@
   +clearfix
 
 .book--list
-  display: inline-block
-  float: left
-  width: 33%
+  clear: both
+  +breakpoint('sm')
+    display: inline-block
+    float: left
+    width: 33%
   padding: $m/2 $m/3
   line-height: 1.1
 

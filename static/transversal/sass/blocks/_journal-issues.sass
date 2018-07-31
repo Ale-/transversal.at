@@ -29,7 +29,10 @@
 
 .issue__title
   margin: 0
-  color: rgba(black, .5)
+  color: white
+  .fadein__item
+    max-width: calc(100% - #{$m})
+    text-overflow: ellipsis
   em
     font-family: $font_auxiliar
     font-size: .9em

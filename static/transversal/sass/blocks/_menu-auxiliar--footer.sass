@@ -1,7 +1,8 @@
 // Auxiliar menu to be shown in footer mainly
 
 .menu-auxiliar--footer__link
-  display: inline
+  +breakpoint('sm')
+    display: inline
   &::before
     content: " / "
     font-family: $font_auxiliar

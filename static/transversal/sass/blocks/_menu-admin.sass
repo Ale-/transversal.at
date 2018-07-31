@@ -3,10 +3,12 @@
 
 .menu-admin
   background: white
-  width: $m*2
-  text-align: center
-  padding: $m/2 $m/2 0
-  float: right
+  line-height: $m*2
+  +breakpoint('sm')
+    width: $m*2
+    text-align: center
+    float: right
+    padding: $m/2 $m/2 0
 
 .menu-admin img
   max-width: $m
@@ -16,3 +18,6 @@
   +transition(opacity .2s ease)
   &:hover
     opacity: .5
+  +breakpoint('xs')
+    display: inline
+    margin-right: $m
