@@ -4,12 +4,6 @@
 .menu-admin
   background: white
   line-height: $m*2
-  +breakpoint('sm')
-    line-height: inherit
-    width: $m*2
-    text-align: center
-    float: right
-    padding: $m/2 $m/2 0
 
 .menu-admin img
   max-width: $m
@@ -19,6 +13,5 @@
   +transition(opacity .2s ease)
   &:hover
     opacity: .5
-  +breakpoint('xs')
-    display: inline
-    margin-right: $m
+  display: inline
+  margin-right: $m
