@@ -38,11 +38,11 @@
                         {{ list.name }}
                     </a>
                 </h3>
-                <p class="curated-lists__item-description">
+                <div class="curated-lists__item-description">
                     {{ list.body | safe }}
-                <p>
+                <div>
                 <p class="curated-lists__item-length">
-                    {% trans 'Contains' %} {{ list.length }} {% trans 'text' %}{{ list.length|pluralize }}
+                    <small>{% trans 'Contains' %} {{ list.length }} {% trans 'text' %}{{ list.length|pluralize }}</small>
                 <p>
                 <p class="curated-lists__item-by">
                     <span class="author">
