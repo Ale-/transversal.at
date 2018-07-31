@@ -78,7 +78,7 @@ class Tag(models.Model):
 
     name           = models.CharField(_('Name of the tag'), max_length=200, blank=True, unique=True)
     category       = models.CharField(_('Category of the tag'), choices=TAG_CATEGORIES, max_length=1, blank=False, default='t')
-    slug           = models.SlugField(editable=False, blank=True)
+    slug           = models.SlugField(blank=True)
     description    = RichTextUploadingField(_('Description'), blank=True, null=True)
 
     def __str__(self):
@@ -212,7 +212,7 @@ class JournalText(SortableMixin):
                                                    'If you don\'t introduce a date the text will use issue\'s date'))
     body            = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors         = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='texts_created', blank=True)
-    author_text     = models.CharField(_('Author attribution'), max_length=200, null=True)
+    author_text     = models.CharField(_('Author attribution'), max_length=200, blank=True, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='texts_translated', blank=True)
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     translations    = models.ManyToManyField('self', blank=True)
@@ -230,13 +230,17 @@ class JournalText(SortableMixin):
         verbose_name_plural = _('Journal texts')
         ordering = ('order',)
 
+    @property
+    def sorted_translations(self):
+        return self.translations.all().order_by('language')
+
     def save(self, *args, **kwargs):
         """Populate automatically 'slug' field"""
 
         if not self.slug:
             slug = ""
             super(JournalText, self).save(*args, **kwargs)
-            if self.authors:
+            if self.authors.all():
                 print(self.id)
                 for i,author in enumerate(self.authors.all()):
                     if i>0:
@@ -246,6 +250,7 @@ class JournalText(SortableMixin):
                     else:
                         slug += slugify(author.name)
             else:
+                print("eh")
                 slug = slugify(self.title)
             self.slug = slug
         if not self.date:
@@ -330,7 +335,7 @@ class BlogText(models.Model):
         """String representation of this model objects."""
         return self.title
 
-class BlogTextTranslation(models.Model):
+class BlogTextTranslation(SortableMixin):
     """ Texts of the journals """
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
@@ -345,14 +350,9 @@ class BlogTextTranslation(models.Model):
     translator_text = models.CharField(_('Translation attribution'), max_length=200, blank=True, null=True)
     author_text     = models.CharField(_('Author attribution'), max_length=200, blank=True, null=True)
     translators     = models.ManyToManyField(Biography, verbose_name=_('Translators'), blank=True)
+    order           = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     # metadata
-    effective_date       = models.DateField(_('Effective date'), blank=True, null=True,
-                                            help_text=_('Date when the content should become available on the public site'))
-    expiration_date      = models.DateField(_('Expiration date'), blank=True, null=True,
-                                            help_text=_('Date when the content should no longer be visible on the public site'))
-    copyright            = models.TextField(_('Copyright'), blank=True, null=True,
-                                            help_text=_('A list of copyright info for this content'))
     comments             = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
     is_published         = models.BooleanField(_('Is visible'), default=True, null=False)
@@ -367,6 +367,7 @@ class BlogTextTranslation(models.Model):
     class Meta:
         verbose_name = _('Blog translation')
         verbose_name_plural = _('Blog translations')
+        ordering = ('order',)
 
     def __str__(self):
         """String representation of this model objects."""
@@ -383,7 +384,7 @@ class Book(SortableMixin):
     """ Books """
 
     title              = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    slug               = models.SlugField(editable=False, blank=True)
+    slug               = models.SlugField(blank=True)
     date               = models.DateField(_('Date'), blank=True, null=True,
                                            help_text=_('Please introduce a date in the format YYYY-MM-DD or using the widget. '))
     subtitle           = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
@@ -489,9 +490,10 @@ class HeaderText(models.Model):
 
 class Page(models.Model):
 
-    title    = models.CharField(_('Title'), max_length=200, blank=False, null=True)
-    content  = RichTextUploadingField(_('Text'), blank=False, null=True)
-    slug     = models.SlugField(_('Slug'), blank=False)
+    title       = models.CharField(_('Title'), max_length=200, blank=False, null=True)
+    content     = RichTextUploadingField(_('Text'), blank=False, null=True)
+    parent_book = models.ForeignKey(Book, verbose_name='Parent book', blank=True, null=True, on_delete=models.SET_NULL)
+    slug        = models.SlugField(_('Slug'), blank=False)
 
     def get_absolute_url(self):
         return reverse('static_page', args=[self.slug])
@@ -505,7 +507,7 @@ class Event(models.Model):
 
     title           = models.CharField(_('Title'), max_length=200, blank=False, null=True)
     subtitle        = models.CharField(_('Subtitle'), max_length=200, blank=True, null=True)
-    slug            = models.SlugField(editable=False, blank=True)
+    slug            = models.SlugField(blank=True)
     datetime        = models.DateTimeField(_('Start'), blank=False, null=True)
     end_date        = models.DateTimeField(_('End'), blank=True, null=True)
     city            = models.CharField(_('City'), max_length=128, blank=False)

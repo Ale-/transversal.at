@@ -137,7 +137,7 @@ class JournalTextAdmin(admin.ModelAdmin):
     ordering          = ('issue',)
     actions           = [publish, unpublish]
     list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published', 'issue')
-    list_display      = ('title', 'issue', 'date', 'author_text', 'view', 'is_published')
+    list_display      = ('title', 'issue', 'date', 'author_text', 'is_published')
 
     # form
     fieldsets = (
@@ -161,13 +161,6 @@ class JournalTextAdmin(admin.ModelAdmin):
     )
     filter_horizontal = ('authors', 'translators', 'translations')
     inlines = [AttachmentInline]
-
-    def view(self, obj):
-        try:
-            return format_html("<a href='" + reverse('journal_text', args=[obj.issue.slug, obj.slug]) + "'>➜</a>")
-        except:
-            return None
-    view.short_description = 'See'
 
 admin.site.register(models.JournalText, JournalTextAdmin)
 
@@ -218,11 +211,13 @@ class JournalIssueAdmin(NonSortableParentAdmin):
 
 admin.site.register(models.JournalIssue, JournalIssueAdmin)
 
-class BlogTextTranslationInline(admin.StackedInline):
+class BlogTextTranslationInline(SortableTabularInline):
     model = models.BlogTextTranslation
+    fields = [ 'title', 'language', 'is_published']
+    readonly_fields = ['title', 'language']
     extra = 0
 
-class BlogTextAdmin(admin.ModelAdmin):
+class BlogTextAdmin(NonSortableParentAdmin):
     model             = models.BlogText
 
     # list
@@ -311,9 +306,9 @@ class BookAdmin(NonSortableParentAdmin):
         ('Metadata', {
             'classes' : ('collapse',),
             'fields': (
+                'slug',
                 ('is_published','in_home','in_listings'),
-                ('effective_date','expiration_date'),
-                'copyright','comments',
+                'comments',
             ),
         })
     )
@@ -379,6 +374,7 @@ class EventAdmin(admin.ModelAdmin):
         }),
         ('Metadata', {
             'fields': (
+                'slug',
                 ('is_published', 'in_home', 'extended_info'),
             ),
         })
@@ -388,7 +384,15 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.HeaderText)
-admin.site.register(models.Page)
+
+class PageForm(forms.ModelForm):
+    parent_book = forms.ModelChoiceField(queryset=models.Book.objects.order_by('title'))
+
+class PageAdmin(admin.ModelAdmin):
+    model = models.Page
+    form  = PageForm
+
+admin.site.register(models.Page, PageAdmin)
 
 
 class CuratedListAdmin(admin.ModelAdmin):

@@ -4,6 +4,7 @@
 .issue__meta,
 .biography__meta,
 .blogtext__meta,
+.static-page__meta
   float: right
   font-family: $font_headers
   font-size: .9em
@@ -49,6 +50,8 @@
 .book__meta > ul,
 .excerpt__meta > div,
 .excerpt__meta > ul,
+.static-page__meta > div,
+.static-page__meta > ul
   background-color: $palette_orange
 .blogtext__meta > div,
   background-color: #9a9b9d
@@ -61,7 +64,8 @@
 .excerpt__meta,
 .text__meta,
 .issue__meta,
-.biography__meta
+.biography__meta,
+.static-page__meta > div
   +links(white, white, none)
   a
     &:hover

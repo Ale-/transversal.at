@@ -88,7 +88,7 @@
                 <h5>{% trans 'languages' %}</h5>
                 <ul>
                     <li>{{ object.get_language_display }}</li>
-                    {% for text in object.translations.all %}
+                    {% for text in object.sorted_translations %}
                         <li>
                             <a href="{% url 'journal_text' text.issue.slug text.slug text.language %}">
                                 {{ text.get_language_display }}

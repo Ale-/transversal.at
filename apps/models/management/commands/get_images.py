@@ -7,7 +7,7 @@ from django.utils.encoding import smart_str
 # contrib
 from bs4 import BeautifulSoup
 # project
-from apps.models.models import BlogText
+from apps.models.models import BlogText, BlogTextTranslation
 
 """
 A manage.py command to import JournalIssue objects from a CSV file
@@ -21,23 +21,24 @@ class Command(BaseCommand):
     Imports JournalIssue objects from a given CSV file
     """
     def handle(self, *args, **options):
-        # with open('bio_links.json', 'w', encoding='utf8') as json_file:
         blog = BlogText.objects.all()
         data = {}
         for post in blog:
-            slug = post.slug
+            # slug = post.slug
             try:
-                url              = 'http://transversal.at/blog/' + slug
-                data[slug]       = {}
-                html_doc         = urllib.request.urlopen(url).read()
-                soup             = BeautifulSoup(html_doc, 'html5lib')
-                content          = soup.find("div", class_='ContentBody')
-                images           = content.find_all("img")
-                for img in images:
-                    print(img)
+                # url              = 'http://transversal.at/blog/' + slug
+                # data[slug]       = {}
+                # html_doc         = urllib.request.urlopen(url).read()
+                body = post.body
+                soup             = BeautifulSoup(body, 'html5lib')
+                # content          = soup.find("div", class_='ContentBody')
+                images           = soup.find_all("img")
+                if images:
+                    print("---", post.title, "-", sep="\n")
+                    for img in images:
+                        print(img)
             except Exception as e:
-                print("---")
-                print(slug)
+                print("---", post.title, "-", sep="\n")
                 print(str(e))
 
         #json.dump(data, json_file, ensure_ascii=False)
