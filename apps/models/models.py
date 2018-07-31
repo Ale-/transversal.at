@@ -271,9 +271,14 @@ class JournalText(SortableMixin):
     def get_title(self):
         return self.fulltitle if self.fulltitle else self.title
 
+    @property
+    def get_extended_title(self):
+        """ Returns title + id to ease recognize texts in not-western languages """
+        return "%s [%s]" % ( self.title, self.pk )
+
     def __str__(self):
         """String representation of this model objects."""
-        return self.title
+        return self.get_extended_title
 
 
 class BlogText(models.Model):

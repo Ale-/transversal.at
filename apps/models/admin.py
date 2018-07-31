@@ -138,7 +138,7 @@ class JournalTextAdmin(admin.ModelAdmin):
     ordering          = ('issue',)
     actions           = [publish, unpublish]
     list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published', 'issue')
-    list_display      = ('title', 'issue', 'date', 'author_text', 'is_published')
+    list_display      = ('get_extended_title', 'issue', 'date', 'author_text', 'is_published')
 
     # form
     fieldsets = (
@@ -176,7 +176,10 @@ class JournalTextInline(SortableTabularInline):
     extra = 0
 
     def linked_title(self, obj):
-        return format_html("<a href='" + reverse('journal_text', args=[obj.issue.slug, obj.slug, obj.language]) + "'>" + obj.title + "</a>")
+        return format_html("<a href='" + reverse('journal_text', args=[obj.issue.slug, obj.slug, obj.language]) + "'>" + obj.get_extended_title + "</a>")
+
+    linked_title.short_description = 'Title'
+
 
 class JournalIssueAdmin(NonSortableParentAdmin):
     model        = models.JournalIssue
