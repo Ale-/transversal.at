@@ -26,6 +26,15 @@
             <ul class="curated-content__items">
             {% for item in object.get_content %}
                 {% include 'views/curated-item.html' with item=item %}
+            {% empty %}
+                <div class="search-items__empty">
+                  <p class="search-items__empty-icon">
+                      ∅
+                  </p>
+                  <p class="search-items__empty-text">
+                      {% trans 'There\'s no content yet in this list' %}
+                  </p>
+                </div>
             {% endfor %}
             </ul>
         </div>

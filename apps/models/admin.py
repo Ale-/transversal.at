@@ -8,6 +8,7 @@ from django.utils.html import format_html
 from django.utils.text import slugify
 from django.urls import reverse, reverse_lazy
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 # contrib
 from adminsortable.admin import SortableTabularInline, NonSortableParentAdmin
 # app
@@ -394,13 +395,34 @@ class PageAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Page, PageAdmin)
 
+class CuratedListForm(forms.ModelForm):
+    books         = forms.ModelMultipleChoiceField(
+        queryset = models.Book.objects.order_by('title'),
+        required = False,
+        widget   = FilteredSelectMultiple('Books', is_stacked=False)
+    )
+    book_excerpts = forms.ModelMultipleChoiceField(
+        queryset = models.BookExcerpt.objects.order_by('title'),
+        required = False,
+        widget   = FilteredSelectMultiple('Essays', is_stacked=False)
+    )
+    journal_texts = forms.ModelMultipleChoiceField(
+        queryset = models.JournalText.objects.order_by('title'),
+        required = False,
+        widget   = FilteredSelectMultiple('Journal texts', is_stacked=False)
+    )
+    blog_texts    = forms.ModelMultipleChoiceField(
+        queryset = models.BlogText.objects.order_by('title'),
+        required = False,
+        widget   = FilteredSelectMultiple('Blog posts', is_stacked=False)
+    )
 
 class CuratedListAdmin(admin.ModelAdmin):
     model = models.CuratedList
+    form  = CuratedListForm
     exclude           = ('user', 'length')
     list_display      = ('name', 'user', 'date', 'public')
     ordering          = ('-date',)
-    filter_horizontal = ('books', 'book_excerpts', 'journal_texts', 'blog_texts')
     list_filter       = ('public', 'user')
 
     def save_model(self, request, obj, form, change):
@@ -410,7 +432,7 @@ class CuratedListAdmin(admin.ModelAdmin):
         # calculate lenght of the list automatically
         l = 0
         for field in ['books', 'book_excerpts', 'journal_texts', 'blog_texts']:
-            l+= len(request.POST.get(field, []))
+            l+= len(form.cleaned_data.get(field, []))
         obj.length = l
         if l == 0:
             obj.public = False

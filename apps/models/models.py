@@ -541,17 +541,17 @@ class Event(models.Model):
 class CuratedList(models.Model):
     """ User profiles """
 
-    user            = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
-    name            = models.CharField(_('Name'), max_length=128, blank=False, null=True)
-    body            = RichTextUploadingField(_('Description'), blank=True, null=True,
-                                             help_text=_("Provide an optional description for your list"))
-    date            = models.DateField(_('Date'), default=now, blank=True)
-    public          = models.BooleanField(_('Public'), default=True)
-    length          = models.PositiveIntegerField(default=0, blank=True)
-    books           = models.ManyToManyField(Book, verbose_name=_('Books'), related_name='books', blank=True)
-    book_excerpts   = models.ManyToManyField(BookExcerpt, verbose_name=_('Excerpts'), related_name='excerpts', blank=True)
-    journal_texts   = models.ManyToManyField(JournalText, verbose_name=_('Journal texts'), related_name='journal_texts', blank=True)
-    blog_texts      = models.ManyToManyField(BlogText, verbose_name=_('Blog posts'), related_name='blog_texts', blank=True)
+    user          = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
+    name          = models.CharField(_('Name'), max_length=128, blank=False, null=True)
+    body          = RichTextUploadingField(_('Description'), blank=True, null=True,
+                                           help_text=_("Provide an optional description for your list"))
+    date          = models.DateField(_('Date'), default=now, blank=True)
+    public        = models.BooleanField(_('Public'), default=True)
+    length        = models.PositiveIntegerField(default=0, blank=True)
+    books         = models.ManyToManyField(Book, verbose_name=_('Books'), related_name='books', blank=True)
+    book_excerpts = models.ManyToManyField(BookExcerpt, verbose_name=_('Excerpts'), related_name='excerpts', blank=True)
+    journal_texts = models.ManyToManyField(JournalText, verbose_name=_('Journal texts'), related_name='journal_texts', blank=True)
+    blog_texts    = models.ManyToManyField(BlogText, verbose_name=_('Blog posts'), related_name='blog_texts', blank=True)
 
     @property
     def username(self):
