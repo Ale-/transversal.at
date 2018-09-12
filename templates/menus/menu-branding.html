@@ -1,5 +1,5 @@
 {# Menu with the brand of the site #}
-{% load utils %}
+{% load static utils %}
 
 <ul class="menu-branding">
     <li class="menu-branding__item home">
@@ -7,7 +7,7 @@
             transversal texts
         </a>
     </li>
-    <span class="separator">|</span> 
+    <span class="separator">|</span>
     <li class="menu-branding__item contact">
         <a href="{% url 'static_page' 'contact' %}">
             contact

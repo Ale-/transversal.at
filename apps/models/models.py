@@ -101,8 +101,8 @@ class Biography(models.Model):
     """ Biographies of people that collaborate or work in the different texts """
 
     slug                 = models.SlugField(blank=True)
-    name                 = models.CharField(_('Name'), max_length=200, blank=False, null=True)
-    surname              = models.CharField(_('Surname'), max_length=200, blank=True, null=True)
+    name                 = models.CharField(_('Name'), max_length=200, blank=True, null=True)
+    surname              = models.CharField(_('Surname'), max_length=200, blank=False, null=True)
     email                = models.EmailField(_('Email'), blank=True, null=True)
     description          = RichTextUploadingField(_('Description'), blank=True, null=True)
     comments             = models.TextField(_('Comments'), blank=True, null=True,
@@ -148,9 +148,9 @@ class JournalIssue(models.Model):
     links           = GenericRelation(Link)
 
     # metadata
-    comments             = models.TextField(_('Comments'), blank=True, null=True,
+    comments        = models.TextField(_('Comments'), blank=True, null=True,
                                             help_text=_('Private'))
-    is_published         = models.CharField(_('Is published'), choices=ISSUE_CATEGORIES, max_length=2, default='i', null=True, blank=False)
+    is_published    = models.CharField(_('Is published'), choices=ISSUE_CATEGORIES, max_length=2, default='i', null=True, blank=False)
 
     class Meta:
         verbose_name        = _('Journal issue')

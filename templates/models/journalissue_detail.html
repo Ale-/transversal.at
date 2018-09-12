@@ -16,6 +16,9 @@
         </div>
         {% endif %}
     </nav>
+    <p class="issue__date--full">
+      {{ object.date | date:"m Y"}}
+    </p>
     <h1 class="issue__title--full">
         <ul class="fadein">
             <li class="fadein__item active">{{ object.title }}</li>
@@ -24,11 +27,8 @@
             {% endfor %}
         </ul>
     </h1>
+    {% if object.links.all|length > 0 %}
     <div class="issue__date-links--full">
-        <span class="issue__date--full">
-          {{ object.date | date:"m Y"}}
-        </span>
-        {% if object.links.all|length > 0 %}
             <span class="issue__external-links--full">
             {% for link in object.links.all %}
                 , <a target="_blank" href="{{ link.url }}" >
@@ -36,8 +36,8 @@
                 </a>
             {% endfor %}
             </span>
-        {% endif %}
     </div>
+    {% endif %}
     <ul class="issue__links">
         <li class="issue__link">
             <a href="{% url 'journal_issue_editorial' object.slug %}">

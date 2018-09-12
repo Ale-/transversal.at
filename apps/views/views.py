@@ -220,7 +220,6 @@ class JournalIssueEditorial(views.View):
         slug   = self.kwargs['issue_slug']
         object = models.JournalIssue.objects.get(slug=slug)
         body   = object.editorial
-        title  = object.editorial_title if object.editorial_title else object.title
         html_title = "Editorial | " + object.title
         active = 'editorial'
         return render(request, 'models/journalissue_details.html', locals())

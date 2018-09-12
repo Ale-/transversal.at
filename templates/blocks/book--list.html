@@ -1,10 +1,16 @@
 {# Book block in listings #}
 
+{% if request.user.is_staff or book.is_published %}
 <div class="book--list {% if not book.is_published or not book.in_listings %}unpublished{% endif %}">
     {% if book.image %}
         <figure class="book__image--list">
             <img src="{{ book.image.first.thumbnail.url }}" />
         </figure>
+    {% endif %}
+    {% if not book.is_published or not book.in_listings %}
+    <p class="book__unpublished--list">
+        Not public
+    </p>
     {% endif %}
     <h4 class="book__title--list">
         {% if book.external_url and book.use_external_url %}
@@ -24,3 +30,4 @@
         {{ book.teaser | safe }}
     </div>
 </div>
+{% endif %}

@@ -82,3 +82,10 @@ def rtl(langcode):
         return 'dir=rtl'
     else:
         return ' '
+
+@register.filter
+def any_is_published(queryset):
+    for item in queryset:
+        if item.is_published:
+            return True
+    return False

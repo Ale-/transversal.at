@@ -9,25 +9,26 @@
   overflow: hidden
 .issue__title--full
   margin: 0
-  height: $m*1.75
   li
-    position: absolute
     line-height: 1.1
+  .fadein__item
+    height: 0
+  .fadein__item.active
+    height: auto
 .issue__date-links--full
   font-family: $font_auxiliar
   +breakpoint('xs')
     margin-top: $m*5
 .issue__date--full
   +date
+  margin-bottom: 4px !important
 .issue__text-lang
   text-transform: uppercase
   width: $m/2
   color: #444
   font-size: .7em
 .issue__links
-  margin-bottom: $m
-  +breakpoint('sm')
-    margin: $m 0
+  margin: $m/2 0 $m
 .issue__link
   font-family: $font_headers
   display: inline

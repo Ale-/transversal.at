@@ -1,22 +1,28 @@
 {# Book list #}
 {% extends 'layouts/single-fixed-column.html' %}
-{% load imagekit %}
+{% load imagekit utils %}
 {% block body_classes %}books{% endblock %}
 {% block page_html_title %}Books{% endblock %}
 
 {% block main %}
     {% for book in books %}
     <div class="related-books">
+        {% if request.user.is_staff or book.is_published or book.book_set.all|any_is_published %}
         <ul class="related-books__titles fadein">
+            {% if book.is_published or request.user.is_staff %}
             <li class="related-books__title fadein__item">
                 {{ book.title }}
             </li>
+            {% endif %}
             {% for related_book in book.book_set.all %}
-            <li class="related-books__title fadein__item">
-                {{ related_book.title }}
-            </li>
+                {% if related_book.is_published or request.user.is_staff %}
+                <li class="related-books__title fadein__item">
+                    {{ related_book.title }}
+                </li>
+                {% endif %}
             {% endfor %}
         </ul>
+        {% endif %}
         <div class="related-books__wrapper">
         {% include 'blocks/book--list.html' with book=book %}
         {% for related_book in book.book_set.all %}

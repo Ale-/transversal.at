@@ -16,19 +16,25 @@ from . import models
 from apps.utils import admin_filters as filters
 
 
-def publish(modeladmin, request, queryset):
-    for obj in queryset:
-        obj.is_published = True
-        obj.save()
+def publish_issue(modeladmin, request, queryset):
+    queryset.update(is_published='p')
 
-publish.short_description = "Publish selected elements"
+publish_issue.short_description = "Publish selected elements"
+
+def unpublish_issue(modeladmin, request, queryset):
+    queryset.update(is_published='i')
+
+unpublish_issue.short_description = "Unpublish selected elements"
+
+def publish(modeladmin, request, queryset):
+    queryset.update(is_published=True)
+
+publish_issue.short_description = "Publish selected elements"
 
 def unpublish(modeladmin, request, queryset):
-    for obj in queryset:
-        obj.is_published = False
-        obj.save()
+    queryset.update(is_published=False)
 
-unpublish.short_description = "Unpublish selected elements"
+unpublish_issue.short_description = "Unpublish selected elements"
 
 class ImageInline(GenericTabularInline):
     model = models.Image
@@ -188,7 +194,7 @@ class JournalIssueAdmin(NonSortableParentAdmin):
     ordering     = ('-date', 'title',)
     list_display = ('title', 'date', 'is_published', 'view')
     list_filter  = (filters.TitleFilter, 'is_published')
-    actions      = [ publish, unpublish ]
+    actions      = [ publish_issue, unpublish_issue ]
 
     # form
     fieldsets = (

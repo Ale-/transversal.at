@@ -25,7 +25,7 @@
             {{ object.comments }}
         </div>
         {% endif %}
-        <p class="text__date">
+        <p class="text__date" {% rtl object.language %}>
             {% if object.date %}
             {{ object.date | date:"m Y" }}
             {% else %}
@@ -34,21 +34,21 @@
         </p>
 
         {# print to pdf link #}
-        {% include 'blocks/print.html' with class_modifier='journal' url='journal_text_pdf' id=object.pk %}
+        {% include 'blocks/print.html' with class_modifier='journal' url='journal_text_pdf' id=object.pk lang=object.language %}
 
         <h1 class="text__title" {% rtl object.language %}>
             {{ object.get_title }}
         </h1>
         {% if object.subtitle %}
-        <h2 class="text__subtitle">
+        <h2 class="text__subtitle" {% rtl object.language %}>
             {{ object.subtitle }}
         </h2>
         {% endif %}
-        <p class="text__author-text">
+        <p class="text__author-text" {% rtl object.language %}>
             {{ object.author_text | safe }}
         </p>
         {% if object.translator_text %}
-        <p class="text__translator-text">
+        <p class="text__translator-text" {% rtl object.language %}>
             {{ object.translator_text | safe }}
         </p>
         {% endif %}

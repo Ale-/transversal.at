@@ -54,6 +54,8 @@ urlpatterns = [
     path('event/<slug:slug>', views.EventView.as_view(), name="event"),
     # search
     path('search/', views.Search.as_view(), name="search"),
+    # static pages
+    path('<slug:slug>', views.Page.as_view(), name="static_page"),
     # user lists
     path('curated-content/', views.CuratedLists.as_view(), name="curated_lists"),
     # user lists
@@ -62,8 +64,6 @@ urlpatterns = [
     path('curated-content/<int:pk>', views.CuratedList.as_view(), name="curated_list"),
     # tags
     path('tag/<slug:slug>', views.TaggedContent.as_view(), name="tags"),
-    # static pages
-    path('<slug:slug>', views.Page.as_view(), name="static_page"),
 ]
 
 # Static and media in development
