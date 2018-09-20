@@ -2,9 +2,17 @@
 // regions/toolbar.html
 
 .region-toolbar
-  height: $toolbar_height
   position: fixed
-  text-align: right
   top: 0
-  z-index: 100
+  z-index: 10000
   width: 100%
+
+.region-toolbar .container-fixed
+  background: #dadbdd
+  padding: 0 $m/3
+  line-height: $toolbar_height - 6px
+
+.toolbar-hello
+  font-size: .6em
+  text-transform: uppercase
+  color: #4a4b4d

@@ -2,12 +2,14 @@
 
 <nav class="menu-admin{% if modifier %}--{{ modifier }}{% endif %}">
     <ul>
+        {% if request.user.is_staff %}
         <li class="menu-admin__link-admin--{% if modifier %}--{{ modifier }}{% endif %}">
             <a href="{% url 'admin:index' %}"
                title="{% trans 'Go to administration section' %}">
                 <img src="{% img 'cog.svg' %}" />
             </a>
         </li>
+        {% endif %}
         <li class="menu-admin__link-user--{% if modifier %}--{{ modifier }}{% endif %}">
             <a href="{% url 'user_curated_lists' %}"
                title="{% trans 'Go to your user profile' %}">
@@ -15,7 +17,7 @@
             </a>
         </li>
         <li class="menu-admin__link-logout--{% if modifier %}--{{ modifier }}{% endif %}">
-            <a href="{% url 'logout' %}"
+            <a href="{% url 'auth_logout' %}"
                title="{% trans 'Log out' %}">
                 <img src="{% img 'logout.svg' %}" />
             </a>

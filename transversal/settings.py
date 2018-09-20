@@ -19,8 +19,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'media')
 
-LOGIN_URL = '/login'
-LOGOUT_URL = '/logout'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Name of site in the document title
 DOCUMENT_TITLE = 'transversal texts'
@@ -30,6 +30,7 @@ admin.site.site_header = ADMIN_SITE_HEADER
 
 # Apps
 CONTRIB_APPS = (
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,6 +80,7 @@ TEMPLATES = [
                 'apps.utils.context_processors.debug_processor',
                 'apps.utils.context_processors.site_info_processor',
                 'apps.models.context_processors.slideshow_header_processor',
+                'apps.views.context_processors.loggedin_username_processor',
             ],
         },
     },
@@ -120,6 +122,11 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_JQUERY_URL  = "/static/admin/js/vendor/jquery/jquery.min.js"
 
+# REGISTRATION
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_FORM = 'registration.forms.RegistrationFormUniqueEmail'
 
 #
 # Import private settings

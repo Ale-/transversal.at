@@ -1,0 +1,45 @@
+// registration blocks
+
+.simpleform
+  margin: $m auto $m*2
+  max-width: 480px
+  text-align: center
+
+.simpleform [class*='__instructions']
+  font-size: 1.15em
+  margin: $m
+
+.simpleform [class*='__links']
+  font-size: 1.15em
+  margin-top: $m
+
+.simpleform [class*='__title']
+  margin-top: 0
+
+.simpleform label
+  font-family: $font_auxiliar
+  font-weight: bold
+  display: block
+  text-transform: uppercase
+  font-size: .8em
+
+.simpleform .helptext
+  font-style: italic
+  display: block
+
+.simpleform input[type=submit]
+  margin-top: $m*1.5
+  text-transform: uppercase
+  font-size: .85em
+  letter-spacing: 1px
+  font-family: $font_auxiliar
+  font-weight: bold
+  +button_box
+
+.simpleform .errorlist
+  color: $color_danger
+  font-weight: bold
+
+.simpleform .errorlist + p
+  background: rgba($color_danger, .25)
+  padding: $m/2 0 $m

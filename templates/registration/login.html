@@ -1,0 +1,31 @@
+{# Registration form #}
+
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n %}
+{% block body_classes %}login-page{% endblock %}
+{% block page_html_title %}login{% endblock %}
+
+{% block main %}
+<div class="login-form simpleform">
+    <h2 class="login-form__title">
+        Login
+    </h2>
+    <div class="login-form__instructions">
+    </div>
+    <form class="login-form__form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="login-form__form-submit" value="Login"></input>
+        <ul class="login-form__links">
+            <li>
+                <a href="{% url 'registration_register' %}">Sign up</a>
+            </li>
+            <li>
+                <a href="{% url 'password_reset' %}">
+                    Forgot your password?
+                </a>
+            </li>
+        </ul>
+    </form>
+</div>
+{% endblock %}

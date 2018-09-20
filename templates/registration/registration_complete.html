@@ -1,0 +1,20 @@
+{# Registration complete page #}
+
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n %}
+{% block body_classes %}signup-complete-page{% endblock %}
+{% block page_html_title %}welcome!{% endblock %}
+
+{% block main %}
+<div class="signup-complete">
+    <h2 class="signup-complete__title">
+        You've signed-up to transversal.at
+    </h2>
+    <div class="signup-complete__text">
+        <p>You've registered your user with success.</p>
+        </p>
+        <p>We've sent you an email with instructions to activate your account.
+        If you don't find it don't forget to check your spam folder.</p>
+    </div>
+</div>
+{% endblock %}

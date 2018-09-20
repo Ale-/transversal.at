@@ -5,15 +5,17 @@ from django.urls import path
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import logout
+from django.contrib.auth import views as auth_views
+
 # project
 from apps.views import views
 
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
-    # logout
-    url(r'^logout/$', logout, { 'next_page': '/' }, name="logout"),
+    # registration
+    path('', include('django.contrib.auth.urls')),
+    path('', include('registration.backends.default.urls')),
     # ckeditor
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # contact

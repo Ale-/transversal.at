@@ -1,0 +1,19 @@
+{# Activation complete page #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n %}
+{% block body_classes %}activation-complete-page{% endblock %}
+{% block page_html_title %}Your account has been activated{% endblock %}
+
+{% block main %}
+<div class="activation-complete">
+    <h2 class="activation-complete__title">
+        Welcome!
+    </h2>
+    <div class="activation-complete__text">
+        <p>✔ Your account has been activated.</p>
+        <p>Now you can log in with the name and password provided
+        to the registration form.</p>
+        <p><a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+{% endblock %}

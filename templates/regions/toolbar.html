@@ -1,7 +1,8 @@
 {# Header region #} {% extends 'regions/region-base.html' %}
 
 {% block region_content %}
-    {% if request.user.is_staff %}
-        {% include 'menus/menu-admin.html' %}
-    {% endif %}
+    <span class="toolbar-hello">
+        Hi, <strong>{{ loggedin_username }}</strong>
+    </span>
+    {% include 'menus/menu-admin.html' %}
 {% endblock %}

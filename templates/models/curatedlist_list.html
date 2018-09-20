@@ -7,19 +7,18 @@
 {% block main %}
     <nav class="links">
         {% fake_breadcrumb %}
-        {% if personal %}
         <div class="links__staff">
+            {% if request.user.is_staff %}
             <a href="{% url 'admin:auth_user_change' request.user.id %}">
                 {% trans 'Edit your user' %}
             </a>
+            {% endif %}
         </div>
-        {% elif request.user.is_staff %}
         <div class="links__staff">
             <a href="{% url 'admin:models_curatedlist_add' %}">
                 {% trans 'Create a new list' %}
             </a>
         </div>
-        {% endif %}
     </nav>
     <h1 class="page__title">
         {% if personal %}
@@ -59,7 +58,7 @@
                     ∅
                 </p>
                 <p class="search-items__empty-text">
-                    {% trans "There's no curated content yet!" %}
+                    {% trans "You haven't created any list yet!" %}
                 </p>
             </div>
             {% endfor %}
