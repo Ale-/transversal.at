@@ -1,0 +1,9 @@
+{# error 500 template #}
+{% extends 'pages/exception.html' %}
+{% load i18n %}
+
+{% block error %}500{% endblock %}
+{% block text %}
+    There's been a server error. Try again after some minutes. If problem persists
+    contact the site.
+{% endblock %}

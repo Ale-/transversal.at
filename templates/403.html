@@ -1,0 +1,8 @@
+{# error 403 template #}
+{% extends 'pages/exception.html' %}
+{% load i18n %}
+
+{% block error %}403{% endblock %}
+{% block text %}
+    You dont' have permissions to see this page.
+{% endblock %}

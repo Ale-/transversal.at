@@ -1,0 +1,8 @@
+{# error 404 template #}
+{% extends 'pages/exception.html' %}
+{% load i18n %}
+
+{% block error %}404{% endblock %}
+{% block text %}
+    It seems you're looking for non-existent content. Did you properly type the requested URL?
+{% endblock %}

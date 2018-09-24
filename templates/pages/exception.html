@@ -1,0 +1,14 @@
+{# Exception pages #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n %}
+{% block body_classes %}exception padding{% endblock %}
+{% block page_html_title %}There's been a problem{% endblock %}
+
+{% block main %}
+    <h1 class="page__title">
+       Error {% block error %}{% endblock %}
+    </h1>
+    <div class="page__content">
+        {% block text %}{% endblock %}
+    </div>
+{% endblock %}
