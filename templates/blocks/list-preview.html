@@ -1,0 +1,20 @@
+{# a small preview of a list #}
+
+<div class="list-preview">
+    <h4 class="list-preview__name">
+        Items in «{{ list.name }}»
+    </h4>
+    <div class="list-preview__items">
+    {% for i in items.all %}
+        <div class="list-preview__item {% if not i.public %}not-public{% endif %}">
+            <h5 class="list-preview__item-title">
+                {{ i.source_content.title }}
+            </h5>
+            <p class="list-preview__item-date">
+                {{ i.date }}</p>
+        </div>
+    {% empty %}
+        This list is empty yet.
+    {% endfor %}
+    </div>
+</div>

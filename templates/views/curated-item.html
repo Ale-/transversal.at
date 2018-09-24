@@ -1,34 +1,57 @@
 {% load utils i18n %}
 
-<li class="curated-content__item">
-    <p class="curated-content__item-type">
-    {% if item|verbose_name != 'Essay' %}
-        {{ item|verbose_name }}
-    {% else %}
-        {% trans 'Essay from the book ' %} <em>{{ item.source_text.title }}</em>
-        {% if item.pages %}(pp. {{ item.pages}}){% endif %}
-    {% endif %}
+<li class="curated-content__item {% if not item.public %}not-public{% endif %}">
+    <p class="curated-content__item-meta">
+        {{ item.source_content|verbose_name }}{% if item.source_content.date %} |
+        <span class="date">
+        {{ item.source_content.date|date:"d m y" }}
+        </span>
+        {% endif %}
+        {% if not item.public %}
+        <span class="public">
+            Not public
+        </span>
+        {% endif %}
     </p>
     <h4 class="curated-content__item-title">
-        {% if item.get_absolute_url %}
-        <a href="{{ item.get_absolute_url }}">
-            {{ item.title }}
+        {% if item.source_content.get_absolute_url %}
+        <a href="{{ item.source_content.get_absolute_url }}"
+           {% if item.source_content|verbose_name == 'link' %}target="_blank"{% endif %}>
+            {{ item.source_content.title }}
         </a>
         {% else %}
-            {{ item.title }}
+            {{ item.source_content.title }}
         {% endif %}
     </h4>
-    {% if item.subtitle %}
+    {% if item.source_content.subtitle %}
     <h5 class="curated-content__item-subtitle">
-        {{ item.subtitle }}
+        {{ item.source_content.subtitle | safe }}
     </h5>
     {% endif %}
-    <p class="curated-content__item-meta">
-        <span class="author">
-        {% if item.author_text %}{{ item.author_text }} {% endif %}
-        </span>
-        <span class="date">
-        {% if item.date %}{{ item.date|date:"d m y" }}{% endif %}
-        </span>
+    {% if item.source_content.author_text %}
+    <p class="curated-content__item-author">
+    {{ item.source_content.author_text }} |
     </p>
+    {% endif %}
+    {% if item.comment %}
+    <p class="curated-content__item-comment">
+        {{ item.comment }}
+    </p>
+    {% endif %}
+    {% if item.user %}
+    <p class="curated-content__item-suggested">
+        Contributed by {{ item.user.username }} {% if not item.public %}on {{ item.date }}{% endif %}
+    </p>
+    {% endif %}
+    {% if request.user == item.list.user %}
+    <p class="curated-content__item-edit">
+        {% if item.source_content|verbose_name != 'link' %}
+          <a href="{% url 'curated_item_update' item.pk %}">
+        {% else %}
+          <a href="{% url 'curated_link_update' item.pk %}">
+        {% endif %}
+            Edit
+        </a>
+    </p>
+    {% endif %}
 </li>

@@ -1,9 +1,8 @@
 // registration blocks
 
 .simpleform
-  margin: $m auto $m*2
   max-width: 480px
-  text-align: center
+  position: relative
 
 .simpleform [class*='__instructions']
   font-size: 1.15em
@@ -17,8 +16,7 @@
   margin-top: 0
 
 .simpleform label
-  font-family: $font_auxiliar
-  font-weight: bold
+  font-family: $font_headers
   display: block
   text-transform: uppercase
   font-size: .8em
@@ -39,7 +37,32 @@
 .simpleform .errorlist
   color: $color_danger
   font-weight: bold
+  & + p
+    background-color: rgba($color_danger, .25)
+    padding: $m
 
-.simpleform .errorlist + p
-  background: rgba($color_danger, .25)
-  padding: $m/2 0 $m
+.form__cancel--remove-item
+  margin-top: $m
+
+.simpleform__buttons
+  color: $color_text !important
+  font-family: $font_auxiliar
+  font-size: .8em
+  position: absolute
+  right: 0
+  bottom: 0
+  +links_none
+
+.simpleform__buttons > li
+  display: inline-block
+
+.simpleform__buttons button,
+.simpleform__buttons a
+  +button_box_light
+  line-height: 40px
+.simpleform__buttons a
+  display: block
+.hints
+  margin-top: $m
+  padding: $m
+  font-size: 1.15em

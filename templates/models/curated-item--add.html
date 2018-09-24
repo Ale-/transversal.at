@@ -1,0 +1,31 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--additem padding{% endblock %}
+{% block page_html_title %}Add item to list{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+    </nav>
+    <div class="page__left--additem">
+        <h1 class="page__title">
+          Add item to list
+        </h1>
+        <div class="page__content simpleform">
+            <form class="addlist-form" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="addlist-form__submit" value="Submit"></input>
+            </form>
+            <div class="simpleform__buttons">
+                <button class="cancel-link" onclick="history.go(-1)">
+                  Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="page__right--additem">
+        {% include 'blocks/item-preview.html' with item=item %}
+    </div>
+{% endblock %}

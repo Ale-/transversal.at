@@ -1,0 +1,31 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--addlink padding{% endblock %}
+{% block page_html_title %}Add link to list{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+    </nav>
+    <div class="page__left--addlink">
+        <h2 class="page__title">
+            Add link to list «{{ list.name }}»
+        </h2>
+        <div class="page__content simpleform">
+            <form class="addlink-form" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="addlink-form__submit" value="Add this link"></input>
+            </form>
+            <div class="simpleform__buttons">
+                <button class="cancel-link" onclick="history.go(-1)">
+                  Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="page__right--addlink">
+        {% include 'blocks/list-preview.html' with list=list items=items %}
+    </div>
+{% endblock %}

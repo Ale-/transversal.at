@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<li class="curated-lists__item">
+    <h3 class="curated-lists__item-name">
+        <a href="{{ list.get_absolute_url }}">
+            {{ list.name }}
+        </a>
+    </h3>
+    <div class="curated-lists__item-description">
+        {{ list.body | safe }}
+    <div>
+    {% with list.get_length as len %}
+    <p class="curated-lists__item-length">
+        <small>{% trans 'Contains' %} {{ len }} {% trans 'text' %}{{ len|pluralize }}</small>
+    <p>
+    {% endwith %}
+    <p class="curated-lists__item-by">
+        <span class="author">
+            {{ list.user.username }}
+        </span>
+        <span class="date">
+            {{ list.date|date:'d m y' }}
+        </span>
+    </p>
+</li>

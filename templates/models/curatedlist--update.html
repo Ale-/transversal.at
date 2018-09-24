@@ -1,0 +1,27 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--list-update padding{% endblock %}
+{% block page_html_title %}Update list{% endblock %}
+
+{% block main %}
+    <nav class="links">
+        {% fake_breadcrumb %}
+    </nav>
+    <div class="page__left--list-update">
+        <h1 class="page__title">
+            Update «{{ object.name }}»
+        </h1>
+        <div class="simpleform">
+            <form class="form--list-update" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="form__submit--list-update" value="Save the changes"></input>
+            </form>
+            {% include 'blocks/simpleform-buttons.html' with delete_url='curated_list_delete' delete_pk=object.pk %}
+        </div>
+    </div>
+    <div class="page__right--list-update simpleform">
+        {% include 'blocks/list-preview.html' with list=object items=items %}
+    </div>
+{% endblock %}

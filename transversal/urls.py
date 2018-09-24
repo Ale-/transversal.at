@@ -58,12 +58,32 @@ urlpatterns = [
     path('search/', views.Search.as_view(), name="search"),
     # static pages
     path('<slug:slug>', views.Page.as_view(), name="static_page"),
-    # user lists
+    # all lists
     path('curated-content/', views.CuratedLists.as_view(), name="curated_lists"),
     # user lists
     path('curated-content/me', views.UserCuratedLists.as_view(), name="user_curated_lists"),
-    # me
+    # add list
+    path('curated-content/add', views.CuratedListAdd.as_view(), name="curated_list_add"),
+    # add item to list
+    path('curated-content/add-item', views.CuratedItemAdd.as_view(), name="curated_item_add"),
+    # add link to list
+    path('curated-content/add-link', views.CuratedLinkAdd.as_view(), name="curated_link_add"),
+    # see list
     path('curated-content/<int:pk>', views.CuratedList.as_view(), name="curated_list"),
+    # update list
+    path('curated-content/<int:pk>/update', views.CuratedListUpdate.as_view(), name="curated_list_update"),
+    # delete list
+    path('curated-content/<int:pk>/update', views.CuratedListDelete.as_view(), name="curated_list_delete"),
+    # update list item
+    path('curated-content/items/<int:pk>/update', views.CuratedItemUpdate.as_view(), name="curated_item_update"),
+    # update linl item
+    path('curated-content/links/<int:pk>/update', views.CuratedLinkUpdate.as_view(), name="curated_link_update"),
+    # delete list item
+    path('curated-content/items/<int:pk>/delete', views.CuratedItemDelete.as_view(), name="curated_item_delete"),
+    # delete link item
+    path('curated-content/links/<int:pk>/delete', views.CuratedLinkDelete.as_view(), name="curated_link_delete"),
+    # delete list
+    path('curated-content/<int:pk>/delete', views.CuratedListDelete.as_view(), name="curated_list_delete"),
     # tags
     path('tag/<slug:slug>', views.TaggedContent.as_view(), name="tags"),
 ]

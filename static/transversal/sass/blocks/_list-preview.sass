@@ -1,0 +1,20 @@
+// Widget for previewing lists in forms
+
+.list-preview
+  margin-top: $m*2
+.page--list-delete .list-preview
+  margin-top: 0
+.list-preview__prefix
+  margin-bottom: 0 !important
+  text-transform: uppercase
+  font-size: .75em
+.list-preview__name
+  margin-top: 0
+  border-bottom: 1px solid $color_text
+.list-preview__item.not-public
+  background-color: rgba(yellow, .15)
+.list-preview__item-title
+  margin: 0
+.list-preview__item-date
+  +date
+  font-size: .7em

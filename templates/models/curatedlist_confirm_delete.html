@@ -1,0 +1,29 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--list-delete padding{% endblock %}
+{% block page_html_title %}Delete list{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+    </nav>
+    <h1 class="page__title--list-delete">
+        Delete «{{ object.name }}»?
+    </h1>
+    <div class="page__left--list-delete">
+        <div class="simpleform">
+          Are you sure you want to delete this list? This action
+          cannot be undone.
+          <form class="form--remove-item" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="form__submit--remove-item" value="Delete this list"></input>
+          </form>
+          {% include 'blocks/simpleform-buttons.html' %}
+        </div>
+    </div>
+    <div class="page__right--additem">
+        {% include 'blocks/list-preview.html' with list=object items=items %}
+    </div>
+{% endblock %}

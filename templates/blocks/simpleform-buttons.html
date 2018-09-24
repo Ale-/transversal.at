@@ -1,0 +1,15 @@
+{# simpleform buttons #}
+<ul class="simpleform__buttons">
+    <li class="simpleform__button--cancel">
+        <button onclick="history.go(-1)">
+            Cancel
+        </button>
+    </li>
+    {% if delete_url %}
+    <li class="simpleform__button--delete">
+        <a href="{% url delete_url delete_pk %}">
+            Delete
+        </a>
+    </li>
+    {% endif %}
+</ul>

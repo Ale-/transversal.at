@@ -448,3 +448,5 @@ class CuratedListAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(models.CuratedList, CuratedListAdmin)
+admin.site.register(models.CuratedListElement)
+admin.site.register(models.Link)

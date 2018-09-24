@@ -1,0 +1,28 @@
+{# a small preview of a list item #}
+{% load utils %}
+
+<div class="item-preview">
+    <p class="item-preview__meta">
+        <span class="item-preview__type">
+            {{ item|verbose_name }}
+        </span>
+        {% if item.date %}
+         | <span class="item-preview__date">
+            {{ item.date | date:"d m y" }}
+        </span>
+        {% endif %}
+    </p>
+    <h4 class="item-preview__title">
+        {{ item.title }}
+    </h4>
+    {% if item.subtitle %}
+    <h5 class="item-preview__subtitle">
+        {{ item.subtitle|safe }}
+    </h5>
+    {% endif %}
+    {% if item.author_text %}
+    <p class="item-preview__author_text">
+        {{ item.author_text|safe }}
+    </p>
+    {% endif %}
+</div>

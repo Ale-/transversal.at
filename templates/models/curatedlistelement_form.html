@@ -1,0 +1,48 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--additem{% endblock %}
+{% block page_html_title %}Add a new list{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+    </nav>
+    <h1 class="page__title">
+        Add/suggest item to a list
+    </h1>
+    <div class="page__left--additem">
+        <div class="item-preview">
+          <p class="item-preview__meta">
+              <span class="item-preview__type">
+                  {{ item|verbose_name }}
+              </span> |
+              <span class="item-preview__date">
+                  {{ item.date | date:"d m y" }}
+              </span>
+          </p>
+          <h4 class="item-preview__title">
+              {{ item.title }}
+          </h4>
+          {% if item.subtitle %}
+          <h5 class="item-preview__subtitle">
+              {{ item.subtitle }}
+          </h5>
+          {% endif %}
+          {% if item.author_text %}
+          <p class="item-preview__author_text">
+              {{ item.author_text|safe }}
+          </p>
+          {% endif %}
+        </div>
+    </div>
+    <div class="page__right--additem">
+        <div class="page__content simpleform">
+            <form class="addlist-form" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="addlist-form__submit" value="Submit"></input>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -9,13 +9,13 @@
         {% fake_breadcrumb %}
         <div class="links__staff">
             {% if request.user.is_staff %}
-            <a href="{% url 'admin:auth_user_change' request.user.id %}">
+             | <a href="{% url 'admin:auth_user_change' request.user.id %}">
                 {% trans 'Edit your user' %}
             </a>
             {% endif %}
         </div>
         <div class="links__staff">
-            <a href="{% url 'admin:models_curatedlist_add' %}">
+            <a href="{% url 'curated_list_add' %}">
                 {% trans 'Create a new list' %}
             </a>
         </div>
@@ -31,36 +31,16 @@
         <div class="curated-lists">
             <ul class="curated-lists__items">
             {% for list in object_list %}
-            <li class="curated-lists__item">
-                <h3 class="curated-lists__item-name">
-                    <a href="{{ list.get_absolute_url }}">
-                        {{ list.name }}
-                    </a>
-                </h3>
-                <div class="curated-lists__item-description">
-                    {{ list.body | safe }}
-                <div>
-                <p class="curated-lists__item-length">
-                    <small>{% trans 'Contains' %} {{ list.length }} {% trans 'text' %}{{ list.length|pluralize }}</small>
-                <p>
-                <p class="curated-lists__item-by">
-                    <span class="author">
-                        {{ list.user.username }}
-                    </span>
-                    <span class="date">
-                        {{ list.date|date:'d m y' }}
-                    </span>
-                </p>
-            </li>
+                {% include 'views/curated-list.html' with list=list %}
             {% empty %}
-            <div class="search-items__empty">
-                <p class="search-items__empty-icon">
-                    ∅
-                </p>
-                <p class="search-items__empty-text">
-                    {% trans "You haven't created any list yet!" %}
-                </p>
-            </div>
+                <div class="search-items__empty">
+                    <p class="search-items__empty-icon">
+                        ∅
+                    </p>
+                    <p class="search-items__empty-text">
+                        {% trans "You haven't created any list yet!" %}
+                    </p>
+                </div>
             {% endfor %}
             </ul>
         </div>

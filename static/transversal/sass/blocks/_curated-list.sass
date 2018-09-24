@@ -6,26 +6,12 @@
   margin: 0
 .curated-content__item-meta
   font-family: $font_auxiliar
-  margin: $m/3 0 0
-  .author
-    font-size: .9em
-    color: $palette_grey
-    font-family: $font_headers
-    margin-right: $m/3
-  .date
-    font-size: .8em
-.curated-content__item-type
-  font-size: .8em
-  font-family: $font_auxiliar
-  margin-bottom: 0 !important
-  &::first-letter
-    text-transform: uppercase
+  text-transform: uppercase
+  font-size: .7em
+  margin: 0 !important
 .curated-content__item
   margin-bottom: $m/2
   position: relative
-  &::before
-    content: "—"
-    display: block
   &:first-child
     margin-top: $m*2
     &::before
@@ -35,3 +21,23 @@
 .curated-content__item.removed > h5,
 .curated-content__item.removed > p,
   opacity: .25
+
+.curated-content__item.not-public
+  background-color: rgba(yellow, .15)
+  padding: $m/2 $m
+
+
+.curated-content__item-meta .public
+  float: right
+  font-size: .75em
+.curated-content__item-comment
+  font-style: italic
+  line-height: 1.1
+.curated-content__item-suggested
+  font-size: .75em
+.curated-content__item-author
+  font-size: .9em
+.curated-content__owner
+  font-size: .9em
+  font-style: italic
+  margin-top: $m

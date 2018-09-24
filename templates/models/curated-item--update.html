@@ -1,0 +1,28 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--updateitem padding{% endblock %}
+{% block page_html_title %}Edit item{% endblock %}
+
+{% block main %}
+    <nav class="links">
+      {% fake_breadcrumb %}
+    </nav>
+    <div class="page__left--additem">
+        <h1 class="page__title">
+            Edit list item
+        </h1>
+        <div class="page__content simpleform">
+            <form class="addlist-form" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="addlist-form__submit" value="Submit"></input>
+            </form>
+            {% include 'blocks/simpleform-buttons.html' with delete_url='curated_item_delete' delete_pk=object.pk %}
+        </div>
+    </div>
+    <div class="page__right--additem">
+        {% include 'blocks/item-preview.html' with item=item %}
+        {% include 'blocks/list-preview.html' with list=list items=items %}
+    </div>
+{% endblock %}

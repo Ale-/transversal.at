@@ -6,6 +6,7 @@ import urllib
 from django.shortcuts import render
 from django import views
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.utils.dateparse import parse_datetime
 from django.http import Http404, HttpResponse
 from django.db.models import Q
@@ -14,11 +15,14 @@ from django.utils.decorators import method_decorator
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
+from django.urls import reverse
+from django.contrib import messages
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
 from apps.models import models, categories
-
+from . import forms as forms
 
 class Front(views.View):
 
@@ -373,43 +377,256 @@ class CuratedList(DetailView):
 
     model = models.CuratedList
 
-# class APICurate(views.View):
-#     """ An API method to allow users to select their curated content """
-#
-#     @method_decorator(login_required)
-#     def get(self, request):
-#         pk              = request.GET.get('pk')
-#         content_type    = ContentType.objects.get(model=request.GET.get('contenttype'))
-#         content         = content_type.get_object_for_this_type(pk=pk)
-#         profile,created = models.UserProfile.objects.get_or_create(user=request.user)
-#         action          = request.GET.get('action')
-#         if action == 'add':
-#             models.ContentSelection.objects.create(
-#                 content_type = content_type,
-#                 object_id    = pk,
-#                 profile      = profile,
-#             )
-#             return HttpResponse("Item added successfully to user's list of curated content")
-#         models.ContentSelection.get(source_content=content).delete()
-#         return HttpResponse("Item removed successfully from user's list of curated content", content_type="text/plain")
+    def get_context_data(self, **kwargs):
+        context = super(CuratedList, self).get_context_data(**kwargs)
+        if not self.object.public and self.request.user != self.object.user:
+            raise PermissionDenied
+        context['items'] = models.CuratedListElement.objects.filter(list=self.object).order_by('date')
+        return context
 
-class TaggedContent(ListView):
-    """View of tagged blog posts."""
 
-    model = models.BlogText
-    ordering = ['-date']
-    paginate_by = 25
-    template_name = 'models/tagged_content.html'
+class CuratedListAdd(FormView):
+    """View to create new list."""
 
-    def get_queryset(self):
-        tag = models.Tag.objects.get(slug=self.kwargs.get('slug'))
-        queryset = models.BlogText.objects.filter(tags=tag).order_by('-date')
-        return queryset
+    model         = models.CuratedList
+    form_class    = forms.ListCreateForm
+    template_name = 'models/curatedlist--add.html'
+
+    def get_success_url(self):
+        return reverse('user_curated_lists')
+
+    def form_valid(self, form):
+        models.CuratedList(
+            user   = self.request.user,
+            name   = form.cleaned_data['name'],
+            body   = form.cleaned_data['body'],
+            public = form.cleaned_data['public'],
+        ).save()
+        messages.success(self.request, "The list was created successfully")
+        return super(CuratedListAdd, self).form_valid(form)
+
+class CuratedListUpdate(UpdateView):
+    """View to create new list."""
+
+    model      = models.CuratedList
+    fields     = ['name', 'body', 'public']
+    template_name = 'models/curatedlist--update.html'
 
     def get_context_data(self, **kwargs):
-        context = super(TaggedContent, self).get_context_data(**kwargs)
-        context['tag'] = models.Tag.objects.get(slug=self.kwargs.get('slug'))
+        context = super(CuratedListUpdate, self).get_context_data(**kwargs)
+        context['items'] = models.CuratedListElement.objects.filter(list=self.object).order_by('date')
         return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "The list was updated successfully")
+        return super(CuratedListUpdate, self).form_valid(form)
+
+class CuratedListDelete(DeleteView):
+    """View to add a new item to a list."""
+
+    model = models.CuratedList
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(CuratedListDelete, self).get_object()
+        if not obj.user == self.request.user:
+            raise PermissionDenied
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedListDelete, self).get_context_data(**kwargs)
+        context['items'] = models.CuratedListElement.objects.filter(list=self.object).order_by('date')
+        return context
+
+    def get_success_url(self):
+        return reverse('user_curated_lists')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "The list was deleted successfully")
+        return super(CuratedListDelete, self).delete(request, *args, **kwargs)
+
+
+class CuratedLinkAdd(FormView):
+    """View to add a new item to a list."""
+
+    form_class    = forms.ListLinkCreateForm
+    template_name = 'models/curated-link--add.html'
+    success_url   = '/'
+    list          = CuratedList()
+
+    def get_success_url(self):
+        pk   = self.request.GET.get('list')
+        list = models.CuratedList.objects.get(pk=pk)
+        return list.get_absolute_url()
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedLinkAdd, self).get_context_data(**kwargs)
+        pk   = self.request.GET.get('list')
+        context['list']  = models.CuratedList.objects.get(pk=pk)
+        context['items'] = models.CuratedListElement.objects.filter(list=pk).order_by('date')
+        return context
+
+    def form_valid(self, form):
+        link = models.Link(
+            url   = form.cleaned_data['url'],
+            title = form.cleaned_data['title'],
+        )
+        link.save()
+        pk   = self.request.GET.get('list')
+        list = models.CuratedList.objects.get(pk=pk)
+        is_suggested = self.request.user != list.user
+        models.CuratedListElement(
+            list           = list,
+            source_content = link,
+            comment        = form.cleaned_data['comment'],
+            user           = self.request.user if is_suggested else None,
+        ).save()
+        messages.success(self.request, "The link was added/suggested to the list successfully")
+        return super(CuratedLinkAdd, self).form_valid(form)
+
+class CuratedLinkUpdate(FormView):
+    """View to add a new item to a list."""
+
+    template_name = 'models/curated-link--update.html'
+    form_class    = forms.ListLinkUpdateForm
+
+    def get_form(self):
+        pk   = self.kwargs.get('pk')
+        item = models.CuratedListElement.objects.get(pk=pk)
+        kwargs = self.get_form_kwargs()
+        kwargs['initial'] = {
+            'url'     : item.source_content.url,
+            'title'   : item.source_content.title,
+            'comment' : item.comment,
+            'date'    : item.date,
+            'public'  : item.public,
+        }
+        return forms.ListLinkUpdateForm(**kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedLinkUpdate, self).get_context_data(**kwargs)
+        pk   = self.kwargs.get('pk')
+        item = models.CuratedListElement.objects.get(pk=pk)
+        context['pk']    = pk
+        context['item']  = item.source_content
+        context['list']  = item.list
+        context['items'] = models.CuratedListElement.objects.filter(list=item.list).order_by('date')
+        return context
+
+    def form_valid(self, form):
+        pk   = self.kwargs.get('pk')
+        item = models.CuratedListElement.objects.get(pk=pk)
+        item.date    = form.cleaned_data['date']
+        item.public  = form.cleaned_data['public']
+        item.comment = form.cleaned_data['comment']
+        item.save()
+        link = item.source_content
+        link.url = form.cleaned_data['url']
+        link.title = form.cleaned_data['title']
+        link.save()
+        self.success_url = item.list.get_absolute_url()
+        messages.success(self.request, "The item was updated successfully")
+        return super(CuratedLinkUpdate, self).form_valid(form)
+
+
+class CuratedItemAdd(FormView):
+    """View to add a new item to a list."""
+
+    form_class    = forms.ListItemCreateForm
+    template_name = 'models/curated-item--add.html'
+    success_url   = '/'
+
+    def get_form(self):
+        ct = self.request.GET.get('type')
+        self.id           = self.request.GET.get('pk')
+        self.content_type = ContentType.objects.get(model=ct)
+        self.item    = self.content_type.get_object_for_this_type(pk=self.id)
+        self.success_url = self.item.get_absolute_url()
+        return forms.ListItemCreateForm(
+            user    = self.request.user,
+            item_pk = self.id,
+            item_ct = self.content_type,
+            **self.get_form_kwargs()
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedItemAdd, self).get_context_data(**kwargs)
+        context['item'] = self.item
+        return context
+
+    def form_valid(self, form):
+        list = form.cleaned_data['list']
+        is_suggested = self.request.user != list.user
+        models.CuratedListElement(
+            list           = list,
+            content_type   = self.content_type,
+            object_id      = self.id,
+            comment        = form.cleaned_data['comment'],
+            user           = self.request.user if is_suggested else None,
+        ).save()
+        messages.success(self.request, "The item was added/suggested to the list successfully")
+        return super(CuratedItemAdd, self).form_valid(form)
+
+class CuratedItemUpdate(UpdateView):
+    """View to add a new item to a list."""
+
+    model         = models.CuratedListElement
+    template_name = 'models/curated-item--update.html'
+    fields        = ['comment', 'date', 'public']
+    success_url   = '/'
+
+    def get_success_url(self):
+        return self.object.list.get_absolute_url()
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedItemUpdate, self).get_context_data(**kwargs)
+        context['item'] = self.object.source_content
+        context['list'] = self.object.list
+        context['items'] = models.CuratedListElement.objects.filter(list=self.object.list).order_by('date')
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "The item was updated successfully")
+        return super(CuratedItemUpdate, self).form_valid(form)
+
+
+class CuratedItemDelete(DeleteView):
+    """View to add a new item to a list."""
+
+    model         = models.CuratedListElement
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(CuratedItemDelete, self).get_object()
+        if not obj.list.user == self.request.user:
+            raise PermissionDenied
+        return obj
+
+    def get_success_url(self):
+        return self.object.list.get_absolute_url()
+
+    def delete(self, request, *args, **kwargs):
+        obj  = super(CuratedItemDelete, self).get_object()
+        messages.success(self.request, "The item was removed from the list successfully")
+        return super(CuratedItemDelete, self).delete(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(CuratedItemDelete, self).get_context_data(**kwargs)
+        context['item'] = self.object.source_content
+        context['list'] = self.object.list
+        context['items'] = models.CuratedListElement.objects.filter(list=self.object.list).order_by('date')
+        return context
+
+class CuratedLinkDelete(CuratedItemDelete):
+    """View to add a new item to a list."""
+
+    model         = models.CuratedListElement
+
+    def delete(self, request, *args, **kwargs):
+        obj  = super(CuratedLinkDelete, self).get_object()
+        obj.source_content.delete()
+        messages.success(self.request, "The item was removed from the list successfully")
+        return super(CuratedItemDelete, self).delete(request, *args, **kwargs)
 
 class CuratedLists(ListView):
     """ Vief of curated lists of content. """
@@ -436,4 +653,23 @@ class UserCuratedLists(ListView):
     def get_context_data(self, **kwargs):
         context = super(UserCuratedLists, self).get_context_data(**kwargs)
         context['personal'] = True
+        return context
+
+
+class TaggedContent(ListView):
+    """View of tagged blog posts."""
+
+    model = models.BlogText
+    ordering = ['-date']
+    paginate_by = 25
+    template_name = 'models/tagged_content.html'
+
+    def get_queryset(self):
+        tag = models.Tag.objects.get(slug=self.kwargs.get('slug'))
+        queryset = models.BlogText.objects.filter(tags=tag).order_by('-date')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(TaggedContent, self).get_context_data(**kwargs)
+        context['tag'] = models.Tag.objects.get(slug=self.kwargs.get('slug'))
         return context

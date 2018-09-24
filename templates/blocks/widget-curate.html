@@ -3,16 +3,8 @@
 
 {% if request.user.is_authenticated %}
 <div class="curate-widget--{{ modifier }}">
-    {% if obj|is_curated:request.user %}
-    <button class="curate-widget__button-remove--{{ modifier }}" data-curate
-            data-contenttype="{{ obj|contenttype }}" data-pk="{{ obj.pk }}" data-action="remove">
-        {% trans 'Remove this item from your list of curated content' %}
-    </button>
-    {% else %}
-    <button class="curate-widget__button-add--{{ modifier }}" data-curate
-            data-contenttype="{{ obj|contenttype }}" data-pk="{{ obj.pk }}" data-action="add">
-        {% trans 'Add this item to your list of curated content' %}
-    </button>
-    {% endif %}
+    <a href="{% url 'curated_item_add' %}?type={{ object|contenttype }}&pk={{ object.pk }}">
+        <span class="add">✚</span> {% trans 'Add/Suggest this item to a list of curated content' %}
+    </a>
 </div>
 {% endif %}

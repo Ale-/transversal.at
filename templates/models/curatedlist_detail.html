@@ -1,40 +1,59 @@
 {# User profile #}
 {% extends 'layouts/single-fixed-column.html' %}
 {% load i18n utils %}
-{% block body_classes %}user-curated-content{% endblock %}
-{% block page_html_title %}{{ object.username}} profile{% endblock %}
+{% block body_classes %}page--list padding{% endblock %}
+{% block page_html_title %}List «{{ object.name }}»{% endblock %}
 
 {% block main %}
     <nav class="links">
       {% fake_breadcrumb %}
-      {% if request.user == object.user or request.user.is_staff %}
+      {% if request.user == object.user %}
       <div class="links__staff">
-          <a href="{% url 'admin:models_curatedlist_change' object.id %}">
+          <a href="{% url 'curated_link_add' %}?list={{object.id}}">
+              {% trans 'Add an external link item to this list' %}
+          </a>
+           | <a href="{% url 'curated_list_update' object.id %}">
               {% trans 'Edit this list' %}
           </a>
       </div>
       {% endif %}
     </nav>
-    <h1 class="page__title">
-        {{ object.name }}
-    </h1>
-    <div class="curated-content-wrapper">
+    <div class="page__left--list">
+        <h1 class="page__title">
+            {{ object.name }}
+        </h1>
+        <p class="curated-content__description">
+            {% if object.body %}
+            {{ object.body | safe }}
+            {% else %}
+            The owner hasn't provided a description of this list.
+            {% endif %}
+        </p>
+        <p class="curated-content__owner">
+          {% if object.public %}
+          A public list curated by {{ object.user.username }}.
+          {% else %}
+          Private list.
+          {% endif %}
+        </p>
+    </div>
+    <div class="page__right--list">
         <div class="curated-content">
-            <p class="curated-content__description">
-                {{ object.body | safe }}
-            </p>
+            {% if object.is_empty %}
+            <div class="search-items__empty">
+              <p class="search-items__empty-icon">
+                ∅
+              </p>
+              <p class="search-items__empty-text">
+                {% trans 'There\'s no public content yet in this list' %}
+              </p>
+            </div>
+            {% endif %}
             <ul class="curated-content__items">
-            {% for item in object.get_content %}
-                {% include 'views/curated-item.html' with item=item %}
-            {% empty %}
-                <div class="search-items__empty">
-                  <p class="search-items__empty-icon">
-                      ∅
-                  </p>
-                  <p class="search-items__empty-text">
-                      {% trans 'There\'s no content yet in this list' %}
-                  </p>
-                </div>
+            {% for item in items %}
+                {% if item.public or request.user.is_staff or request.user == object.user %}
+                    {% include 'views/curated-item.html' with item=item %}
+                {% endif %}
             {% endfor %}
             </ul>
         </div>

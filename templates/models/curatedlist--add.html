@@ -1,0 +1,36 @@
+{# User profile #}
+{% extends 'layouts/single-fixed-column.html' %}
+{% load i18n utils %}
+{% block body_classes %}page--list-add padding{% endblock %}
+{% block page_html_title %}Add list{% endblock %}
+
+{% block main %}
+<nav class="links">
+  {% fake_breadcrumb %}
+</nav>
+<div class="page__left--list-add">
+    <h1 class="page__title">
+        Create new list
+    </h1>
+    <div class="simpleform">
+        <form class="form--list-update" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="form__submit--list-update" value="Submit"></input>
+        </form>
+        <div class="simpleform__buttons">
+            <button class="cancel-link" onclick="history.go(-1)">
+              Cancel
+            </button>
+        </div>
+    </div>
+</div>
+<div class="page__right--list-add simpleform">
+    <p class="hints">
+    Once you create a new list you can link to it content from this platform as well as remote content.
+    To add content from this site you will find a widget at the bottom of
+    the content pages that allows you to add/suggest that content to any list in the site. To add
+    a external link you'll find a link at the topright corner of the list page.
+    </p>
+</div>
+{% endblock %}

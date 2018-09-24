@@ -20,6 +20,7 @@
 .password-reset-page,
 .password-reset-done-page,
 .password-reset-complete-page,
+.padding
   .layout-main
     padding: $m/2
     +breakpoint('sm')
@@ -30,3 +31,25 @@
     font-size: 1.1rem
     p
       margin-bottom: $m/2
+
+.logged-in
+  &.blogtext,
+  &.journal-text,
+  &.book-page,
+    .region-footer
+      margin-bottom: $m*2
+
+[class*='page__left--'],
+[class*='page__right--']
+  +breakpoint('sm')
+    width: 50%
+    display: inline-block
+[class*='page__left--']
+  .page__title
+    margin-top: 0
+  +breakpoint('sm')
+    float: left
+    padding-right: $m
+[class*='page__right--']
+  +breakpoint('sm')
+    padding-left: $m

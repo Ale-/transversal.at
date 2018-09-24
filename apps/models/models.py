@@ -62,14 +62,17 @@ class Link(models.Model):
     url            = models.URLField(_('URL of the link'), blank=False)
     title          = models.CharField(_('Title of the link'), max_length=200, blank=True)
     category       = models.CharField(_('Category'), max_length=1, default='d', blank=False, choices=LINK_CATEGORIES)
-    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id      = models.PositiveIntegerField()
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    object_id      = models.PositiveIntegerField(null=True)
     source_content = GenericForeignKey('content_type', 'object_id')
     description    = models.CharField(_('Description'), max_length=256, blank=True, null=True)
 
     def __str__(self):
         """String representation of this model objects."""
 
+        return self.url
+
+    def get_absolute_url(self):
         return self.url
 
 
@@ -543,6 +546,29 @@ class Event(models.Model):
     def past(self):
         return self.datetime < datetime.now(timezone.utc)
 
+class CuratedListElement(models.Model):
+    """ Items in lists. """
+
+    list           = models.ForeignKey('CuratedList', blank=False, on_delete=models.CASCADE)
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id      = models.PositiveIntegerField()
+    source_content = GenericForeignKey('content_type', 'object_id')
+    comment        = models.TextField(_('Comment'), blank=True,
+                     help_text=_("An optional comment that will be displayed under "
+                                 "the item in the list. If the list is not yours "
+                                 "use this field to comment to the owner why do "
+                                 "you think this item might be included in the list"))
+    user           = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    date           = models.DateField(_('Date'), default=now, blank=True,
+                     help_text=_("The date the item was included in the list. The items are displayed in chronological order using this date. You can tweak the dates to change the sort order."))
+    public         = models.BooleanField(_('Public'), default=False,
+                    help_text=_("Select if you want the list to be publicly visible."))
+
+    def __str__(self):
+        """String representation of this model objects."""
+        return "%s [%s]" % (self.list.name, self.pk)
+
+
 class CuratedList(models.Model):
     """ User profiles """
 
@@ -551,12 +577,8 @@ class CuratedList(models.Model):
     body          = RichTextUploadingField(_('Description'), blank=True, null=True,
                                            help_text=_("Provide an optional description for your list"))
     date          = models.DateField(_('Date'), default=now, blank=True)
-    public        = models.BooleanField(_('Public'), default=True)
-    length        = models.PositiveIntegerField(default=0, blank=True)
-    books         = models.ManyToManyField(Book, verbose_name=_('Books'), related_name='books', blank=True)
-    book_excerpts = models.ManyToManyField(BookExcerpt, verbose_name=_('Excerpts'), related_name='excerpts', blank=True)
-    journal_texts = models.ManyToManyField(JournalText, verbose_name=_('Journal texts'), related_name='journal_texts', blank=True)
-    blog_texts    = models.ManyToManyField(BlogText, verbose_name=_('Blog posts'), related_name='blog_texts', blank=True)
+    public        = models.BooleanField(_('Public'), default=True,
+                    help_text=_("Select if you want the list to be publicly visible."))
 
     @property
     def username(self):
@@ -570,16 +592,12 @@ class CuratedList(models.Model):
         return reverse('curated_list', args=[self.pk])
 
     @property
-    def get_content(self):
-        """Returns all content"""
-        items = chain(
-            self.books.all(),
-            self.book_excerpts.all(),
-            self.journal_texts.all(),
-            self.blog_texts.all()
-        )
-        sorted_items = sorted(items, key = lambda i: getattr(i, 'title'))
-        return sorted_items
+    def get_length(self):
+        return CuratedListElement.objects.filter(list=self, public=True).count()
+
+    @property
+    def is_empty(self):
+        return CuratedListElement.objects.filter(list=self, public=True).count() == 0
 
     def __str__(self):
         """String representation of this model objects."""

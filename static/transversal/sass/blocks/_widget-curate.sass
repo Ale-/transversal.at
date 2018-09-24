@@ -4,37 +4,18 @@
 
 [class*='curate-widget--']
   font-family: $font_auxiliar
-  font-size: .8em
-
-.curate-widget--page
+  +links($color_text, $palette_blue, .2s ease)
+  text-transform: uppercase
+  font-size: .7em
   display: block
   position: fixed
   bottom: 0
-  left: 25%
-  width: 50%
-  z-index: 10
-  padding: $m
-  border-top: 1px solid $color_text
+  left: 0
+  z-index: 1
+  padding: $m/2
   text-align: center
-  background-color: rgba(white, .8)
-
-.curate-button__tooltip
-  display: none
-
-[data-curate]
-  +button_none
-  +transition(opacity .25s ease)
-  &:hover
-    opacity: .75
-
-[class*='curate-widget__button-remove']:before
-  content: "🞤"
-  color: rgba(red, .75)
-  display: inline-block
-  margin-right: $m/2
-  +transform( rotate(45deg) )
-
-[class*='curate-widget__button-add']:before
-  content: "🞤"
-  color: rgba(green, .75)
-  margin-right: $m/2
+  background-color: #dadbdd
+  width: 100%
+  .add
+    margin-right: $m/2
+    font-size: 1.25em
