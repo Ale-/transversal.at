@@ -12,9 +12,17 @@
   margin-top: 0
   border-bottom: 1px solid $color_text
 .list-preview__item.not-public
-  background-color: rgba(yellow, .15)
+  background-color: #eee
 .list-preview__item-title
   margin: 0
 .list-preview__item-date
   +date
   font-size: .7em
+  margin-bottom: 0 !important
+.list-preview__item
+  padding: $m/3
+.list-preview__item-public
+  float: right
+  font-family: $font_auxiliar
+  font-size: .6em
+  color: rgba(black, .75)

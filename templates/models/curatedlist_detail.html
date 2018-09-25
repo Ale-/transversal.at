@@ -31,7 +31,7 @@
         </p>
         <p class="curated-content__owner">
           {% if object.public %}
-          A public list curated by {{ object.user.username }}.
+          A public list curated by {{ object.user.username }}. Created on {{ object.date }}.
           {% else %}
           Private list.
           {% endif %}

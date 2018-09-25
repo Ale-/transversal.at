@@ -178,6 +178,26 @@
                 </ul>
             </div>
             {% endif %}
+            {% if essays|length > 0 %}
+            <div class="book__meta-excerpts">
+                <h5>Essays:</h5>
+                <ul class="book__meta-excerpts-list">
+                {% for essay in essays %}
+                    <li class="book__meta-excerpts-item">
+                        <p>{{ essay.title }}</p>
+                        <p>{{ essay.subtitle }}. {% if essay.pages %}[pp. {{ essay.pages }}]{% endif %}</p>
+                        {% if not user.is_anonymous %}
+                        <p class="curate-link">
+                            <a href="{% url 'curated_item_add' %}?type={{ essay|contenttype }}&pk={{ essay.pk }}">
+                                ✚ Add/suggest to list
+                            </a>
+                        </p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
         <h1 class="book__title">
             {{ object.title }}

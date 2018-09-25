@@ -30,7 +30,7 @@
     {% endif %}
     {% if item.source_content.author_text %}
     <p class="curated-content__item-author">
-    {{ item.source_content.author_text }} |
+    {{ item.source_content.author_text }}
     </p>
     {% endif %}
     {% if item.comment %}
@@ -38,19 +38,28 @@
         {{ item.comment }}
     </p>
     {% endif %}
-    {% if item.user %}
-    <p class="curated-content__item-suggested">
-        Contributed by {{ item.user.username }} {% if not item.public %}on {{ item.date }}{% endif %}
-    </p>
+    {% if request.user == item.list.user and item.suggestion and not item.public %}
+    <div class="curated-content__item-suggested">
+        <p class="curated-content__item-suggested-by">
+          Suggested by {{ item.user.username }} on {{ item.date }}
+        </p>
+        <p class="curated-content__item-suggested-text">
+            {{ item.suggestion }}
+        </p>
+    </div>
     {% endif %}
     {% if request.user == item.list.user %}
     <p class="curated-content__item-edit">
         {% if item.source_content|verbose_name != 'link' %}
-          <a href="{% url 'curated_item_update' item.pk %}">
+        <a href="{% url 'curated_item_update' item.pk %}">
         {% else %}
-          <a href="{% url 'curated_link_update' item.pk %}">
+        <a href="{% url 'curated_link_update' item.pk %}">
         {% endif %}
-            Edit
+        {% if item.public %}
+            Edit / Delete
+        {% else %}
+            Edit / Publish / Delete
+        {% endif %}
         </a>
     </p>
     {% endif %}

@@ -11,5 +11,8 @@
         <li class="menu-main{% if modifier %}--{{ modifier }}{% endif %}__link--books">
             <a href="{% url 'book_texts' %}">books</a>
         </li>
+        <li class="menu-main{% if modifier %}--{{ modifier }}{% endif %}__link--lists">
+            <a href="{% url 'curated_lists' %}">lists</a>
+        </li>
     </ul>
 </nav>

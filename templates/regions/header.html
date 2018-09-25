@@ -1,8 +1,10 @@
 {# Header region #} {% extends 'regions/region-base.html' %}
+{% load utils %}
 
 {% block region_content %}
     {% include 'blocks/slideshow-header.html' %}
     {% include 'blocks/widget-search.html' %}
+    {% include 'blocks/widget-login.html' %}
     {% include 'menus/menu-branding.html' %}
     {% include 'menus/menu-main.html' %}
 {% endblock %}

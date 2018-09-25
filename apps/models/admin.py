@@ -334,17 +334,12 @@ admin.site.register(models.Book, BookAdmin)
 
 class BookExcerptAdmin(admin.ModelAdmin):
     model        = models.BookExcerpt
-    list_display = ('title', 'source', 'view')
+    list_display = ('title', 'source',)
     list_filter  = ('source_text',)
     ordering     = ('source_text', 'title')
 
     def source(self, obj):
         return format_html("<a href='" + reverse('book_text', args=[obj.source_text.slug]) + "'>" + obj.source_text.title + "</a>")
-
-    def view(self, obj):
-        return format_html("<a href='" + reverse('book_excerpt', args=[obj.source_text.slug, obj.pk]) + "'>➜</a>")
-
-    view.short_description = 'See'
 
 admin.site.register(models.BookExcerpt, BookExcerptAdmin)
 
@@ -433,19 +428,6 @@ class CuratedListAdmin(admin.ModelAdmin):
     list_display      = ('name', 'user', 'date', 'public')
     ordering          = ('-date',)
     list_filter       = ('public', 'user')
-
-    def save_model(self, request, obj, form, change):
-        # set current user as owner of the list
-        if not change:
-            obj.user = request.user
-        # calculate lenght of the list automatically
-        l = 0
-        for field in ['books', 'book_excerpts', 'journal_texts', 'blog_texts']:
-            l+= len(form.cleaned_data.get(field, []))
-        obj.length = l
-        if l == 0:
-            obj.public = False
-        obj.save()
 
 admin.site.register(models.CuratedList, CuratedListAdmin)
 admin.site.register(models.CuratedListElement)

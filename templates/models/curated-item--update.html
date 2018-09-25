@@ -23,6 +23,7 @@
     </div>
     <div class="page__right--additem">
         {% include 'blocks/item-preview.html' with item=item %}
+        {% include 'blocks/item-suggestion.html' with item=object %}
         {% include 'blocks/list-preview.html' with list=list items=items %}
     </div>
 {% endblock %}

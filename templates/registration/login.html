@@ -1,11 +1,14 @@
 {# Registration form #}
 
 {% extends 'layouts/single-fixed-column.html' %}
-{% load i18n %}
+{% load i18n utils %}
 {% block body_classes %}login-page{% endblock %}
 {% block page_html_title %}login{% endblock %}
 
 {% block main %}
+<nav class="links">
+    {% fake_breadcrumb %}
+</nav>
 <div class="login-form simpleform">
     <h2 class="login-form__title">
         Login

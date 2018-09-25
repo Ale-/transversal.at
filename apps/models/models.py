@@ -465,6 +465,9 @@ class BookExcerpt(models.Model):
     pages           = models.CharField(_('Pages'), max_length=64, blank=True,
                                         help_text=_('Specify optionally the pages that contain the excerpt. For instance: "113-138"'))
 
+    def get_absolute_url(self):
+        return self.source_text.get_absolute_url()
+
     class Meta:
         verbose_name = _('Essay')
         verbose_name_plural = _('Essays')
@@ -555,18 +558,19 @@ class CuratedListElement(models.Model):
     source_content = GenericForeignKey('content_type', 'object_id')
     comment        = models.TextField(_('Comment'), blank=True,
                      help_text=_("An optional comment that will be displayed under "
-                                 "the item in the list. If the list is not yours "
-                                 "use this field to comment to the owner why do "
+                                 "the item in the list."))
+    suggestion     = models.TextField(_('Suggestion'), blank=True,
+                     help_text=_("If suggesting use this field to comment to the list owner why do "
                                  "you think this item might be included in the list"))
     user           = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     date           = models.DateField(_('Date'), default=now, blank=True,
                      help_text=_("The date the item was included in the list. The items are displayed in chronological order using this date. You can tweak the dates to change the sort order."))
     public         = models.BooleanField(_('Public'), default=False,
-                    help_text=_("Select if you want the list to be publicly visible."))
+                    help_text=_("Select if you want the item to be publicly visible."))
 
     def __str__(self):
         """String representation of this model objects."""
-        return "%s [%s]" % (self.list.name, self.pk)
+        return "%s [%s]" % (self.list.name, self.source_content.title)
 
 
 class CuratedList(models.Model):

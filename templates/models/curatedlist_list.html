@@ -8,16 +8,16 @@
     <nav class="links">
         {% fake_breadcrumb %}
         <div class="links__staff">
-            {% if request.user.is_staff %}
-             | <a href="{% url 'admin:auth_user_change' request.user.id %}">
-                {% trans 'Edit your user' %}
-            </a>
+            {% if not request.user.is_anonymous %}
+                {% if personal %}
+                <a href="{% url 'password_reset' %}">
+                    {% trans 'Change your password' %}
+                </a> |
+                {% endif %}
+                <a href="{% url 'curated_list_add' %}">
+                    {% trans 'Create a new list' %}
+                </a>
             {% endif %}
-        </div>
-        <div class="links__staff">
-            <a href="{% url 'curated_list_add' %}">
-                {% trans 'Create a new list' %}
-            </a>
         </div>
     </nav>
     <h1 class="page__title">
@@ -27,22 +27,26 @@
         {% trans 'Curated lists' %}
         {% endif %}
     </h1>
-    <div class="curated-lists-wrapper">
-        <div class="curated-lists">
-            <ul class="curated-lists__items">
-            {% for list in object_list %}
-                {% include 'views/curated-list.html' with list=list %}
-            {% empty %}
-                <div class="search-items__empty">
-                    <p class="search-items__empty-icon">
-                        ∅
-                    </p>
-                    <p class="search-items__empty-text">
-                        {% trans "You haven't created any list yet!" %}
-                    </p>
-                </div>
-            {% endfor %}
-            </ul>
-        </div>
+    {% if not personal %}
+    <div class="lists-explanation">
+        If you want to create your own list or suggest a text to be added to one
+        of the existing lists, please <a href="{% url 'login' %}">login/signup</a>.
+    </div>
+    {% endif %}
+    <div class="curated-lists">
+        <ul class="curated-lists__items">
+        {% for list in object_list %}
+            {% include 'views/curated-list.html' with list=list %}
+        {% empty %}
+            <div class="search-items__empty">
+                <p class="search-items__empty-icon">
+                    ∅
+                </p>
+                <p class="search-items__empty-text">
+                    {% trans "You haven't created any list yet!" %}
+                </p>
+            </div>
+        {% endfor %}
+        </ul>
     </div>
 {% endblock %}

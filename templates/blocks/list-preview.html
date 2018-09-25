@@ -10,8 +10,14 @@
             <h5 class="list-preview__item-title">
                 {{ i.source_content.title }}
             </h5>
+            {% if not i.public %}
+            <p class="list-preview__item-public">
+                Not public
+            </p>
+            {% endif %}
             <p class="list-preview__item-date">
-                {{ i.date }}</p>
+                {{ i.date }}
+            </p>
         </div>
     {% empty %}
         This list is empty yet.

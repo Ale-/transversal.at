@@ -18,6 +18,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.contrib import messages
+from django.core.mail import EmailMessage
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
@@ -71,7 +72,7 @@ class BlogTextView(views.View):
             if not object.is_published and not request.user.is_staff:
                 raise Http404("Post does not exist")
         except:
-            if not object.source_text.is_published and not request.user.is_staff:
+            if hasattr(object, 'source_text') and not object.source_text.is_published and not request.user.is_staff:
                 raise Http404("Post does not exist")
 
         if self.request.GET.get('hl'):
@@ -106,6 +107,7 @@ class BookView(DetailView):
         context = super(BookView, self).get_context_data(**kwargs)
         if self.request.GET.get('hl'):
             context['hl'] = self.request.GET.get('hl')
+        context['essays'] = models.BookExcerpt.objects.filter(source_text=self.object)
         return context
 
     def get_object(self, queryset=None):
@@ -538,14 +540,14 @@ class CuratedItemAdd(FormView):
 
     def get_form(self):
         ct = self.request.GET.get('type')
-        self.id           = self.request.GET.get('pk')
-        self.content_type = ContentType.objects.get(model=ct)
-        self.item    = self.content_type.get_object_for_this_type(pk=self.id)
+        self.id      = self.request.GET.get('pk')
+        self.ct      = ContentType.objects.get(model=ct)
+        self.item    = self.ct.get_object_for_this_type(pk=self.id)
         self.success_url = self.item.get_absolute_url()
         return forms.ListItemCreateForm(
             user    = self.request.user,
             item_pk = self.id,
-            item_ct = self.content_type,
+            item_ct = self.ct,
             **self.get_form_kwargs()
         )
 
@@ -558,12 +560,27 @@ class CuratedItemAdd(FormView):
         list = form.cleaned_data['list']
         is_suggested = self.request.user != list.user
         models.CuratedListElement(
-            list           = list,
-            content_type   = self.content_type,
-            object_id      = self.id,
-            comment        = form.cleaned_data['comment'],
-            user           = self.request.user if is_suggested else None,
+            list         = list,
+            content_type = self.ct,
+            object_id    = self.id,
+            comment      = form.cleaned_data['comment'],
+            suggestion   = form.cleaned_data['suggestion'],
+            user         = self.request.user if is_suggested else None,
         ).save()
+        if is_suggested:
+            email = EmailMessage(
+                subject='You\'ve received a suggestion in transversal.at',
+                body="Transversal user «%s» [%s] has suggested a new item for your "
+                "list «%s». You can check the suggestion visiting your profile at: %s" % (
+                    self.request.user,
+                    self.request.user.email,
+                    list.name,
+                    "https://transversal.at/curated-content/me"
+                ),
+                to=[ list.user.email ]
+            )
+            email.send()
+
         messages.success(self.request, "The item was added/suggested to the list successfully")
         return super(CuratedItemAdd, self).form_valid(form)
 

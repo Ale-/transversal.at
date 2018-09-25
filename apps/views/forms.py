@@ -28,9 +28,11 @@ class ListItemCreateForm(forms.Form):
                                       label='Add/suggest to', group_by_field='user', group_label=group_label,
                                       empty_label='Please select a list')
     comment = forms.CharField(label="Comment", required=False, widget=forms.Textarea, help_text="An optional comment that will be displayed under "
-                              "the item in the list. If the list is not yours "
-                              "use this field to comment to the owner why do "
-                              "you think this item might be included in the list")
+                              "the item in the list.")
+    suggestion = forms.CharField(label="Suggestion comment", required=False, widget=forms.Textarea, help_text=" If the list is not yours "
+                                 "use this field to comment to the owner why do "
+                                 "you think this item might be included in the list. Provide email or other mean of communication to "
+                                 "ease further discussion.")
 
     def __init__(self, *args, **kwargs):
         self.user    = kwargs.pop('user')
@@ -38,11 +40,18 @@ class ListItemCreateForm(forms.Form):
         self.item_ct = kwargs.pop('item_ct')
         super(ListItemCreateForm, self).__init__(*args, **kwargs)
 
-    def clean_comment(self):
-        list    = self.cleaned_data.get('list')
-        comment = self.cleaned_data.get('comment')
-        if list.user != self.user and not comment:
+    def clean_suggestion(self):
+        list       = self.cleaned_data.get('list')
+        suggestion = self.cleaned_data.get('suggestion')
+        if list.user != self.user and not suggestion:
             raise forms.ValidationError('If you\'re not the owner of the list you should comment why do you suggest this content item.')
+        return suggestion
+
+    def clean_comment(self):
+        list       = self.cleaned_data.get('list')
+        comment = self.cleaned_data.get('comment')
+        if list.user != self.user and comment:
+            raise forms.ValidationError('Comments are reserved for list owners.')
         return comment
 
     def clean(self):

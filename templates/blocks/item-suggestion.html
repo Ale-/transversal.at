@@ -1,0 +1,13 @@
+{# a small preview of a list item suggestion #}
+{% load utils %}
+
+{% if item.suggestion %}
+<div class="item-preview__suggestion">
+    <p class="item-preview__suggested-by">
+      Suggested by {{ item.user.username }} on {{ item.date }}
+    </p>
+    <p class="item-preview__suggested-text">
+        {{ item.suggestion }}
+    </p>
+</div>
+{% endif %}

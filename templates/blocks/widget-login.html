@@ -1,0 +1,10 @@
+{# login widget #}
+{% load utils %}
+
+{% if request.user.is_anonymous %}
+<div class="widget-login">
+    <a href="{% url 'login' %}" title="Login/Signup">
+        <img src="{% img 'user.svg' %}" />
+    </a>
+</div>
+{% endif %}
