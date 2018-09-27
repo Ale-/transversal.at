@@ -1,0 +1,27 @@
+{% load utils i18n %}
+
+<li class="suggestion__item">
+    <p class="suggestion__item-date">
+        {{ item.date | date:"d m y" }}
+    </p>
+    <h4 class="suggestion__item-title">
+        <a href="{{ item.source_content.get_absolute_url }}">
+            {{ item.source_content.title }}
+        </a>
+    </h4>
+    <p class="suggestion__item-text">
+        "{{ item.suggestion }}"
+    </p>
+    <div class="suggestion__item-to">
+        <p>Suggested to:</p>
+        <h6 class="suggestion__item-list">
+            <a href="{{ item.list.get_absolute_url }}">
+                {{ item.list }}
+            </a>
+        </h6>
+        <p class="suggestion__item-user">
+          List curated by {{ item.list.user }}.
+          <a href="{% url 'contact' item.list.user.pk %}">Contact this user</a>
+        </p>
+    </div>
+</li>

@@ -19,6 +19,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'media')
 
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/curated-content/me'
 LOGOUT_REDIRECT_URL = '/'
 

@@ -7,6 +7,15 @@ from apps.models import models
 from apps.models.fields import GroupedModelChoiceField
 
 
+class ContactForm(forms.Form):
+    """ Form to create a list. """
+
+    subject = forms.CharField(label="Subject", required=True,
+              help_text="Email subject.")
+    body    = forms.CharField(label="Body", required=True, widget=forms.Textarea,
+              help_text="Email content.")
+
+
 class ListCreateForm(forms.Form):
     """ Form to create a list. """
 
@@ -43,6 +52,8 @@ class ListItemCreateForm(forms.Form):
     def clean_suggestion(self):
         list       = self.cleaned_data.get('list')
         suggestion = self.cleaned_data.get('suggestion')
+        if list.user == self.user and suggestion:
+            raise forms.ValidationError('This field is useless if you\'re the owner of the list.')
         if list.user != self.user and not suggestion:
             raise forms.ValidationError('If you\'re not the owner of the list you should comment why do you suggest this content item.')
         return suggestion

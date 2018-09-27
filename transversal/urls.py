@@ -86,6 +86,8 @@ urlpatterns = [
     path('curated-content/<int:pk>/delete', views.CuratedListDelete.as_view(), name="curated_list_delete"),
     # tags
     path('tag/<slug:slug>', views.TaggedContent.as_view(), name="tags"),
+    # contact_form
+    path('contact/<int:pk>', views.Contact.as_view(), name="contact"),
 ]
 
 # Static and media in development

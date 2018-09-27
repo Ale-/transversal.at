@@ -9,5 +9,8 @@
     <p class="item-preview__suggested-text">
         {{ item.suggestion }}
     </p>
+    <p class="item-preview__contact-link">
+        <a href="{% url 'contact' item.user.pk %}">Contact <em>{{ item.user.username }}</em></a>
+    </p>
 </div>
 {% endif %}

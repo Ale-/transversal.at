@@ -19,6 +19,8 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.contrib import messages
 from django.core.mail import EmailMessage
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
@@ -645,6 +647,41 @@ class CuratedLinkDelete(CuratedItemDelete):
         messages.success(self.request, "The item was removed from the list successfully")
         return super(CuratedItemDelete, self).delete(request, *args, **kwargs)
 
+class Contact(FormView):
+
+    form_class    = forms.ContactForm
+    template_name = 'contact_form/contact_form.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *arg, **kwargs):
+        return super(Contact, self).get(self, request, *arg, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(Contact, self).get_context_data(**kwargs)
+        user = User.objects.get(pk=self.kwargs.get('pk'))
+        context['recipient'] = user.username
+        return context
+
+    def form_valid(self, form):
+        user = User.objects.get(pk=self.kwargs.get('pk'))
+        email = EmailMessage(
+            subject=form.cleaned_data['subject'],
+            body= "%s %s %s %s %s %s%s" % (
+                "<p>The user of transversal.at",
+                user.username,
+                "has sent you an email using platform's contact form:</p><p>",
+                form.cleaned_data['body'],
+                "</p><p>You can reply him here:",
+                reverse('contact', args=[self.request.user.pk]),
+                "</p>"
+            ),
+            to=[ user.email ]
+        )
+        email.send()
+        messages.success(self.request, "The email was sent successfully")
+        self.success_url = reverse('user_curated_lists')
+        return super(Contact, self).form_valid(form)
+
 class CuratedLists(ListView):
     """ Vief of curated lists of content. """
 
@@ -669,6 +706,7 @@ class UserCuratedLists(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(UserCuratedLists, self).get_context_data(**kwargs)
+        context['suggestions'] = models.CuratedListElement.objects.filter(user=self.request.user).order_by('-date')
         context['personal'] = True
         return context
 

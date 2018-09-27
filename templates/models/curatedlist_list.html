@@ -22,7 +22,7 @@
     </nav>
     <h1 class="page__title">
         {% if personal %}
-        {% trans 'Your lists' %}
+        {{ request.user }}
         {% else %}
         {% trans 'Curated lists' %}
         {% endif %}
@@ -34,6 +34,11 @@
     </div>
     {% endif %}
     <div class="curated-lists">
+        {% if personal %}
+            <h2 class="curated-lists">
+                Your lists
+            </h2>
+        {% endif %}
         <ul class="curated-lists__items">
         {% for list in object_list %}
             {% include 'views/curated-list.html' with list=list %}
@@ -49,4 +54,25 @@
         {% endfor %}
         </ul>
     </div>
+    {% if personal %}
+    <div class="suggestions">
+        <h2 class="suggestions__title">
+          Your suggestions to other user lists
+        </h2>
+        <ul class="suggestions__items">
+        {% for item in suggestions %}
+            {% include 'views/suggestion.html' with suggestion=item %}
+        {% empty %}
+            <div class="search-items__empty">
+                <p class="search-items__empty-icon">
+                    ∅
+                </p>
+                <p class="search-items__empty-text">
+                    {% trans "You haven't created any suggestion yet!" %}
+                </p>
+            </div>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 {% endblock %}

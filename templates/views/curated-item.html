@@ -47,6 +47,12 @@
             {{ item.suggestion }}
         </p>
     </div>
+    {% elif item.suggestion %}
+    <div class="curated-content__item-suggested--public">
+        <p class="curated-content__item-suggested-by">
+          Suggested by {{ item.user.username }}
+        </p>
+    </div>
     {% endif %}
     {% if request.user == item.list.user %}
     <p class="curated-content__item-edit">
