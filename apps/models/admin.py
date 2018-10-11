@@ -141,7 +141,7 @@ class JournalTextAdmin(admin.ModelAdmin):
     model             = models.JournalText
 
     # list
-    ordering          = ('issue',)
+    ordering          = ('issue', 'date')
     actions           = [publish, unpublish]
     list_filter       = (filters.TitleFilter, filters.RelatedBiographyFilter, filters.JournalTextLanguageFilter, 'is_published', 'issue')
     list_display      = ('get_extended_title', 'issue', 'date', 'author_text', 'is_published')
@@ -391,7 +391,7 @@ admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.HeaderText)
 
 class PageForm(forms.ModelForm):
-    parent_book = forms.ModelChoiceField(queryset=models.Book.objects.order_by('title'))
+    parent_book = forms.ModelChoiceField(queryset=models.Book.objects.order_by('title'), required=False)
 
 class PageAdmin(admin.ModelAdmin):
     model = models.Page

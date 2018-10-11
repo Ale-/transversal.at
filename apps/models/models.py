@@ -401,6 +401,7 @@ class Book(SortableMixin):
     body               = RichTextUploadingField(_('Body'), blank=True, null=True)
     authors            = models.ManyToManyField(Biography, verbose_name=_('Authors'), related_name='books_written', blank=True)
     author_text        = models.CharField(_('Author attribution'), max_length=256, blank=False, null=True)
+    translator_text    = models.CharField(_('Translators attribution'), max_length=256, blank=False, null=True)
     translators        = models.ManyToManyField(Biography, verbose_name=_('Translators'), related_name='books_translated', blank=True)
     publisher_text     = models.TextField(_('Publisher info'), max_length=200, blank=False, null=True)
     related_books      = models.ManyToManyField('self', verbose_name=_('Related publications'), blank=True)

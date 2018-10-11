@@ -21,6 +21,8 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models.functions import Concat
+from django.db.models import Value
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
@@ -328,7 +330,7 @@ class Search(views.View):
         query             = Q()
         blog_translations = {}
         if text:
-            query = query|Q(title__icontains=text)|Q(body__icontains=text)|Q(author_text__icontains=text)
+            query = query|Q(title__icontains=text)|Q(body__icontains=text)|Q(author_text__icontains=text)|Q(translator_text__icontains=text)
         if lang != 'all':
             query = query&Q(language=lang)
         if request.user.is_anonymous:
@@ -336,7 +338,6 @@ class Search(views.View):
         if author != 'all':
             blog_translations = models.BlogTextTranslation.objects.filter(query&Q(source_text__authors=author)).order_by(sort)
             query = query&Q(authors=author)
-
         # only books
         if model == 'books':
             object_list = models.Book.objects.filter(query).order_by(sort)
@@ -371,7 +372,7 @@ class Search(views.View):
 
         # Add biographies
         if text:
-            biographies = models.Biography.objects.filter(Q(name__contains=text)|Q(surname__contains=text))
+            biographies = models.Biography.objects.annotate(full_name=Concat('name', Value(' '), 'surname')).filter(full_name__icontains=text)
 
         return render(request, 'models/search_list.html', locals())
 
