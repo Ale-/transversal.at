@@ -10,7 +10,7 @@
               <a href="{% url 'static_page' 'contact' %}">contact</a>
         </li>
         <li class="menu-auxiliar{% if modifier %}--{{ modifier }}{% endif %}__link">
-              <a href="{% url 'login' %}">login/signup</a>
+              <a href="{% url 'login' %}">login{% if registration_open %}/signup{% endif %}</a>
         </li>
     </ul>
 </nav>

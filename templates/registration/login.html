@@ -19,6 +19,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" class="login-form__form-submit" value="Login"></input>
+        {% if registration_open %}
         <ul class="login-form__links">
             <li>
                 <a href="{% url 'registration_register' %}">Sign up</a>
@@ -29,6 +30,7 @@
                 </a>
             </li>
         </ul>
+        {% endif %}
     </form>
 </div>
 {% endblock %}
