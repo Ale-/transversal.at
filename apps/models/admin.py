@@ -339,7 +339,9 @@ class BookExcerptAdmin(admin.ModelAdmin):
     ordering     = ('source_text', 'title')
 
     def source(self, obj):
-        return format_html("<a href='" + reverse('book_text', args=[obj.source_text.slug]) + "'>" + obj.source_text.title + "</a>")
+        if obj.source_text:
+            return format_html("<a href='" + reverse('book_text', args=[obj.source_text.slug]) + "'>" + obj.source_text.title + "</a>")
+        return ''
 
 admin.site.register(models.BookExcerpt, BookExcerptAdmin)
 
