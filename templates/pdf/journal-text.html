@@ -17,6 +17,9 @@
     {% if object.author_text %}
         <h5><em>{{ object.author_text }}</em></h5>
     {% endif %}
+    {% if object.translator_text %}
+        <h5><em>{{ object.translator_text }}</em></h5>
+    {% endif %}
 {% endblock %}
 
 {# document content #}
