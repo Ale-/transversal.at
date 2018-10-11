@@ -70,6 +70,7 @@ LANGUAGES = [
     ('ho', 'Hiri Motu'),
     ('hu', 'Hungarian'),
     ('is', 'Icelandic'),
+    ('ga', 'Irish'),
     ('io', 'Ido'),
     ('ig', 'Igbo'),
     ('id', 'Indonesian'),
