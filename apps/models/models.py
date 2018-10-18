@@ -87,10 +87,10 @@ class Tag(models.Model):
     class Meta:
         ordering = ('name',)
 
-
     def __str__(self):
         """String representation of this model objects."""
-
+        if self.category == 'f':
+            return "%s [issue]" % self.name
         return self.name
 
     def save(self, *args, **kwargs):
