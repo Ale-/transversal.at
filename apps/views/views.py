@@ -69,9 +69,11 @@ class BlogTextView(views.View):
             object  = models.BlogText.objects.get(slug=slug)
             authors = object.authors.order_by('surname')
         except:
-            object  = models.BlogTextTranslation.objects.get(slug=slug)
-            authors = object.source_text.authors.order_by('surname')
-
+            try:
+                object  = models.BlogTextTranslation.objects.get(slug=slug)
+                authors = object.source_text.authors.order_by('surname')
+            except:
+                raise Http404("Post does not exist")
         try:
             if not object.is_published and not request.user.is_staff:
                 raise Http404("Post does not exist")
