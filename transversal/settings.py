@@ -115,7 +115,7 @@ CKEDITOR_CONFIGS = {
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Image' ],
+            ['Link', 'Unlink', 'Image', 'Iframe' ],
             ['RemoveFormat', 'Source']
         ]
     },
