@@ -39,6 +39,11 @@
                 {% endfor %}
             </ul>
             {% endif %}
+            <h4 class="blog-view__title">
+                <a href="/blog/{{ post.slug }}">
+                    {{ post.title }}
+                </a>
+            </h4>
             {% for translation in post.translations.all %}
                 <h4 class="blog-view__title">
                     <a href="/blog/{{ translation.slug }}">
@@ -46,11 +51,6 @@
                     </a>
                 </h4>
             {% endfor %}
-            <h4 class="blog-view__title">
-                <a href="/blog/{{ post.slug }}">
-                    {{ post.title }}
-                </a>
-            </h4>
             {% if post.subtitle %}
             <h5 class="blog-view__subtitle">
                 {{ post.subtitle }}
