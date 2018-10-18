@@ -262,7 +262,7 @@ class JournalText(views.View):
         object        = models.JournalText.objects.filter(issue=issue,slug=slug,language=lang).first()
         if self.request.GET.get('hl'):
             hl = self.request.GET.get('hl')
-        if not object.is_published and not request.user.is_staff :
+        if not object or (not object.is_published and not request.user.is_staff) :
             raise Http404("Issue does not exist")
         return render(request, 'models/journaltext_detail.html', locals())
 
