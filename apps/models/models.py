@@ -84,6 +84,10 @@ class Tag(models.Model):
     slug           = models.SlugField(blank=True)
     description    = RichTextUploadingField(_('Description'), blank=True, null=True)
 
+    class Meta:
+        ordering = ('name',)
+
+
     def __str__(self):
         """String representation of this model objects."""
 
