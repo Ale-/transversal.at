@@ -274,6 +274,7 @@ class BlogTextTranslationAdmin(admin.ModelAdmin):
     list_display = ('title', 'source_text')
     list_filter  = ('source_text', 'is_published')
     actions      = [ publish, unpublish ]
+    filter_horizontal = ('translators',)
     inlines      = [ AttachmentInline ]
 
 admin.site.register(models.BlogTextTranslation, BlogTextTranslationAdmin)
