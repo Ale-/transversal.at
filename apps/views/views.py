@@ -159,7 +159,10 @@ class BioView(views.View):
     """View of a single biography."""
 
     def get(self, request, slug):
-        object = models.Biography.objects.get(slug=slug)
+        try:
+            object = models.Biography.objects.get(slug=slug)
+        except:
+            raise Http404("Biography does not exist")
 
         # get texts and reorder them based on translations
         journal_texts = models.JournalText.objects.filter(authors=object).order_by('-issue__date', 'order')
