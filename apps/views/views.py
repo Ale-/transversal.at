@@ -574,6 +574,7 @@ class CuratedItemAdd(FormView):
             comment      = form.cleaned_data['comment'],
             suggestion   = form.cleaned_data['suggestion'],
             user         = self.request.user if is_suggested else None,
+            public       = form.cleaned_data['public'],
         ).save()
         if is_suggested:
             email = EmailMessage(

@@ -42,6 +42,7 @@ class ListItemCreateForm(forms.Form):
                                  "use this field to comment to the owner why do "
                                  "you think this item might be included in the list. Provide email or other mean of communication to "
                                  "ease further discussion.")
+    public = forms.BooleanField(label="Public", initial=True, required=False)
 
     def __init__(self, *args, **kwargs):
         self.user    = kwargs.pop('user')
