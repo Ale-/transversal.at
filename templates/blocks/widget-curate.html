@@ -3,7 +3,7 @@
 
 {% if request.user.is_authenticated %}
 <div class="curate-widget--{{ modifier }}">
-    <a href="{% url 'curated_item_add' %}?type={{ object|contenttype }}&pk={{ object.pk }}">
+    <a target="_blank" href="{% url 'curated_item_add' %}?type={{ object|contenttype }}&pk={{ object.pk }}">
         <span class="add">✚</span> {% trans 'Add/Suggest this item to a list of curated content' %}
     </a>
 </div>
