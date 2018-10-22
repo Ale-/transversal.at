@@ -335,9 +335,10 @@ admin.site.register(models.Book, BookAdmin)
 
 class BookExcerptAdmin(admin.ModelAdmin):
     model        = models.BookExcerpt
-    list_display = ('title', 'source',)
+    list_display = ('title', 'source', 'is_published')
     list_filter  = ('source_text',)
     ordering     = ('source_text', 'title')
+    actions      = [ publish, unpublish ]
 
     def source(self, obj):
         if obj.source_text:

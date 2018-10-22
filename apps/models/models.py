@@ -469,6 +469,7 @@ class BookExcerpt(models.Model):
     source_text     = models.ForeignKey(Book, related_name='excerpts', verbose_name=_('Source text'), on_delete=models.SET_NULL, null=True)
     pages           = models.CharField(_('Pages'), max_length=64, blank=True,
                                         help_text=_('Specify optionally the pages that contain the excerpt. For instance: "113-138"'))
+    is_published    = models.BooleanField(_('Is visible'), default=True, null=False)
 
     def get_absolute_url(self):
         return self.source_text.get_absolute_url()
@@ -489,11 +490,6 @@ class BookExcerpt(models.Model):
     def date(self):
         return self.source_text.date
 
-    def save(self, *args, **kwargs):
-        """Populate automatically 'slug' field"""
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super(BookExcerpt, self).save(*args, **kwargs)
 
 class HeaderText(models.Model):
 

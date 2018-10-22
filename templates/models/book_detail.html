@@ -185,10 +185,17 @@
                 {% for essay in essays %}
                     <li class="book__meta-excerpts-item">
                         <p>{{ essay.title }}</p>
+                        {% if user.is_staff %}
+                        <p class="edit-link">
+                          <a href="{% url 'admin:models_bookexcerpt_change' essay.id %}">
+                            Edit
+                          </a>
+                        </p>
+                        {% endif %}
                         <p>{{ essay.subtitle }}. {% if essay.pages %}[pp. {{ essay.pages }}]{% endif %}</p>
                         {% if not user.is_anonymous %}
                         <p class="curate-link">
-                            <a href="{% url 'curated_item_add' %}?type={{ essay|contenttype }}&pk={{ essay.pk }}">
+                            <a target="_blank" href="{% url 'curated_item_add' %}?type={{ essay|contenttype }}&pk={{ essay.pk }}">
                                 ✚ Add/suggest to list
                             </a>
                         </p>

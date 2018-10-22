@@ -113,7 +113,7 @@ class BookView(DetailView):
         context = super(BookView, self).get_context_data(**kwargs)
         if self.request.GET.get('hl'):
             context['hl'] = self.request.GET.get('hl')
-        context['essays'] = models.BookExcerpt.objects.filter(source_text=self.object)
+        context['essays'] = models.BookExcerpt.objects.filter(source_text=self.object, is_published=True)
         return context
 
     def get_object(self, queryset=None):
