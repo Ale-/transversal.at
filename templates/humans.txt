@@ -1,0 +1,14 @@
+/* SITE */
+
+Site name: Transversal
+Site URL: https://transversal.at      
+
+/* TEAM */
+
+Management and content: eipcp – European Institute for Progressive Cultural Policies
+Management and content team site: http://eipcp.net
+Contact: contact@eipcp.net
+
+Site development: wwb
+Development team website: https://wwb.cc
+Contact: info@wwb.cc
