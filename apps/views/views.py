@@ -204,7 +204,10 @@ class JournalIssue(views.View):
 
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
-        object = models.JournalIssue.objects.get(slug=slug)
+        try:
+            object = models.JournalIssue.objects.get(slug=slug)
+        except:
+            raise Http404("Issue does not exist")
         not_staff = not self.request.user.is_staff
         if not object.is_published and not_staff :
             raise Http404("Issue does not exist")
