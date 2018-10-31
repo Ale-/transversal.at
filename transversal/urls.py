@@ -21,6 +21,11 @@ urlpatterns = [
     # contact
     url(r'^contact/', include('contact_form.urls')),
 
+    # ROBOTS & HUMANS
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    path('humans.txt', TemplateView.as_view(template_name='humans.txt', content_type='text/plain')),
+
+
     # PAGES
 
     # API
