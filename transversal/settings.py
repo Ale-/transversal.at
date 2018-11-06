@@ -129,7 +129,6 @@ CKEDITOR_JQUERY_URL  = "/static/admin/js/vendor/jquery/jquery.min.js"
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_FORM = 'registration.forms.RegistrationFormUniqueEmail'
-REGISTRATION_OPEN = False
 
 #
 # Import private settings
