@@ -4,9 +4,19 @@
 
 {% block main %}
     <form class="complex-search" action="{% url 'search' %}">
-        <p class="search-intro">
-        </p>
+        <p class="search-intro"><small>
+        When you leave the SEARCH field empty (at 'Anything'), you get a list of
+        all texts on transversal.at.
+        You can filter the content and for example get an alphabetical list of
+        all texts in (one of) your preferred language(s). Using the drop-down at
+        the AUTHOR field, you can browse through a list of all authors on the site.
+        And when you leave all fields empty and just change the order to 'newer first',
+        you see the most recent additions to the site, even if this might be a
+        new translation of a text in a ten years old issue of the web journal.
+        </small></p>
         <div class="complex-search__row">
+            <p class="complex-search_desc">
+            </p>
             <p class="complex-search_-filter">
               <span>Search</span>
               <input type="text" name="q" value="{{ text }}" placeholder="Anything" />
