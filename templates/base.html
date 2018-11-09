@@ -1,4 +1,5 @@
-{# Base template for the site #} {% load static utils %}
+{# Base template for the site #}
+{% load static utils cookielaw_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,9 @@
 
     <body class="{% if user.is_authenticated %}logged-in{% endif %} {% if user.is_staff %}staff-user{% endif %} {% block body_classes %}{% endblock %} {% block layout_classes %}{% endblock %}">
 
+        {# Cookie law #}
+        {% cookielaw_banner %}
+
         {# Content layouts #}
         {% block layout %}{% endblock %}
 
@@ -40,6 +44,10 @@
 
         {# analytics #}
         {% if analytics %}
+            <script
+                type="text/javascript"
+                src="{% js 'cookielaw/js/cookielaw.js' %}"
+            ></script>
             {% include 'blocks/analytics_development.html' %}
         {% endif %}
 

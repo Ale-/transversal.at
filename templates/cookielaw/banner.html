@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<div id="CookielawBanner">
+    <div class="container">
+        <h6>{% trans "COOKIE_INFO_HEADER" %}</h6>
+        <p>
+            Our site saves small pieces of text information (cookies) on your device in
+            order to keep sessions open and for statistical purposes. These statistics
+            aren't shared with any third-party company.
+            You can disable the usage of cookies by changing the settings of your browser. By
+            browsing our website without changing the browser settings you grant us
+            permission to store that information on your device.
+        </p>
+        <p class="agree-button">
+            <a class="btn btn-primary pull-right" href="javascript:Cookielaw.createCookielawCookie();">
+                {% trans "COOKIE_INFO_OK" %}
+            </a>
+        </p>
+    </div>
+</div>

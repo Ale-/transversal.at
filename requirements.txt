@@ -3,7 +3,9 @@ Django==2.0.2
 django-admin-sortable==2.1.4
 django-appconf==1.0.2
 django-ckeditor==5.4.0
+django-classy-tags==0.8.0
 django-contact-form==1.5
+django-cookie-law==2.0.1
 django-easy-pdf==0.1.1
 django-filter==1.1.0
 django-gm2m==0.6.1
@@ -15,6 +17,7 @@ httplib2==0.11.3
 pilkit==2.0
 Pillow==5.0.0
 PyPDF2==1.26.0
+pytest-runner==4.2
 python-magic==0.4.15
 pytz==2018.3
 reportlab==3.4.0

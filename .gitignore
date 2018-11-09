@@ -13,6 +13,8 @@ apps/models/migrations
 # Static
 static/admin/
 static/ckeditor/
+static/adminsortable/
+static/cookielaw/
 static/transversal/.sass-cache/
 static/transversal/css/
 static/transversal/js/bower_components/

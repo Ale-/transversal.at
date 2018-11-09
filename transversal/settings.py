@@ -43,7 +43,8 @@ CONTRIB_APPS = (
     'ckeditor_uploader',
     'gm2m',
     'imagekit',
-    'easy_pdf'
+    'easy_pdf',
+    'cookielaw'
 )
 
 PROJECT_APPS = (
