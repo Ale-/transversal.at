@@ -12,5 +12,6 @@ def debug_processor(request):
 
     debug    = settings.DEBUG
     debug_js = settings.DEBUG_JS
+    analytics = settings.USE_ANALYTICS
 
     return locals()
