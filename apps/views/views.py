@@ -262,7 +262,10 @@ class JournalText(views.View):
     """View of a single journal text."""
 
     def get(self, request, *args, **kwargs):
-        issue         = models.JournalIssue.objects.get(slug=self.kwargs['issue_slug'])
+        try:
+            issue         = models.JournalIssue.objects.get(slug=self.kwargs['issue_slug'])
+        except:
+            raise Http404("That journal text does not exist")
         slug          = self.kwargs['text_slug']
         lang          = self.kwargs['text_lang']
         object        = models.JournalText.objects.filter(issue=issue,slug=slug,language=lang).first()

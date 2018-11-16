@@ -45,12 +45,12 @@ urlpatterns = [
     path('transversal/<slug:issue_slug>/editorial', views.JournalIssueEditorial.as_view(), name="journal_issue_editorial"),
     path('transversal/<slug:issue_slug>/impressum', views.JournalIssueImpressum.as_view(), name="journal_issue_impressum"),
     path('transversal/<slug:issue_slug>/<slug:text_slug>/<str:text_lang>', views.JournalText.as_view(), name="journal_text"),
-    path('transversal/pdf/journal-text/<int:pk>/', views.JournalTextPDF.as_view(), name="journal_text_pdf"),
+    path('pdf/journal-text/<int:pk>/', views.JournalTextPDF.as_view(), name="journal_text_pdf"),
     path('transversal/<str:slug>', views.JournalIssue.as_view(), name="journal_issue"),
     # blog
     path('blog/<slug:slug>', views.BlogTextView.as_view(), name="blog_text"),
-    path('transversal/pdf/blog/<int:pk>/', views.BlogTextPDF.as_view(), name="blog_text_pdf"),
-    path('transversal/pdf/blog_translation/<int:pk>/', views.BlogTextTranslationPDF.as_view(), name="blog_text_translation_pdf"),
+    path('pdf/blog/<int:pk>/', views.BlogTextPDF.as_view(), name="blog_text_pdf"),
+    path('pdf/blog-translation/<int:pk>/', views.BlogTextTranslationPDF.as_view(), name="blog_text_translation_pdf"),
     path('blog/<slug:source_slug>?lid=<slug:translation_slug>', views.BlogTextTranslationLegacyView.as_view(), name="blog_text_legacy"),
     path('blog/', views.BlogView.as_view(), name="blog"),
     # texts

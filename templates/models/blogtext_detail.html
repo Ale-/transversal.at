@@ -56,7 +56,11 @@
         {% endif %}
 
         {# print to pdf link #}
-        {% include 'blocks/print.html' with class_modifier='blog' url='blog_text_pdf' id=object.pk %}
+        {% if not object.source_text %}
+            {% include 'blocks/print.html' with class_modifier='blog' url='blog_text_pdf' id=object.pk %}
+        {% else %}
+            {% include 'blocks/print.html' with class_modifier='blog' url='blog_text_translation_pdf' id=object.pk %}
+        {% endif %}
 
         <h1 class="blogtext__title">
             {{ object.get_title }}
