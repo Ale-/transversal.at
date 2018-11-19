@@ -26,7 +26,7 @@
         </h5>
         {% endif %}
         <div class="event__meta">
-            {{ object.datetime|date:"d M y [h:m]" }}{% if object.end_date %} – {{ object.end_date|date:"d M y [h:m]" }}{% endif %} ·
+            {{ object.datetime|date:"d M y [G:i]" }}{% if object.end_date %} – {{ object.end_date|date:"d M y [G:i]" }}{% endif %} ·
             <a href="https://google.es/maps/search/?api=1&query={{ object.address|googlify }}+{{ object.city|googlify }}"
             target="_blank">
                 {{ object.address }}{% if object.address and object.city %}, {% endif %}{{ object.city }}

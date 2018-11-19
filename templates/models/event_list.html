@@ -30,7 +30,7 @@
         </h5>
         {% endif %}
         <p class="events-view__date">
-            {{ event.datetime|date:"d M y [h:m]" }}{% if event.end_date %} – {{ event.end_date|date:"d M y [h:m]" }}{% endif %} · {{ event.address }}{% if event.address and event.city %},{% endif %} {{ event.city }}
+            {{ event.datetime|date:"d M y [G:i]" }}{% if event.end_date %} – {{ event.end_date|date:"d M y [G:i]" }}{% endif %} · {{ event.address }}{% if event.address and event.city %},{% endif %} {{ event.city }}
         </p>
         <div class="events-view__text">
             {% if event.summary %}
