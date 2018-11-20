@@ -715,6 +715,8 @@ class UserCuratedLists(ListView):
     model = models.CuratedList
 
     def get_queryset(self):
+        if self.request.user.is_anonymous:
+          raise PermissionDenied    
         return models.CuratedList.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):

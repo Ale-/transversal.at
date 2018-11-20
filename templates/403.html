@@ -4,5 +4,5 @@
 
 {% block error %}403{% endblock %}
 {% block text %}
-    You dont' have permissions to see this page.
+    You dont' have permissions to see this page. <a href="{% url 'login' %}" title="Login to transversal.at">Are you logged-in?</a>
 {% endblock %}
