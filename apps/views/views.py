@@ -23,6 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models.functions import Concat
 from django.db.models import Value
+from django.utils import timezone
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
@@ -42,7 +43,7 @@ class Front(views.View):
             ).order_by('-date')[:3]
             last_events = models.Event.objects.all().filter(
                 in_home=True,
-                datetime__gt=datetime.now(),
+                datetime__gt=timezone.now(),
             ).order_by('-datetime')[:3]
             blogposts   = models.BlogText.objects.all().order_by('-date')[:50]
         else:
@@ -54,7 +55,7 @@ class Front(views.View):
             ).order_by('-date')[:3]
             last_events = models.Event.objects.filter(
                 is_published=True,
-                datetime__gt=datetime.now(),
+                datetime__gt=timezone.now(),
                 in_home=True
             ).order_by('-datetime')[:3]
             blogposts   = models.BlogText.objects.filter(is_published=True).order_by('-date')[:50]
@@ -293,7 +294,7 @@ class Events(ListView):
     def get_queryset(self):
         """ Return the list of items for this view. """
 
-        filters = Q(datetime__gt=datetime.now())
+        filters = Q(datetime__gt=timezone.now())
         if self.request.user.is_anonymous:
             filters = filters & Q(is_published=True)
 
@@ -716,7 +717,7 @@ class UserCuratedLists(ListView):
 
     def get_queryset(self):
         if self.request.user.is_anonymous:
-          raise PermissionDenied    
+          raise PermissionDenied
         return models.CuratedList.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
