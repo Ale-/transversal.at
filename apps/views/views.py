@@ -23,6 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models.functions import Concat
 from django.db.models import Value
+from django.shortcuts import get_object_or_404
 # contrib
 from easy_pdf.views import PDFTemplateResponseMixin
 # project
@@ -735,7 +736,7 @@ class TaggedContent(ListView):
     template_name = 'models/tagged_content.html'
 
     def get_queryset(self):
-        tag = models.Tag.objects.get(slug=self.kwargs.get('slug'))
+        tag = get_object_or_404(models.Tag, slug=self.kwargs.get('slug'))
         queryset = models.BlogText.objects.filter(tags=tag).order_by('-date')
         return queryset
 
