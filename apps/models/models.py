@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from django.utils.timezone import now
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.utils import timezone
 # contrib
 from ckeditor_uploader.fields import RichTextUploadingField
 from adminsortable.models import SortableMixin
@@ -548,7 +549,7 @@ class Event(models.Model):
 
     @property
     def past(self):
-        return self.datetime < datetime.now(timezone.utc)
+        return self.datetime < timezone.now(timezone.utc)
 
 class CuratedListElement(models.Model):
     """ Items in lists. """
