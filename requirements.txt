@@ -16,7 +16,7 @@ html5lib==1.0.1
 httplib2==0.11.3
 pilkit==2.0
 Pillow==5.0.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pytest-runner==4.2
 python-magic==0.4.15
 pytz==2018.3
