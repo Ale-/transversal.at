@@ -20,7 +20,7 @@ PyPDF2==1.26.0
 pytest-runner==4.2
 python-magic==0.4.15
 pytz==2018.3
-reportlab==3.4.0
+reportlab==3.5.55
 six==1.11.0
 webencodings==0.5.1
 xhtml2pdf==0.2.2
